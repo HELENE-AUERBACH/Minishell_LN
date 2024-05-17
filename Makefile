@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 17:04:21 by hauerbac          #+#    #+#              #
-#    Updated: 2024/05/14 18:36:12 by hauerbac         ###   ########.fr        #
+#    Updated: 2024/05/17 11:44:16 by jbocktor         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,13 @@ SRCS =	free_minishell.c \
 	split_path_env_var_minishell.c \
 	parser_tokens_3_minishell.c \
 	close_descriptors_minishell.c \
+	built_cd.c\
+	built_echo.c\
+	built_env.c\
+	built_exit.c\
+	built_export.c\
+	built_pwd.c\
+	built_unset.c\
 	run_bi_minishell.c \
 	run_cmds_3_minishell.c \
 	run_cmds_2_minishell.c \
