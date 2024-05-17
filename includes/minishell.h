@@ -48,53 +48,58 @@ typedef struct s_data
 	t_list	*cmd_new_files;
 	int		envp_size;
 	int		nb_cmds;
-}			t_data;
+}				t_data;
 
-int			is_in_interactive_mode(void);
-void		perror_and_code(int *result, const char *s, int new_result);
-int			close_descriptors(int pipedescr[3], int is_piped);
-int			perr_cds(t_data *d, const char *s, int pipedescriptors[3],
-				int is_piped);
-void		close_descrs_with_a_possible_exit(t_data *d, t_token *t,
-				int pipedescr[3], int is_piped);
-void		close_ds_in_parent(t_token *t, int ds[3], int is_piped);
-void		copy_environment(t_data *d, char **envp);
-void		del_el_content(void *content);
-void		free_tab(char ***tab);
-void		free_data(t_data *d);
-int			get_value_from_envp(char **value, char *name, int envp_size,
-				char **envp);
-int			is_a_pipe_or_ctrloperator(enum e_token_types type);
-t_token		*cast_dll_el_into_token(t_dll_el **current);
-int			check_files_for_in_redirections(t_dll_el **current,
-				int redir_error_first_position, t_data *d, int is_in_piped);
-int			check_redir_files(t_dll_el **current, t_data *d, int is_in_piped);
-int			set_last_redir_files_names(t_token *t_cmdbi, t_dll_el *start_el);
-int			add_to_cmds_list(t_data *d, t_token *t_cmdbi);
-int			parse_tokens(t_data *d);
-int			files_open(t_token *t);
-void		close_files_on_err(int *result, t_cmd *cmd_d, const char *s,
-				int new_result);
-int			check_builtin_type_and_run_bi(char ***envp, int *envp_size,
-				t_cmd *bi);
-int			run_bi_without_fork(char ***envp, int *envp_size, t_cmd *cmd_d);
-void		set_signals_actions_in_fork(void);
+int		is_in_interactive_mode(void);
+void	perror_and_code(int *result, const char *s, int new_result);
+int		close_descriptors(int pipedescr[3], int is_piped);
+int		perr_cds(t_data *d, const char *s, int pipedescriptors[3],
+			int is_piped);
+void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
+			int pipedescr[3], int is_piped);
+void	close_ds_in_parent(t_token *t, int ds[3], int is_piped);
+void	copy_environment(t_data *d, char **envp);
+void	free_tab_with_size(char ***tab, int size);
+void	del_el_content(void *content);
+void	free_tab(char ***tab);
+void	free_data(t_data *d);
+int		get_value_from_envp(char **value, char *name, int envp_size,
+			char **envp);
+int		is_a_pipe_or_ctrloperator(enum e_token_types type);
+t_token	*cast_dll_el_into_token(t_dll_el **current);
+int		check_files_for_in_redirections(t_dll_el **current,
+			int redir_error_first_position, t_data *d,
+			int is_in_piped);
+int		check_redir_files(t_dll_el **current, t_data *d,
+			int is_in_piped);
+int		set_last_redir_files_names(t_token *t_cmdbi,
+			t_dll_el *start_el);
+int		add_to_cmds_list(t_data *d, t_token *t_cmdbi);
+int		parse_tokens(t_data *d);
+int		files_open(t_token *t);
+void	close_files_on_err(int *result, t_cmd *cmd_d, const char *s,
+			int new_result);
+int		check_builtin_type_and_run_bi(char ***envp, int *envp_size,
+			t_cmd *bi);
+int		run_bi_without_fork(char ***envp, int *envp_size, t_cmd *cmd_d);
+void	set_signals_actions_in_fork(void);
 
-int			built_cd(char **cd);
-int			built_echo(char **echo);
-int			built_env(char **envp, char **env);
-int			built_exit(char **exit);
-int			built_export(char ***envp, int *envp_size, char **export);
-int			built_pwd(char **pwd);
-int			built_unset(char ***envp, int *envp_size, char **unset);
+int		built_cd(char **cd);
+int		built_echo(char **echo);
+int		built_env(char **envp, char **env);
+int		built_exit(char **exit);
+int		built_export(char ***envp, int *envp_size, char **export);
+int		built_pwd(char **pwd);
+int		built_unset(char ***envp, int *envp_size, char **unset);
 
-void		run_bi_in_fork(t_data *d, t_token *t, int ds[3]);
-void		run_command(t_data *d, t_token *t, int ds[3]);
-int			run_commands(t_data *d);
-void		empty_list(t_list **lst);
-int			process_a_line(char *a_line, t_data *d);
-int			process_interactive_mode(t_data *d);
-int			process_non_interactive_mode(int fd, t_data *d);
-int			process_non_interactive_mode_with_c_opt(char *an_argv, t_data *d);
+void	run_bi_in_fork(t_data *d, t_token *t, int ds[3]);
+void	run_command(t_data *d, t_token *t, int ds[3]);
+int		run_commands(t_data *d);
+void	empty_list(t_list **lst);
+int		process_a_line(char *a_line, t_data *d);
+int		process_interactive_mode(t_data *d);
+int		process_non_interactive_mode(int fd, t_data *d);
+int		process_non_interactive_mode_with_c_opt(char *an_argv,
+			t_data *d);
 
 #endif
