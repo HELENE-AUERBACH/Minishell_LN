@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/17 12:51:58 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:57:54 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ int		check_builtin_type_and_run_bi(char ***envp, int *envp_size,
 int		run_bi_without_fork(char ***envp, int *envp_size, t_cmd *cmd_d);
 void	set_signals_actions_in_fork(void);
 
-int		built_cd(char **cd);
+int		built_cd(char ***envp, int *envp_size, char **cd);
 int		built_echo(char **echo);
-int		built_env(char **envp, char **env);
+int		built_env(char **envp, char **arg_env);
 int		built_exit(char **exit);
 int		built_export(char ***envp, int *envp_size, char **export);
 int		built_pwd(char **pwd);

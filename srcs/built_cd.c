@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/17 13:34:23 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:28:41 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,27 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-/*
-int		i;
-char	*path;
-
-i = 0;
-while (cd)
-	i++;
-if (i > 1)
+int	built_cd(char ***envp, int *envp_size, char **cd)
 {
-	// ft_printf("bash: %s: too many arguments\n", cd[0]);
-	return (0);
-}
-path = cd[1];
-chdir(path);
-*/
+	/*int		i;
+	char	*value;
+	char	*path;
 
-int	built_cd(char **cd)
-{
+	value = NULL;
+	if (get_value_from_envp(&value, "HOME", *envp_size, *envp) != 0)
+		return (3);
+	i = 0;
+	while (cd)
+		i++;
+	if (i > 2)
+	{
+		// "bash: %s: too many arguments\n";
+		return (0);
+	}
+	
+	chdir(path);*/
+	(void)envp;
 	(void)cd;
+	(void)envp_size;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:29 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/20 13:22:47 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:27:00 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_builtin_type_and_run_bi(char ***envp, int *envp_size, t_cmd *bi)
 		if (ft_strncmp("echo", bi->cmd, 4) == 0)
 			return (built_echo(bi->args));
 		if (ft_strncmp("cd", bi->cmd, 2) == 0)
-			return (built_unset(envp, envp_size, bi->args));
+			return (built_cd(envp, envp_size, bi->args));
 		if (ft_strncmp("pwd", bi->cmd, 3) == 0)
 			return (built_pwd(bi->args));
 		if (ft_strncmp("export", bi->cmd, 6) == 0)
