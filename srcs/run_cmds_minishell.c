@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/16 19:57:34 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:54:51 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	open_pipe_and_run_command(t_data *d, t_token *t,
 	if (files_open(t) < 0)
 		return (-5);
 	if (t->cmd_d->followed_by_op != PIPE && *is_piped == 0 && t->type == BI)
-		return (run_bi_without_fork(&d->envp, &d->envp_size, t->cmd_d));
+		return (run_bi_without_fork(&d->envp, &d->envp_size, t));
 	ds[2] = ds[0];
 	ds[0] = -1;
 	if (t->cmd_d->is_out_piped == 1 && pipe(ds) == -1)
@@ -141,7 +141,7 @@ int	run_commands(t_data *d)
 		return (-3);
 	if (d->nb_cmds == 1 && ((t_token *) start->content)->type == BI)
 		return (run_bi_without_fork(&d->envp, &d->envp_size, \
-				((t_token *) start->content)->cmd_d));
+				((t_token *) start->content)));
 	result = 0;
 	wstatus = 0;
 	w = 0;

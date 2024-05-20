@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/16 15:30:29 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:53:05 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	create_heredoc_file(t_token *t, t_dll_el *prev)
 	if (!t->cmd_d->file1)
 		return (free_cmd_d(t->cmd_d), -3);
 	t->cmd_d->fd1 = open(t->cmd_d->file1, O_WRONLY | O_CREAT | O_TRUNC,
-			0600);
+			0644);
 	if (t->cmd_d->fd1 == -1)
 		return (display_err_with_prefix(t->cmd_d->file1, \
 				" temporary file creation error\n"), -4);
@@ -83,10 +83,10 @@ int	create_heredoc_file(t_token *t, t_dll_el *prev)
 		return (display_err_with_prefix(t->cmd_d->file1, \
 				" temporary file writing error\n"), -5);
 	}
-	if (close(t->cmd_d->fd1) == -1)
+	/*if (close(t->cmd_d->fd1) == -1)
 		return (display_err_with_prefix(t->cmd_d->file1, \
 				" temporary file close error\n"), -6);
-	t->cmd_d->fd1 = -1;
+	t->cmd_d->fd1 = -1;*/
 	return (0);
 }
 
