@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/20 16:16:01 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:18:55 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,18 @@ static int	create_list_by_tab(char **tab, t_list **to_list)
 	size = 0;
 	while (tab[i])
 	{
-			content = (char *)malloc(sizeof(char) * ft_strlen(tab[i]));
-			if (!content)
-				return (-3);
-			ft_strlcpy(content, tab[i], ft_strlen(tab[i]) + 1);
-			new = ft_lstnew(content);
-			if (!new)
-				return (-3);
-			if (!(*to_list))
-				(*to_list) = new;
-			else
-				ft_lstadd_back(to_list, new);
-			size++;
+		content = (char *)malloc(sizeof(char) * ft_strlen(tab[i]));
+		if (!content)
+			return (-3);
+		ft_strlcpy(content, tab[i], ft_strlen(tab[i]) + 1);
+		new = ft_lstnew(content);
+		if (!new)
+			return (-3);
+		if (!(*to_list))
+			(*to_list) = new;
+		else
+			ft_lstadd_back(to_list, new);
+		size++;
 		i++;
 	}
 	return (size);
@@ -108,13 +108,11 @@ static int	new_environement(char ***envp, int *envp_size, char **export)
 	return (0);
 }
 
-int	built_export(char ***envp, int *envp_size, char **export)
+int	built_export(char ***envp, int *envp_size, char **export, int fd)
 {
 	int		i;
 	char	*string;
-	int		fd;
 
-	fd = 1;
 	i = 0;
 	while (export[i])
 		i++;

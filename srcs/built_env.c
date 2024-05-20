@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:00 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/17 13:33:18 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:15:45 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ int	there_is_an_equal(char *env_arg)
 	return (0);
 }
 
-int	built_env(char **envp, char **env)
+int	built_env(char **envp, char **env, int fd)
 {
 	int	i;
-	int	fd;
 
-	fd = 1;
 	i = 0;
 	while (env)
 		i++;

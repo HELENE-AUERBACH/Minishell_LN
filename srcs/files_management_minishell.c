@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/10 12:25:44 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:02:00 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,24 @@ static int	open_file_and_close_prev(t_list **new_files,
 	if (!(t && new_files && cmd_new_files))
 		return (-1);
 	if (t->type == HEREDOC && create_heredoc_file(t, prev) < 0)
-		return (close_previous_file(prev), -4);
-	if (close_previous_file(prev) < 0)
+		return (-4);
+	if (prev && close_previous_file(prev) < 0)
 		return (-2);
 	file_name = NULL;
 	if (t->type == S_IN_REDI || t->type == S_OUT_REDI || t->type == D_OUT_REDI)
 	{
 		file_name = (char *) malloc((t->src_len + 1) * sizeof(char));
 		if (!file_name)
-			return (free_cmd_d(t->cmd_d), -5);
+			return (-5);
 		ft_strlcpy(file_name, t->src, t->src_len + 1);
+		if (open_file(new_files, cmd_new_files, t, file_name) < 0)
+			return (-6);
 	}
+	/*if (t->type == HEREDOC)
+		file_name = t->cmd_d->file1;
 	if (open_file(new_files, cmd_new_files, t, file_name) < 0)
-		return (free_cmd_d(t->cmd_d), -6);
+		return (-6);*/
+	file_name = NULL;
 	return (0);
 }
 
