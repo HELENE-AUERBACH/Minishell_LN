@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/20 18:18:55 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:19:41 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	create_list_by_tab(char **tab, t_list **to_list)
 	size = 0;
 	while (tab[i])
 	{
-		content = (char *)malloc(sizeof(char) * ft_strlen(tab[i]));
+		content = (char *) malloc(sizeof(char) * (ft_strlen(tab[i]) + 1));
 		if (!content)
 			return (-3);
 		ft_strlcpy(content, tab[i], ft_strlen(tab[i]) + 1);

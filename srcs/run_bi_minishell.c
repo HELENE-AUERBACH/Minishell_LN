@@ -6,32 +6,31 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:29 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/21 16:44:35 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:04:49 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_and_run_bi(char ***envp, int *envp_size, t_cmd *bi, int fd2)
+int	check_and_run_bi(t_data *d, t_cmd *bi, int fd2)
 {
-	*envp = *envp;
-	*envp_size = *envp_size;
 	if (bi && bi->cmd && bi->cmd[0] != '\0')
 	{
 		if (ft_strncmp("echo", bi->cmd, 4) == 0)
 			return (built_echo(bi->args, fd2));
 		if (ft_strncmp("cd", bi->cmd, 2) == 0)
-			return (built_cd(envp, envp_size, bi->args));
+			return (built_cd(&d->envp, &d->envp_size, bi->args));
 		if (ft_strncmp("pwd", bi->cmd, 3) == 0)
 			return (built_pwd(bi->args));
 		if (ft_strncmp("export", bi->cmd, 6) == 0)
-			return (built_export(envp, envp_size, bi->args, fd2));
+			return (built_export(&d->envp, &d->envp_size, bi->args,
+					fd2));
 		if (ft_strncmp("unset", bi->cmd, 5) == 0)
-			return (built_unset(envp, envp_size, bi->args));
+			return (built_unset(&d->envp, &d->envp_size, bi->args));
 		if (ft_strncmp("env", bi->cmd, 3) == 0)
-			return (built_env(*envp, bi->args, fd2));
+			return (built_env(d->envp, bi->args, fd2));
 		if (ft_strncmp("exit", bi->cmd, 4) == 0)
-			return (built_exit(bi->args));
+			return (built_exit(d, bi->args));
 	}
 	else if (!(bi && bi->cmd))
 		display_err_with_prefix("(null)", " command not found\n");
@@ -48,13 +47,13 @@ static void	set_signals_actions_in_fork_for_bi(t_dll *lst, t_token *t,
 		free_tab(&t->cmd_d->paths_tab);
 }
 
-int	run_bi_without_fork(char ***envp, int *envp_size, t_token *t)
+int	run_bi_without_fork(t_data *d, t_token *t)
 {
 	int	result;
 	int	fd2;
 
 	result = 0;
-	if (!(envp && *envp && envp_size && t && t->cmd_d))
+	if (!(d && d->envp && t && t->cmd_d))
 		return (-1);
 	if (files_open(t) < 0)
 		return (-2);
@@ -62,7 +61,7 @@ int	run_bi_without_fork(char ***envp, int *envp_size, t_token *t)
 		fd2 = t->cmd_d->fd2;
 	else
 		fd2 = 1;
-	result = check_and_run_bi(envp, envp_size, t->cmd_d, fd2);
+	result = check_and_run_bi(d, t->cmd_d, fd2);
 	if (t->cmd_d->fd1 != -1)
 		close_in_file_and_free_file_name(t->cmd_d);
 	if (t->cmd_d->fd2 != -1)
@@ -102,7 +101,7 @@ void	run_bi_in_fork(t_data *d, t_token *t, int ds[3], t_list *current)
 		if (t->cmd_d->fd2 != -1 && dup2(t->cmd_d->fd2, 1) == -1)
 			perr_cds(d, REDIR_OUTPUT_ERR, ds, is_piped);
 		close_descrs_with_a_possible_exit(d, t, ds, is_piped);
-		result = check_and_run_bi(&d->envp, &d->envp_size, t->cmd_d, 1);
+		result = check_and_run_bi(d, t->cmd_d, 1);
 		free_for_bi_in_fork(d);
 		exit (result);
 	}
