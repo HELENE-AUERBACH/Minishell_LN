@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:07:23 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/03 15:03:32 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:25:31 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ void		del_el_at_dll_head(t_dll *lst, void (*del)(void *));
 void		del_el_at_dll_tail(t_dll *lst, void (*del)(void *));
 void		delete_dll_el(t_dll *lst, t_dll_el *ptr, void (*del)(void *));
 void		empty_dll(t_dll *lst, void (*del)(void *));
+void		empty_dll_before_cur(t_dll *lst, t_list *current,
+				void (*del)(void *));
+void		empty_dll_after_cur(t_dll *lst, t_list *current,
+				void (*del)(void *));
 void		dll_clear(t_dll **lst, void (*del)(void *));
 int			dll_iter(t_dll *lst, int (*f)(t_dll_el *));
 int			dll_iter_with_param(t_dll *lst, void *param,

@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/17 19:54:51 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:20:50 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ int	add_to_cmds_list(t_data *d, t_token *t_cmdbi)
 	return (result);
 }
 
-static int	open_pipe_and_run_command(t_data *d, t_token *t,
+static int	open_pipe_and_run_command(t_data *d, t_list *current,
 			int *is_piped, int *ds)
 {
+	t_token	*t;
+
+	t = (t_token *) current->content;
 	if (t && t->cmd_d && t->cmd_d->paths_tab)
 		free_tab(&t->cmd_d->paths_tab);
 	t->cmd_d->paths_tab = get_paths(d->envp);
@@ -55,16 +58,13 @@ static int	open_pipe_and_run_command(t_data *d, t_token *t,
 	ds[2] = ds[0];
 	ds[0] = -1;
 	if (t->cmd_d->is_out_piped == 1 && pipe(ds) == -1)
-	{
-		perror("Pipe error");
-		return (close_descriptors(ds, 0), -4);
-	}
+		return (perror("Pipe error"), close_descriptors(ds, 0), -4);
 	if (t->cmd_d->is_out_piped == 1)
 		*is_piped = 1;
 	if (t->type == COMMAND)
-		run_command(d, t, ds);
+		run_command(d, t, ds, current);
 	else if (t->type == BI)
-		run_bi_in_fork(d, t, ds);
+		run_bi_in_fork(d, t, ds, current);
 	return (0);
 }
 
@@ -82,17 +82,16 @@ static int	open_pipes_and_run_commands(t_data *d, t_list **start,
 	t = (t_token *) current->content;
 	while (current && t && t->cmd_d)
 	{
-		if (open_pipe_and_run_command(d, t, &is_piped, ds) < 0)
+		if (open_pipe_and_run_command(d, current, &is_piped, ds) < 0)
 			return (-1);
 		current = current->next;
 		*start = current;
 		*end = current;
 		if (t->cmd_d->followed_by_op != PIPE)
 			break ;
+		t = NULL;
 		if (current && current->content)
 			t = (t_token *) current->content;
-		else
-			t = NULL;
 	}
 	return (close_descriptors(ds, is_piped), 0);
 }
@@ -115,10 +114,10 @@ static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 			return (EXIT_FAILURE);
 		w = waitpid(t->cmd_d->pid, &wstatus, 0);
 		current = current->next;
+		empty_dll_before_cur(d->lst, current, del_el_content);
+		t = NULL;
 		if (current && current->content && current != end)
 			t = (t_token *) current->content;
-		else
-			t = NULL;
 	}
 	if (w < 0)
 		return (perror("waitpid failed"), EXIT_FAILURE);

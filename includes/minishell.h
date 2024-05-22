@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/20 18:13:09 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:11:15 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,10 @@ int		set_last_redir_files_names(t_token *t_cmdbi,
 int		add_to_cmds_list(t_data *d, t_token *t_cmdbi);
 int		parse_tokens(t_data *d);
 int		files_open(t_token *t);
-void	close_files_on_err(int *result, t_cmd *cmd_d, const char *s,
-			int new_result);
-int		check_builtin_type_and_run_bi(char ***envp, int *envp_size,
-			t_cmd *bi, int fd2);
+int		check_and_run_bi(char ***envp, int *envp_size, t_cmd *bi,
+			int fd2);
 int		run_bi_without_fork(char ***envp, int *envp_size, t_token *t);
-void	set_signals_actions_in_fork(void);
+void	set_signals_actions_in_fork(t_dll *lst, t_list *current);
 
 int		built_cd(char ***envp, int *envp_size, char **cd);
 int		built_echo(char **echo, int fd);
@@ -93,8 +91,8 @@ int		built_export(char ***envp, int *envp_size, char **export,
 int		built_pwd(char **pwd);
 int		built_unset(char ***envp, int *envp_size, char **unset);
 
-void	run_bi_in_fork(t_data *d, t_token *t, int ds[3]);
-void	run_command(t_data *d, t_token *t, int ds[3]);
+void	run_bi_in_fork(t_data *d, t_token *t, int ds[3], t_list *current);
+void	run_command(t_data *d, t_token *t, int ds[3], t_list *current);
 int		run_commands(t_data *d);
 void	empty_list(t_list **lst);
 int		process_a_line(char *a_line, t_data *d);
