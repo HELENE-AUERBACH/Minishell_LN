@@ -6,7 +6,7 @@
 #    By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/08 18:20:11 by hauerbac          #+#    #+#              #
-#    Updated: 2024/05/03 15:01:50 by hauerbac         ###   ########.fr        #
+#    Updated: 2024/05/21 14:26:05 by hauerbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ SRCS =  sources/strings/ft_strlen.c \
 		sources/dll/del_el_at_dll_tail.c \
 		sources/dll/delete_dll_el.c \
 		sources/dll/empty_dll.c \
+		sources/dll/empty_dll_before_cur.c \
+		sources/dll/empty_dll_after_cur.c \
 		sources/dll/dll_clear.c \
 		sources/dll/dll_iter.c \
 		sources/dll/dll_iter_with_param.c \
