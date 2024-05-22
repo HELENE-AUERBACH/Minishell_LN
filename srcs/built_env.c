@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:00 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/22 13:05:29 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:08:25 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	built_env(char **envp, char **env, int fd)
 {
 	int	i;
 
-	fd = 1;
 	i = 0;
 	while (env[i])
 		i++;
