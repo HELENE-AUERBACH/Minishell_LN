@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:56 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/17 14:50:15 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:14:45 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	start_n(const char *arg)
 	return (1);
 }
 
-int	built_echo(char **echo)
+int	built_echo(char **echo, int fd)
 {
 	char	**echo_string;
 	int		i;
@@ -46,12 +46,12 @@ int	built_echo(char **echo)
 	{
 		while (echo_string[i] == NULL)
 			i++;
-		write(1, echo_string[i], ft_strlen(echo_string[i]));
+		write(fd, echo_string[i], ft_strlen(echo_string[i]));
 		i++;
 		if (echo_string[i] != NULL)
-			write(1, " ", 1);
+			write(fd, " ", 1);
 	}
 	if (new_line)
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 	return (0);
 }

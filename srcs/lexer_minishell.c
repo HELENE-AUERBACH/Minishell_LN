@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:09 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/16 12:36:10 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:39:27 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ int	init_token(int type, char *src, t_tokenizer_data *d)
 		return (free(token->src), free(token), -3);
 	if (type == D_OUT_REDI)
 		token->cmd_d->is_fd2_o_append = 1;
+	if (type == HEREDOC)
+		token->cmd_d->is_here_doc = 1;
 	return (insert_at_dll_tail(d->lst, (void *) token));
 }
