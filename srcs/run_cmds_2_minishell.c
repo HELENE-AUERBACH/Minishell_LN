@@ -6,13 +6,13 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:17:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/17 14:50:48 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:20:24 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_signals_actions_in_fork(void)
+void	set_signals_actions_in_fork(t_dll *lst, t_list *current)
 {
 	struct sigaction	s1;
 	struct sigaction	s2;
@@ -25,6 +25,7 @@ void	set_signals_actions_in_fork(void)
 	sigemptyset(&s2.sa_mask);
 	s2.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &s2, NULL);
+	empty_dll_before_cur(lst, current, del_el_content);
 }
 
 static int	join_path_with_cmd(t_cmd *cmd_d, char *command,
@@ -98,7 +99,7 @@ static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 	trimmed_cmd = NULL;
 }
 
-void	run_command(t_data *d, t_token *t, int ds[3])
+void	run_command(t_data *d, t_token *t, int ds[3], t_list *current)
 {
 	const int	is_piped = (ds[0] != -1 && ds[1] != -1);
 
@@ -107,7 +108,7 @@ void	run_command(t_data *d, t_token *t, int ds[3])
 		perr_cds(d, "Fork error", ds, is_piped);
 	if ((int) t->cmd_d->pid == 0)
 	{
-		set_signals_actions_in_fork();
+		set_signals_actions_in_fork(d->lst, current);
 		if (t->cmd_d->is_in_piped == 1 && ds[2] != -1
 			&& t->cmd_d->fd1 == -1 && dup2(ds[2], 0) == -1)
 			perr_cds(d, DUP_PREV_ERR, ds, is_piped);

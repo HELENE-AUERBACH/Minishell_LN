@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:46:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/17 14:01:01 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:53:11 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
 	result = 0;
 	if (t && t->cmd_d && t->cmd_d->fd1 != -1)
 		close(t->cmd_d->fd1);
+	t->cmd_d->fd1 = -1;
 	if (t && t->cmd_d && t->cmd_d->fd2 != -1)
 		close(t->cmd_d->fd2);
+	t->cmd_d->fd2 = -1;
 	if (t && close_descriptors(pipedescr, is_piped) != 0)
 	{
 		empty_list(&d->cmds);

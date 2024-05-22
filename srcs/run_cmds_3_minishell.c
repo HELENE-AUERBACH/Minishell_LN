@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:12:13 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/20 18:24:08 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:45:30 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,70 +36,4 @@ int	files_open(t_token *t)
 		return (display_err_with_prefix(t->cmd_d->file2, \
 				" output file open error\n"), -2);
 	return (0);
-}
-
-void	close_files_on_err(int *result, t_cmd *cmd_d, const char *s,
-		int new_result)
-{
-	if (cmd_d && cmd_d->fd1 != -1)
-	{
-		perror_and_code(result, s, new_result);
-		close_in_file_and_free_file_name(cmd_d);
-	}
-	if (cmd_d && cmd_d->fd2 != -1)
-	{
-		perror_and_code(result, s, new_result);
-		close_out_file_and_free_file_name(cmd_d);
-	}
-}
-
-int	run_bi_without_fork(char ***envp, int *envp_size, t_token *t)
-{
-	int	result;
-	int	fd2;
-
-	result = 0;
-	if (!(envp && *envp && envp_size && t && t->cmd_d))
-		return (-1);
-	if (files_open(t) < 0)
-		return (-2);
-	if (t->cmd_d->fd2 != -1)
-		fd2 = t->cmd_d->fd2;
-	else
-		fd2 = 1;
-	result = check_builtin_type_and_run_bi(envp, envp_size, t->cmd_d, fd2);
-	if (t->cmd_d->fd1 != -1)
-		close_in_file_and_free_file_name(t->cmd_d);
-	if (t->cmd_d->fd2 != -1)
-		close_out_file_and_free_file_name(t->cmd_d);
-	return (result);
-}
-
-void	run_bi_in_fork(t_data *d, t_token *t, int ds[3])
-{
-	const int	is_piped = (ds[0] != -1 && ds[1] != -1);
-	int			result;
-
-	t->cmd_d->pid = fork();
-	if ((int) t->cmd_d->pid == -1)
-		perr_cds(d, "Fork error", ds, is_piped);
-	if ((int) t->cmd_d->pid == 0)
-	{
-		set_signals_actions_in_fork();
-		if (t->cmd_d->is_in_piped == 1 && ds[2] != -1
-			&& t->cmd_d->fd1 == -1 && dup2(ds[2], 0) == -1)
-			perr_cds(d, DUP_PREV_ERR, ds, is_piped);
-		if (t->cmd_d->fd1 != -1 && dup2(t->cmd_d->fd1, 0) == -1)
-			perr_cds(d, REDIR_INPUT_ERR, ds, is_piped);
-		if (t->cmd_d->is_out_piped == 1 && t->cmd_d->fd2 == -1
-			&& dup2(ds[1], 1) == -1)
-			perr_cds(d, DUP_1_ERR, ds, is_piped);
-		if (t->cmd_d->fd2 != -1 && dup2(t->cmd_d->fd2, 1) == -1)
-			perr_cds(d, REDIR_OUTPUT_ERR, ds, is_piped);
-		close_descrs_with_a_possible_exit(d, t, ds, is_piped);
-		result = check_builtin_type_and_run_bi(&d->envp, &d->envp_size,
-				t->cmd_d, 1);
-		exit (result);
-	}
-	close_ds_in_parent(t, ds, is_piped);
 }
