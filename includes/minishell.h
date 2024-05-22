@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/21 16:11:15 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:55:31 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,14 @@ int		set_last_redir_files_names(t_token *t_cmdbi,
 int		add_to_cmds_list(t_data *d, t_token *t_cmdbi);
 int		parse_tokens(t_data *d);
 int		files_open(t_token *t);
-int		check_and_run_bi(char ***envp, int *envp_size, t_cmd *bi,
-			int fd2);
-int		run_bi_without_fork(char ***envp, int *envp_size, t_token *t);
+int		check_and_run_bi(t_data *d, t_cmd *bi, int fd2);
+int		run_bi_without_fork(t_data *d, t_token *t);
 void	set_signals_actions_in_fork(t_dll *lst, t_list *current);
 
 int		built_cd(char ***envp, int *envp_size, char **cd);
 int		built_echo(char **echo, int fd);
 int		built_env(char **envp, char **arg_env, int fd);
-int		built_exit(char **exit);
+int		built_exit(t_data *d, char **exit_args);
 int		built_export(char ***envp, int *envp_size, char **export,
 			int fd);
 int		built_pwd(char **pwd);
