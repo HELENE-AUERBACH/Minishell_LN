@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:00 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/20 14:00:38 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:43:47 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,25 @@ int	there_is_an_equal(char *env_arg)
 	return (0);
 }
 
-int	built_env(char **envp, char **arg_env)
+int	built_env(char **envp, char **env, int fd)
 {
 	int	i;
-	int	fd;
 
-	fd = 1;
 	i = 0;
-	while (arg_env[i])
+	while (env)
 		i++;
 	if (i > 1)
 	{
-		display_err_with_prefix(arg_env[1], " No such file or directory\n");
+		display_err_with_prefix(env[1], " No such file or directory\n");
 		return (0);
 	}
 	i = 0;
-	while (envp[i])
+	while (envp)
 	{
 		if (there_is_an_equal(envp[i]))
-		{
 			write(fd, envp[i], ft_strlen(envp[i]));
-			write(fd, "\n", 1);
-		}
 		i++;
 	}
+	write(fd, "\n", 1);
 	return (0);
 }
