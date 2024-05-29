@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/29 13:41:54 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:21:41 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	update_pwd_and_old(char ***envp, int *envp_size, char *new_pwd,
 	free(new_pwd);
 	new_pwd = getcwd(NULL, 0);
 	if (modify_pwd_value(envp_size, envp, old_pwd, "OLDPWD") == -3)
-		return (-3);
+		return (3);
 	if (modify_pwd_value(envp_size, envp, new_pwd, "PWD") == -3)
-		return (-3);
+		return (3);
 	free(old_pwd);
 	free(new_pwd);
 	return (0);
