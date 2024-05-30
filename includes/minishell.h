@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/29 14:10:12 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:20:58 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
 void	close_ds_in_parent(t_token *t, int ds[3], int is_piped);
 void	copy_environment(t_data *d, char **envp);
 void	free_tab_with_size(char ***tab, int size);
+void	free_cmd_d_without_unlink(t_cmd *cmd_d);
 void	del_el_content(void *content);
 void	free_tab(char ***tab);
 void	free_data(t_data *d);
@@ -67,6 +68,10 @@ int		get_value_from_envp(char **value, char *name, int envp_size,
 			char **envp);
 int		is_a_pipe_or_ctrloperator(enum e_token_types type);
 t_token	*cast_dll_el_into_token(t_dll_el **current);
+int		open_file(t_list **new_files, t_list **cmd_new_files,
+			t_token *t, char *file_name);
+int		write_here_doc_file(t_data *d, t_cmd *cmd_d, t_list *cur);
+int		create_heredoc_file(t_data *d, t_token *t, t_dll_el *prev);
 int		check_files_for_in_redirections(t_dll_el **current,
 			int redir_error_first_position, t_data *d,
 			int is_in_piped);
@@ -93,6 +98,7 @@ int		built_pwd(char **pwd);
 int		built_unset(char ***envp, int *envp_size, char **unset);
 
 void	run_bi_in_fork(t_data *d, t_token *t, int ds[3], t_list *current);
+int		check_error_on_command(char *cmd);
 void	run_command(t_data *d, t_token *t, int ds[3], t_list *current);
 int		run_commands(t_data *d);
 void	empty_list(t_list **lst);

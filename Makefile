@@ -6,7 +6,7 @@
 #    By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 17:04:21 by hauerbac          #+#    #+#              #
-#    Updated: 2024/05/29 13:13:20 by jbocktor         ###   ########.fr        #
+#    Updated: 2024/05/30 11:17:43 by hauerbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS_DIR = srcs
 
 vpath %.c ${SRCS_DIR}
 
-SRCS =	free_minishell.c \
+SRCS =	free_2_minishell.c \
+	free_minishell.c \
 	ctypes_split_lexer_minishell.c \
 	checks_split_lexer_minishell.c \
 	extract_lexer_minishell.c \
@@ -37,6 +38,7 @@ SRCS =	free_minishell.c \
 	heredoc_files_management_2_minishell.c \
 	heredoc_files_management_minishell.c \
 	files_management_2_minishell.c \
+	files_management_3_minishell.c \
 	files_management_minishell.c \
 	parser_tokens_2_minishell.c \
 	split_parser_2_minishell.c \
