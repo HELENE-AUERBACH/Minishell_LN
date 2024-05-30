@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:38:11 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/15 17:11:36 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:29:25 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	process_a_line(char *a_line, t_data *d)
 	}
 	if (result == 3)
 		display_error("Malloc error\n");
-	g_exit_status = result;
+	if (a_line && ft_strlen(a_line) > 0)
+		g_exit_status = result;
 	return (result);
 }	
 
