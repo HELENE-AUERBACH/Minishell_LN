@@ -6,56 +6,13 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/22 20:19:41 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:33:32 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	there_is_a_dollar(char *env_arg)
-{
-	int	i;
-
-	i = 0;
-	while (env_arg[i])
-	{
-		if (env_arg[i] == '?')
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-int	there_is_a_number(char *env_arg)
-{
-	int	i;
-
-	i = 0;
-	while (env_arg[i])
-	{
-		if (env_arg[i] >= '0' && env_arg[i] <= '9')
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-/*
-int already_exist(t_list *to_list, char *string)
-{
-	t_list *read;
-	
-	read = to_list;
-	while(to_list)
-	{
-		if (ft_strncmp(string, (char *)(read->content), ft_strlen(string)));
-			return()
-		read = read->next;
-	}
-}
-*/
-
-static int	create_list_by_tab(char **tab, t_list **to_list)
+static int	create_list_by_environement(char **tab, t_list **to_list)
 {
 	t_list	*new;
 	int		size;
@@ -66,10 +23,9 @@ static int	create_list_by_tab(char **tab, t_list **to_list)
 	size = 0;
 	while (tab[i])
 	{
-		content = (char *) malloc(sizeof(char) * (ft_strlen(tab[i]) + 1));
+		content = ft_strdup(tab[i]);
 		if (!content)
 			return (-3);
-		ft_strlcpy(content, tab[i], ft_strlen(tab[i]) + 1);
 		new = ft_lstnew(content);
 		if (!new)
 			return (-3);
@@ -91,10 +47,10 @@ static int	new_environement(char ***envp, int *envp_size, char **export)
 
 	delta = 0;
 	to_list = NULL;
-	if (create_list_by_tab(*envp, &to_list) == -3)
+	if (create_list_by_environement(*envp, &to_list) == -3)
 		return (-3);
 	free_tab(envp);
-	delta += create_list_by_tab(&export[1], &to_list);
+	delta += create_list_by_environement(&export[1], &to_list);
 	if (delta == -3)
 		return (-3);
 	else
@@ -108,10 +64,34 @@ static int	new_environement(char ***envp, int *envp_size, char **export)
 	return (0);
 }
 
+void	print_export(char ***envp, int i, int fd)
+{
+	int		y;
+	char	*string;
+
+	string = (*envp)[i];
+	y = 0;
+	string = (*envp)[i];
+	while (string[y] && string[y] != '=')
+		write(fd, &string[y++], 1);
+	if (string[y] == '=' && !string[y + 1])
+	{
+		write(fd, &string[y++], 1);
+		write(fd, "\"\"", 2);
+	}
+	else if (string[y] == '=')
+	{
+		write(fd, &string[y++], 1);
+		write(fd, "\"", 1);
+		while (string[y])
+			write(fd, &string[y++], 1);
+		write(fd, "\"", 1);
+	}
+}
+
 int	built_export(char ***envp, int *envp_size, char **export, int fd)
 {
-	int		i;
-	char	*string;
+	int	i;
 
 	i = 0;
 	while (export[i])
@@ -123,8 +103,7 @@ int	built_export(char ***envp, int *envp_size, char **export, int fd)
 			return (-1);
 		while (i < *envp_size && (*envp)[i])
 		{
-			string = (*envp)[i];
-			write(fd, string, ft_strlen(string));
+			print_export(envp, i, fd);
 			write(fd, "\n", 1);
 			i++;
 		}
