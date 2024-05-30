@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/30 14:33:32 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:29:40 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	print_export(char ***envp, int i, int fd)
 	string = (*envp)[i];
 	y = 0;
 	string = (*envp)[i];
+	write(fd, "export ", 7);
 	while (string[y] && string[y] != '=')
 		write(fd, &string[y++], 1);
 	if (string[y] == '=' && !string[y + 1])
