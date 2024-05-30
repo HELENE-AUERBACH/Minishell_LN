@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/17 14:11:21 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:37:49 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	heredoc_handler_in_fork(int signo);
 void	close_in_file_and_free_file_name(t_cmd *cmd_d);
 void	close_out_file_and_free_file_name(t_cmd *cmd_d);
 char	*ft_strjoin_with_free(char *s1, char *s2);
+char	*ft_strjoin_with_free_s1(char *s1, char *s2);
 int		is_a_space(const char c);
 int		is_a_metacharacter(const char c);
 int		is_a_command_separator(const char c);
@@ -155,9 +156,7 @@ int		loop_perform_expansions(char **new_src, int *d, t_token *t,
 			void *param);
 int		perform_expansions(t_dll_el *el_ptr, void *param);
 void	free_cmd_d(t_cmd *cmd_d);
-int		write_here_doc_file(t_cmd *cmd_d);
 int		remove_first_spaces_and_ext_quotes(t_token *t);
-int		create_heredoc_file(t_token *t, t_dll_el *prev);
 int		close_previous_file(t_dll_el *prev);
 int		check_out_redir_file(t_token *t);
 int		check_in_redir_file(t_token *t, t_list *new_files,

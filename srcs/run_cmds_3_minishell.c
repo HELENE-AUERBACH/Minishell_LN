@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:12:13 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/21 16:45:30 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:07:55 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,67 @@ int	files_open(t_token *t)
 		return (display_err_with_prefix(t->cmd_d->file2, \
 				" output file open error\n"), -2);
 	return (0);
+}
+
+char	*ft_strjoin_with_free_s1(char *s1, char *s2)
+{
+	char	*result;
+	size_t	s1_len;
+	size_t	s2_len;
+
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	result = (char *) malloc((s1_len + s2_len + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	if (s1_len == 0 && s2_len == 0)
+		result[0] = '\0';
+	else
+	{
+		if (s1_len > 0)
+		{
+			ft_strlcpy(result, s1, s1_len + 1);
+			free(s1);
+		}
+		if (s2_len > 0)
+			ft_strlcpy(result + s1_len, s2, s2_len + 1);
+	}
+	return (result);
+}
+
+static int	check_error_on_command_2(char *cmd)
+{
+	int	cmd_len;
+
+	cmd_len = -1;
+	if (cmd)
+		cmd_len = ft_strlen(cmd);
+	if (cmd && cmd_len > 0 && cmd[0] == '/' && cmd[cmd_len - 1] == '/')
+		return (display_err_with_prefix(cmd, " Is a directory\n"), 126);
+	if (cmd && access(cmd, F_OK) == 0 && access(cmd, X_OK) == -1)
+		return (display_err_with_prefix(cmd, " Permission denied\n"), \
+			126);
+	if (cmd && access(cmd, F_OK) == -1)
+		return (display_err_with_prefix(cmd, " command not found\n"), \
+			127);
+	if (cmd && cmd_len > 0 && (cmd[cmd_len - 1] == '.' \
+		|| cmd[cmd_len - 1] == '/'))
+		return (display_err_with_prefix(cmd, " Not a directory\n"), \
+			126);
+	return (perror("stat error"), EXIT_FAILURE);
+}
+
+int	check_error_on_command(char *cmd)
+{
+	struct stat	sb;
+
+	if (!(cmd && stat(cmd, &sb) == 0))
+		return (check_error_on_command_2(cmd));
+	if ((sb.st_mode & S_IFMT) == S_IFDIR)
+		return (display_err_with_prefix(cmd, " Is a directory\n"), 126);
+	if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == -1)
+		return (display_err_with_prefix(cmd, " Permission denied\n"), \
+			126);
+	return (display_err_with_prefix(cmd, " No such file or directory\n"), \
+		127);
 }

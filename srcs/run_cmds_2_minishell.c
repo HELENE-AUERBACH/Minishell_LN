@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:17:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/22 14:20:24 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:38:55 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,20 @@ static int	join_path_with_cmd(t_cmd *cmd_d, char *command,
 		cmd_d->cmd = command_with_path2;
 		return (0);
 	}
+	else if (access(command_with_path2, F_OK) == 0)
+	{
+		free(command);
+		cmd_d->cmd = command_with_path2;
+		return (1);
+	}
 	return (-1);
 }
 
 static int	check_command(t_cmd *cmd_d, char *command)
 {
 	int		i;
-	char	*cmd_with_path1;
-	char	*cmdp2;
+	int		result;
+	char	*cmd_with_path;
 
 	if (command && (command[0] == '.' || command[0] == '/') && command[1])
 		return (free_tab(&cmd_d->paths_tab), access(command, X_OK));
@@ -56,16 +62,16 @@ static int	check_command(t_cmd *cmd_d, char *command)
 	while (cmd_d->paths_tab[i])
 	{
 		if (cmd_d->paths_tab[i][0] != '\0')
-			cmd_with_path1 = ft_strjoin(cmd_d->paths_tab[i], "/");
+			cmd_with_path = ft_strjoin(cmd_d->paths_tab[i], "/");
 		else
-			cmd_with_path1 = ft_strjoin(".", "/");
-		if (cmd_with_path1 == NULL)
+			cmd_with_path = ft_strjoin(".", "/");
+		if (cmd_with_path == NULL)
 			return (free_tab(&cmd_d->paths_tab), -3);
-		cmdp2 = ft_strjoin(cmd_with_path1, command);
-		free(cmd_with_path1);
-		if (join_path_with_cmd(cmd_d, command, cmdp2) == 0)
-			return (free_tab(&cmd_d->paths_tab), 0);
-		free(cmdp2);
+		cmd_with_path = ft_strjoin_with_free_s1(cmd_with_path, command);
+		result = join_path_with_cmd(cmd_d, command, cmd_with_path);
+		if (result >= 0)
+			return (free_tab(&cmd_d->paths_tab), result);
+		free(cmd_with_path);
 		i++;
 	}
 	return (free_tab(&cmd_d->paths_tab), -5);
@@ -75,6 +81,7 @@ static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 			int is_piped)
 {
 	char	*trimmed_cmd;
+	int		result;
 
 	trimmed_cmd = NULL;
 	if (t && t->cmd_d && t->cmd_d->cmd)
@@ -85,7 +92,7 @@ static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 		if (trimmed_cmd)
 			free(trimmed_cmd);
 		trimmed_cmd = NULL;
-		display_err_with_prefix(t->cmd_d->cmd, " command not found\n");
+		result = check_error_on_command(t->cmd_d->cmd);
 		close_descrs_with_a_possible_exit(d, t, ds, is_piped);
 		empty_list(&d->cmds);
 		empty_list(&d->new_files);
@@ -93,7 +100,7 @@ static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 		if (is_in_interactive_mode())
 			rl_clear_history();
 		free_data(d);
-		exit (127);
+		exit (result);
 	}
 	free(trimmed_cmd);
 	trimmed_cmd = NULL;
