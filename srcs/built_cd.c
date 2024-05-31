@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/29 15:21:41 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:11:52 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,18 @@ int	built_cd(char ***envp, int *envp_size, char **cd)
 	char	*old_value;
 
 	old_value = getcwd(NULL, 0);
+	if (!old_value)
+	{
+		display_err_with_prefix(cd[0], " No such file or directory\n");
+		return (1);
+	}
 	if (get_chdir_value(envp, envp_size, cd, &value) == -3)
 		return (3);
 	if (chdir(value) < 0)
 	{
 		free(old_value);
 		display_err_with_prefix(cd[0], " too many arguments\n");
-		return (-1);
+		return (1);
 	}
 	else
 		return (update_pwd_and_old(envp, envp_size, value, old_value));
