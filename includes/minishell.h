@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/30 11:20:58 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:12:08 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int		files_open(t_token *t);
 int		check_and_run_bi(t_data *d, t_cmd *bi, int fd2);
 int		run_bi_without_fork(t_data *d, t_token *t);
 void	set_signals_actions_in_fork(t_dll *lst, t_list *current);
-
 int		built_cd(char ***envp, int *envp_size, char **cd);
 int		modify_pwd_value(int *envp_size, char ***envp, char *new_value,
 			char *exp);
@@ -96,7 +95,6 @@ int		built_export(char ***envp, int *envp_size, char **export,
 			int fd);
 int		built_pwd(char **pwd);
 int		built_unset(char ***envp, int *envp_size, char **unset);
-
 void	run_bi_in_fork(t_data *d, t_token *t, int ds[3], t_list *current);
 int		check_error_on_command(char *cmd);
 void	run_command(t_data *d, t_token *t, int ds[3], t_list *current);
