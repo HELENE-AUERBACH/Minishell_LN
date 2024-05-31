@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/22 19:54:28 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:34:17 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 		return (perror("waitpid failed"), EXIT_FAILURE);
 	if (WIFEXITED(wstatus))
 		return (WEXITSTATUS(wstatus));
-	return (display_error("Last command not exited error\n"), EXIT_FAILURE);
+	return (display_error("Last cmd signaled\n"), 128 + WTERMSIG(wstatus));
 }
 
 int	run_commands(t_data *d)
@@ -144,6 +144,10 @@ int	run_commands(t_data *d)
 	wstatus = 0;
 	w = 0;
 	while (start && start->content)
+	{
 		result = run_subset_of_commands(d, &start, wstatus, w);
+		if (g_exit_status != 130 && g_exit_status != 131)
+			g_exit_status = result;
+	}
 	return (result);
 }
