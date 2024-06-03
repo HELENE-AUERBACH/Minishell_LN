@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:03 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/30 14:40:20 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:54:32 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,25 @@ static int	too_many_args(char **args)
 	return (0);
 }
 
+static long long	get_value(char *exit_value)
+{
+	int					sign;
+	char				*endptr;
+	unsigned long long	uval;
+
+	sign = 0;
+	uval = ft_strtoll(exit_value, &endptr, &sign);
+	if (endptr && (endptr == exit_value || endptr[0] != '\0'))
+	{
+		display_err_with_prefix(exit_value, \
+					" numeric argument required\n");
+		return (2);
+	}
+	return (uval * sign);
+}
+
 int	built_exit(t_data *d, char **args)
 {
-	char		*endptr;
 	long long	value;
 
 	if (!args[1])
@@ -34,20 +50,12 @@ int	built_exit(t_data *d, char **args)
 	else if (too_many_args(args))
 		return (display_err_with_prefix(args[0], " too many arguments\n"), 1);
 	else
-	{
-		value = ft_strtoll(args[1], &endptr);
-		if (endptr == args[1] || *endptr != '\0' || value < LLONG_MIN
-			|| value > LLONG_MAX)
-		{
-			display_err_with_prefix(args[1], " numeric argument required\n");
-			value = 2;
-		}
-	}
+		value = get_value(args[1]);
 	empty_list(&d->cmds);
 	empty_list(&d->new_files);
 	empty_list(&d->cmd_new_files);
 	if (is_in_interactive_mode())
 		rl_clear_history();
 	free_data(d);
-	exit(value % 256);
+	exit (value % 256);
 }

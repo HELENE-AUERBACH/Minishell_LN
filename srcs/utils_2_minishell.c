@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:28:48 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/30 13:25:56 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:37:50 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,27 +82,17 @@ static int	ft_error_or_sign_and_base(unsigned int boundaries[2],
 	return (result);
 }
 
-static long long	ft_bad_result(const char *nptr, char **endptr, \
-		unsigned int i, int sign)
+unsigned long long	ft_strtoll(const char *nptr, char **endptr, int *sign)
 {
-	if (endptr)
-		*endptr = (char *) nptr + i;
-	if (sign == -1)
-		return (LLONG_MIN);
-	return (LLONG_MAX);
-}
+	unsigned int		boundaries[2];
+	unsigned int		base;
+	unsigned int		i;
+	unsigned long long	result;
 
-long long	ft_strtoll(const char *nptr, char **endptr)
-{
-	unsigned int	boundaries[2];
-	unsigned int	base;
-	unsigned int	i;
-	int				sign;
-	long long		result;
-
-	sign = ft_error_or_sign_and_base(boundaries, &base, &i, nptr);
+	*sign = ft_error_or_sign_and_base(boundaries, &base, &i, nptr);
 	result = 0;
-	if (sign == 0)
+	*endptr = NULL;
+	if (*sign == 0)
 	{
 		if (endptr)
 			*endptr = (char *) nptr + i;
@@ -111,11 +101,12 @@ long long	ft_strtoll(const char *nptr, char **endptr)
 	i = boundaries[0];
 	while (i <= boundaries[1])
 	{
-		result = (result * base) + ft_chartodigit(nptr[i++]);
-		if (result < 0)
-			return (ft_bad_result(nptr, endptr, i, sign));
+		result = (result * base) + ft_chartodigit(nptr[i]);
+		if (*sign == 1 && result > LLONG_MAX)
+			return (LLONG_MAX);
+		if (*sign == -1 && result - 1 > LLONG_MAX)
+			return (LLONG_MIN);
+		*endptr = (char *) nptr + ++i;
 	}
-	if (endptr)
-		*endptr = (char *) nptr + i;
-	return (result * sign);
+	return (result);
 }
