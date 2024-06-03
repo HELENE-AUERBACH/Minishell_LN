@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/30 13:28:37 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:46:07 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,69 +111,71 @@ typedef struct s_token
 	t_cmd				*cmd_d;
 }		t_token;
 
-void			display_error(const char *error_msg);
-void			display_err_with_prefix(const char *prefix,
-					const char *error_msg);
-void			display_syntax_error(const char c);
-void			sigint_handler_in_main(int signo);
-void			sigint_handler_in_fork(int signo);
-void			sigquit_handler_in_fork(int signo);
-void			heredoc_handler_in_fork(int signo);
-void			close_in_file_and_free_file_name(t_cmd *cmd_d);
-void			close_out_file_and_free_file_name(t_cmd *cmd_d);
-char			*ft_strjoin_with_free(char *s1, char *s2);
-char			*ft_strjoin_with_free_s1(char *s1, char *s2);
-int				is_a_space(const char c);
-int				is_a_metacharacter(const char c);
-int				is_a_command_separator(const char c);
-int				is_a_redirection(int i, int *data, const char *str);
-int				is_a_char_of_raw_command(int i, int *data, const char *str);
-void			check_double_quotes(int i, int *data, const char *str);
-void			check_simple_quotes(int i, int *data, const char *str);
-void			check_parenthesis(int i, int *data, const char *str);
-int				has_wrong_start(const char c);
-int				has_wrong_format(int *data, const char *str);
-int				get_end_index_of_file_or_delimiter_name(int *i,
-					const char *str);
-int				end_raw_command(t_tokenizer_data *d);
-int				is_a_cmdbi_or_outredirection_dll_el(void *el_content);
-int				is_a_cmd_or_bi_dll_el(void *el_content);
-int				is_an_out_redirect(void *el_content);
-int				is_an_in_redirect(void *el_content);
-int				init_token_cmd_d(t_token *token);
-int				init_token(int type, char *src, t_tokenizer_data *d);
-int				extract_tokens_into_dll(t_tokenizer_data *d, const char *str);
-void			print_dll_el_content(int fd, void *el_content);
-int				split_in_tokens(const char *str, t_dll *lst);
-void			init_utils_data(int *utils_data, int str_len);
-int				is_a_special_char(const char c);
-int				ends_with_a_closing_brace(t_token *t, int j);
-int				is_not_a_valid_identifier(t_token *t, int i, int j,
-					char **new_src);
-int				get_new_src_for_expansion(char **new_src, t_token *t, int *d,
-					void *param);
-int				perform_one_expansion(char **new_src, int *d, t_token *t,
-					void *param);
-int				loop_perform_expansions(char **new_src, int *d, t_token *t,
-					void *param);
-int				perform_expansions(t_dll_el *el_ptr, void *param);
-void			free_cmd_d(t_cmd *cmd_d);
-int				remove_first_spaces_and_ext_quotes(t_token *t);
-int				close_previous_file(t_dll_el *prev);
-int				check_out_redir_file(t_token *t);
-int				check_in_redir_file(t_token *t, t_list *new_files,
-					t_list *cmd_new_files, int is_in_piped);
-int				check_files_for_out_redirections(t_dll_el **current,
-					t_list **new_files, t_list **cmd_new_files,
-					int redir_error_first_position);
-int				extract_list_of_cmd_args(t_list **lst, char *src, int *d,
-					int *nb_substrs);
-void			copy_list_into_tab_and_free_list(char **tab, t_list **lst,
-					int nb_substrs);
-char			**split_cmd_args(t_token *t);
-char			**get_paths(char **envp);
-unsigned int	ft_spaces_truncating(const char *str);
-unsigned int	ft_chartodigit(const char c);
-long long		ft_strtoll(const char *nptr, char **endptr);
+void				display_error(const char *error_msg);
+void				display_err_with_prefix(const char *prefix,
+						const char *error_msg);
+void				display_syntax_error(const char c);
+void				sigint_handler_in_main(int signo);
+void				sigint_handler_in_fork(int signo);
+void				sigquit_handler_in_fork(int signo);
+void				heredoc_handler_in_fork(int signo);
+void				close_in_file_and_free_file_name(t_cmd *cmd_d);
+void				close_out_file_and_free_file_name(t_cmd *cmd_d);
+char				*ft_strjoin_with_free(char *s1, char *s2);
+char				*ft_strjoin_with_free_s1(char *s1, char *s2);
+int					is_a_space(const char c);
+int					is_a_metacharacter(const char c);
+int					is_a_command_separator(const char c);
+int					is_a_redirection(int i, int *data, const char *str);
+int					is_a_char_of_raw_command(int i, int *data,
+						const char *str);
+void				check_double_quotes(int i, int *data, const char *str);
+void				check_simple_quotes(int i, int *data, const char *str);
+void				check_parenthesis(int i, int *data, const char *str);
+int					has_wrong_start(const char c);
+int					has_wrong_format(int *data, const char *str);
+int					get_end_index_of_file_or_delimiter_name(int *i,
+						const char *str);
+int					end_raw_command(t_tokenizer_data *d);
+int					is_a_cmdbi_or_outredirection_dll_el(void *el_content);
+int					is_a_cmd_or_bi_dll_el(void *el_content);
+int					is_an_out_redirect(void *el_content);
+int					is_an_in_redirect(void *el_content);
+int					init_token_cmd_d(t_token *token);
+int					init_token(int type, char *src, t_tokenizer_data *d);
+int					extract_tokens_into_dll(t_tokenizer_data *d,
+						const char *str);
+void				print_dll_el_content(int fd, void *el_content);
+int					split_in_tokens(const char *str, t_dll *lst);
+void				init_utils_data(int *utils_data, int str_len);
+int					is_a_special_char(const char c);
+int					ends_with_a_closing_brace(t_token *t, int j);
+int					is_not_a_valid_identifier(t_token *t, int i, int j,
+						char **new_src);
+int					get_new_src_for_expansion(char **new_src, t_token *t,
+						int *d, void *param);
+int					perform_one_expansion(char **new_src, int *d, t_token *t,
+						void *param);
+int					loop_perform_expansions(char **new_src, int *d, t_token *t,
+						void *param);
+int					perform_expansions(t_dll_el *el_ptr, void *param);
+void				free_cmd_d(t_cmd *cmd_d);
+int					remove_first_spaces_and_ext_quotes(t_token *t);
+int					close_previous_file(t_dll_el *prev);
+int					check_out_redir_file(t_token *t);
+int					check_in_redir_file(t_token *t, t_list *new_files,
+						t_list *cmd_new_files, int is_in_piped);
+int					check_files_for_out_redirections(t_dll_el **current,
+						t_list **new_files, t_list **cmd_new_files,
+						int redir_error_first_position);
+int					extract_list_of_cmd_args(t_list **lst, char *src, int *d,
+						int *nb_substrs);
+void				copy_list_into_tab_and_free_list(char **tab, t_list **lst,
+						int nb_substrs);
+char				**split_cmd_args(t_token *t);
+char				**get_paths(char **envp);
+unsigned int		ft_spaces_truncating(const char *str);
+unsigned int		ft_chartodigit(const char c);
+unsigned long long	ft_strtoll(const char *nptr, char **endptr, int *sign);
 
 #endif
