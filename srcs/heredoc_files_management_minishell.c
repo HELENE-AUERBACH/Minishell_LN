@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/28 15:55:06 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:45:23 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static int	open_and_write_here_doc_file_in_fork(t_data *d, t_token *t,
 		if (t->cmd_d->fd1 != -1 && close(t->cmd_d->fd1) == -1)
 			return (display_error("T.f.clo.e\n"), free_data(d), -6);
 		t->cmd_d->fd1 = -1;
-		return (empty_dll_before_cur(d->lst, cur, del_el_content), res);
+		return (ft_lstclear(&d->cmds, del_el_content), free_data(d), \
+			res);
 	}
-	empty_dll_before_cur(d->lst, cur, del_el_content);
 	if (waitpid(pid, &wstatus, 0) <= 0)
 		return (display_error("waitpid failed"), -2);
 	if (g_exit_status == 0 && WIFEXITED(wstatus))

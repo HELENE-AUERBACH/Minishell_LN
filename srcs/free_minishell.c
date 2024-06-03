@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:15:31 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/16 16:02:29 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:54:58 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	free_data(t_data *d)
 		if (d->envp)
 			free_tab_with_size(&d->envp, d->envp_size);
 		d->envp_size = 0;
+		if (d->cmds)
+			ft_lstclear(&d->cmds, del_el_content);
 		d->nb_cmds = 0;
 		dll_clear(&d->lst, del_el_content);
 	}
