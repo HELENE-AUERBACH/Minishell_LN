@@ -6,13 +6,13 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:00 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/22 13:08:25 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:57:26 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	there_is_an_equal(char *env_arg)
+static int	there_is_an_equal(char *env_arg)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 #    By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 17:04:21 by hauerbac          #+#    #+#              #
-#    Updated: 2024/05/30 12:46:31 by hauerbac         ###   ########.fr        #
+#    Updated: 2024/06/04 12:54:02 by jbocktor         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,8 @@ SRCS =	free_2_minishell.c \
 	utils_2_minishell.c \
 	built_exit.c\
 	built_export.c\
+	built_export_2.c\
+	built_export_3.c\
 	built_pwd.c\
 	built_unset.c\
 	run_bi_minishell.c \
