@@ -6,11 +6,27 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:38:35 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/13 18:50:19 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:43:36 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	init_minishell_data(t_data *d)
+{
+	g_exit_status = 0;
+	if (!d)
+		return (EXIT_FAILURE);
+	d->lst = NULL;
+	d->cmds = NULL;
+	d->nb_cmds = -1;
+	d->return_code = 0;
+	d->new_files = NULL;
+	d->cmd_new_files = NULL;
+	d->envp = NULL;
+	d->envp_size = -1;
+	return (0);
+}
 
 int	is_in_interactive_mode(void)
 {
@@ -25,7 +41,7 @@ int	main(const int argc, char **argv, char **envp)
 	int		result;
 	t_data	d;
 
-	g_exit_status = 0;
+	init_minishell_data(&d);
 	copy_environment(&d, envp);
 	if (d.envp == NULL)
 		return (display_error("Environment copy error\n"), 1);

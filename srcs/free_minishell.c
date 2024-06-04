@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:15:31 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 12:24:44 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:44:35 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	free_data(t_data *d)
 		if (d->cmds)
 			ft_lstclear(&d->cmds, del_el_content);
 		d->nb_cmds = 0;
-		dll_clear(&d->lst, del_el_content);
+		if (d->lst)
+			dll_clear(&d->lst, del_el_content);
 	}
 }
