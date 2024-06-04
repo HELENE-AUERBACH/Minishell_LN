@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 13:16:33 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:27:09 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@
 
 typedef struct s_data
 {
-	char	**envp;
-	t_dll	*lst;
-	t_list	*cmds;
-	t_list	*new_files;
-	t_list	*cmd_new_files;
-	int		envp_size;
-	int		nb_cmds;
+	char		**envp;
+	t_dll		*lst;
+	t_list		*cmds;
+	t_list		*new_files;
+	t_list		*cmd_new_files;
+	int			envp_size;
+	int			nb_cmds;
+	long long	return_code;
 }				t_data;
 
 int		is_in_interactive_mode(void);
@@ -66,6 +67,8 @@ void	free_tab(char ***tab);
 void	free_data(t_data *d);
 int		get_value_from_envp(char **value, char *name, int envp_size,
 			char **envp);
+int		get_value_from_minishell_envp(char **value, char *name,
+			t_data *minishell_data);
 int		is_a_pipe_or_ctrloperator(enum e_token_types type);
 t_token	*cast_dll_el_into_token(t_dll_el **current);
 int		open_file(t_list **new_files, t_list **cmd_new_files,

@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/31 12:20:55 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:39:34 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,28 @@ int	get_value_from_envp(char **value, char *name, int envp_size, char **envp)
 	if (!name || name_len == 0)
 		return (0);
 	if (name_len == 1 && name[0] == '?')
+		return (-1);
+	else
+		return (get_val_from_envp(value, name, envp_size, envp));
+}
+
+int	get_value_from_minishell_envp(char **value, char *name, t_data *d)
+{
+	size_t	name_len;
+
+	*value = NULL;
+	name_len = 0;
+	if (name)
+		name_len = ft_strlen(name);
+	if (!name || name_len == 0)
+		return (0);
+	if (name_len == 1 && name[0] == '?')
 	{
-		*value = ft_itoa(g_exit_status);
+		*value = ft_itoa(d->return_code);
 		if (!*value)
 			return (3);
 		return (0);
 	}
 	else
-		return (get_val_from_envp(value, name, envp_size, envp));
+		return (get_val_from_envp(value, name, d->envp_size, d->envp));
 }

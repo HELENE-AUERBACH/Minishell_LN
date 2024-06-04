@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:56:53 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/15 17:07:27 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:24:38 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ int	get_new_src_for_expansion(char **new_src, t_token *t, int *d,
 	if (!name)
 		return (3);
 	value = NULL;
-	result = get_value_from_envp(&value, name, minishell_data->envp_size,
-			minishell_data->envp);
+	result = get_value_from_minishell_envp(&value, name, minishell_data);
 	free(name);
 	if (result != 0)
 		return (result);

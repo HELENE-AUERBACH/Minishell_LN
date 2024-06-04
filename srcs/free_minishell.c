@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:15:31 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/03 13:54:58 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:24:44 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,29 @@ void	free_tab(char ***tab)
 	}
 }
 
-void	free_cmd_d(t_cmd *cmd_d)
+void	free_cmd_d(t_cmd **cmd_d)
 {
-	if (cmd_d)
+	if (*cmd_d)
 	{
-		if (cmd_d->file1)
-			close_in_file_and_free_file_name(cmd_d);
-		cmd_d->file1 = NULL;
-		if (cmd_d->file2)
-			close_out_file_and_free_file_name(cmd_d);
-		cmd_d->file2 = NULL;
-		if (cmd_d->limiter)
-			free(cmd_d->limiter);
-		cmd_d->limiter = NULL;
-		if (cmd_d->cmd)
-			free(cmd_d->cmd);
-		cmd_d->cmd = NULL;
-		if (cmd_d->paths_tab)
-			free_tab(&cmd_d->paths_tab);
-		if (cmd_d->args)
-			free_tab(&cmd_d->args);
-		free(cmd_d);
+		if ((*cmd_d)->file1)
+			close_in_file_and_free_file_name(*cmd_d);
+		(*cmd_d)->file1 = NULL;
+		if ((*cmd_d)->file2)
+			close_out_file_and_free_file_name(*cmd_d);
+		(*cmd_d)->file2 = NULL;
+		if ((*cmd_d)->limiter)
+			free((*cmd_d)->limiter);
+		(*cmd_d)->limiter = NULL;
+		if ((*cmd_d)->cmd)
+			free((*cmd_d)->cmd);
+		(*cmd_d)->cmd = NULL;
+		if ((*cmd_d)->paths_tab)
+			free_tab(&(*cmd_d)->paths_tab);
+		if ((*cmd_d)->args)
+			free_tab(&(*cmd_d)->args);
+		free(*cmd_d);
+		*cmd_d = NULL;
 	}
-	return ;
 }
 
 void	del_el_content(void *content)
@@ -85,9 +85,10 @@ void	del_el_content(void *content)
 		token->src = NULL;
 		token->src_len = 0;
 		if (token->cmd_d)
-			free_cmd_d(token->cmd_d);
+			free_cmd_d(&token->cmd_d);
 		token->cmd_d = NULL;
 		free(token);
+		token = NULL;
 		content = NULL;
 	}
 	return ;

@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/03 13:45:23 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:26:58 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	create_heredoc_file(t_data *d, t_token *t, t_dll_el *current)
 	t->cmd_d->file1 = get_file_name_for_heredoc(t->cmd_d->limiter, \
 							current->prev);
 	if (!t->cmd_d->file1)
-		return (free_cmd_d(t->cmd_d), -3);
+		return (free_cmd_d(&t->cmd_d), -3);
 	curr = (t_list *) current;
 	if (open_and_write_here_doc_file_in_fork(d, t, curr) < 0)
 	{
