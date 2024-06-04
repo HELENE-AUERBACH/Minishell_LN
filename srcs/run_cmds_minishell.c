@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/31 16:34:17 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:09:10 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	add_to_cmds_list(t_data *d, t_token *t_cmdbi)
 	if (!lst_new)
 		return (3);
 	ft_lstadd_back(&d->cmds, lst_new);
+	lst_new = NULL;
 	d->nb_cmds++;
 	t_cmdbi->cmd_d->order = d->nb_cmds;
 	return (result);
@@ -144,10 +145,6 @@ int	run_commands(t_data *d)
 	wstatus = 0;
 	w = 0;
 	while (start && start->content)
-	{
 		result = run_subset_of_commands(d, &start, wstatus, w);
-		if (g_exit_status != 130 && g_exit_status != 131)
-			g_exit_status = result;
-	}
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:03 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/03 17:54:32 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:07:02 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	built_exit(t_data *d, char **args)
 	long long	value;
 
 	if (!args[1])
-		value = g_exit_status;
+		value = d->return_code;
 	else if (too_many_args(args))
 		return (display_err_with_prefix(args[0], " too many arguments\n"), 1);
 	else

@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/03 17:46:07 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:25:39 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int					perform_one_expansion(char **new_src, int *d, t_token *t,
 int					loop_perform_expansions(char **new_src, int *d, t_token *t,
 						void *param);
 int					perform_expansions(t_dll_el *el_ptr, void *param);
-void				free_cmd_d(t_cmd *cmd_d);
+void				free_cmd_d(t_cmd **cmd_d);
 int					remove_first_spaces_and_ext_quotes(t_token *t);
 int					close_previous_file(t_dll_el *prev);
 int					check_out_redir_file(t_token *t);

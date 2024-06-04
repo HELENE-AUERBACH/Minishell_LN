@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:38:11 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/30 15:29:25 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:12:52 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	process_a_line(char *a_line, t_data *d)
 	if (result == 3)
 		display_error("Malloc error\n");
 	if (a_line && ft_strlen(a_line) > 0)
-		g_exit_status = result;
+		d->return_code = result;
 	return (result);
 }	
 
@@ -77,6 +77,7 @@ static int	init_minishell_data(t_data *d)
 		return (EXIT_FAILURE);
 	d->cmds = NULL;
 	d->nb_cmds = 0;
+	d->return_code = 0;
 	d->new_files = NULL;
 	d->cmd_new_files = NULL;
 	return (0);
