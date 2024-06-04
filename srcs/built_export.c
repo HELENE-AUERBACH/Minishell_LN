@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/30 16:29:40 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:44:32 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	new_environement(char ***envp, int *envp_size, char **export)
 	if (create_list_by_environement(*envp, &to_list) == -3)
 		return (-3);
 	free_tab(envp);
-	delta += create_list_by_environement(&export[1], &to_list);
+	delta += modify_environement(&export[1], &to_list);
 	if (delta == -3)
 		return (-3);
 	else
