@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:39:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/07 19:23:56 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:02:51 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	loop3(t_data *d, ssize_t read_len, char *buff, ssize_t j)
 	if (read_len > 1)
 	{
 		result = process_a_line(buff + j, d);
-		print_dll(d->lst, 2, print_dll_el_content);
 		empty_list(&d->cmds);
 		empty_list(&d->new_files);
 		empty_list(&d->cmd_new_files);
@@ -87,6 +86,7 @@ int	process_non_interactive_mode(int fd, t_data *d)
 		return (EXIT_FAILURE);
 	d->cmds = NULL;
 	d->nb_cmds = 0;
+	d->return_code = 0;
 	d->new_files = NULL;
 	d->cmd_new_files = NULL;
 	read_len = 1;
@@ -113,10 +113,10 @@ int	process_non_interactive_mode_with_c_opt(char *an_argv, t_data *d)
 		return (EXIT_FAILURE);
 	d->cmds = NULL;
 	d->nb_cmds = 0;
+	d->return_code = 0;
 	d->new_files = NULL;
 	d->cmd_new_files = NULL;
 	result = process_a_line(an_argv, d);
-	print_dll(d->lst, 2, print_dll_el_content);
 	empty_list(&d->cmds);
 	empty_list(&d->new_files);
 	empty_list(&d->cmd_new_files);
