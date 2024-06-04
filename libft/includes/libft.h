@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:07:23 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/30 12:12:08 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:05:16 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ typedef struct s_dll
 	struct s_dll_el	*tail;
 }				t_dll;
 
+int			ft_isalpha(int c);
 int			ft_isdigit(int c);
+int			ft_isalnum(int c);
 size_t		ft_strlen(const char *s);
 void		*ft_memset(void *s, int c, size_t n);
 void		ft_bzero(void *s, size_t n);

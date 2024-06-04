@@ -6,7 +6,7 @@
 #    By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/08 18:20:11 by hauerbac          #+#    #+#              #
-#    Updated: 2024/05/30 12:13:39 by hauerbac         ###   ########.fr        #
+#    Updated: 2024/06/04 12:03:54 by hauerbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ ifeq ($(DEBUG), 1)
 	CFLAGS += -g3
 endif
 
-SRCS =  sources/ctypes/ft_isdigit.c \
+SRCS =  sources/ctypes/ft_isalpha.c \
+		sources/ctypes/ft_isdigit.c \
+		sources/ctypes/ft_isalnum.c \
 		sources/strings/ft_strlen.c \
 		sources/memory/ft_memset.c \
 		sources/memory/ft_bzero.c \
