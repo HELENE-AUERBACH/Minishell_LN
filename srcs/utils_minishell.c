@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 16:15:14 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/16 16:29:45 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:53:30 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	display_error(const char *error_msg)
 {
-	write(2, "Error\n", 6);
+	if (!error_msg)
+		write(2, "Error\n", 6);
 	if (error_msg)
 		write(2, error_msg, ft_strlen(error_msg));
 }
 
 void	display_err_with_prefix(const char *prefix, const char *error_msg)
 {
-	write(2, "Error\n", 6);
+	if (!error_msg)
+		write(2, "Error\n", 6);
 	if (prefix)
 		write(2, prefix, ft_strlen(prefix));
 	write(2, ":", 1);

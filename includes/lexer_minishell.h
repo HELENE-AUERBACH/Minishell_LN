@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 12:25:39 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:58:10 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void				display_error(const char *error_msg);
 void				display_err_with_prefix(const char *prefix,
 						const char *error_msg);
 void				display_syntax_error(const char c);
+void				display_err_with_2_prefixes(const char *prefix1,
+						const char *prefix2,
+						const char *error_msg);
 void				sigint_handler_in_main(int signo);
 void				sigint_handler_in_fork(int signo);
 void				sigquit_handler_in_fork(int signo);

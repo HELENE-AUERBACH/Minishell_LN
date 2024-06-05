@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:28:48 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/03 18:37:50 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:56:28 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,19 @@ unsigned long long	ft_strtoll(const char *nptr, char **endptr, int *sign)
 		*endptr = (char *) nptr + ++i;
 	}
 	return (result);
+}
+
+void	display_err_with_2_prefixes(const char *prefix1, const char *prefix2,
+		const char *error_msg)
+{
+	if (!error_msg)
+		write(2, "Error\n", 6);
+	if (prefix1)
+		write(2, prefix1, ft_strlen(prefix1));
+	write(2, ":", 1);
+	if (prefix2)
+		write(2, prefix2, ft_strlen(prefix2));
+	write(2, ":", 1);
+	if (error_msg)
+		write(2, error_msg, ft_strlen(error_msg));
 }
