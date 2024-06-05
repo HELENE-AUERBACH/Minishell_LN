@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 15:27:09 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:52:11 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	close_ds_in_parent(t_token *t, int ds[3], int is_piped);
 void	copy_environment(t_data *d, char **envp);
 void	free_tab_with_size(char ***tab, int size);
 void	free_cmd_d_without_unlink(t_cmd *cmd_d);
+void	close_files_and_free_files_names_without_unlink(t_cmd *cmd_d);
 void	del_el_content(void *content);
 void	free_tab(char ***tab);
 void	free_data(t_data *d);

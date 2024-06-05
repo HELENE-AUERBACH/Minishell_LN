@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:15:31 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/27 19:03:21 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:51:07 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,23 @@ void	free_cmd_d_without_unlink(t_cmd *cmd_d)
 		if (cmd_d->args)
 			free_tab(&cmd_d->args);
 		free(cmd_d);
+	}
+	return ;
+}
+
+void	close_files_and_free_files_names_without_unlink(t_cmd *cmd_d)
+{
+	if (cmd_d)
+	{
+		if (cmd_d->file1)
+			close_in_file_and_free_file_name_without_unlink(cmd_d);
+		cmd_d->file1 = NULL;
+		if (cmd_d->file2)
+			close_out_file_and_free_file_name(cmd_d);
+		cmd_d->file2 = NULL;
+		if (cmd_d->limiter)
+			free(cmd_d->limiter);
+		cmd_d->limiter = NULL;
 	}
 	return ;
 }
