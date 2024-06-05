@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/31 13:11:52 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:08:04 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,18 @@ int	get_chdir_value(char ***envp, int *envp_size, char **cd, char **value)
 	return (0);
 }
 
+static int	too_many_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	if (i > 2)
+		return (1);
+	return (0);
+}
+
 int	built_cd(char ***envp, int *envp_size, char **cd)
 {
 	char	*value;
@@ -66,7 +78,8 @@ int	built_cd(char ***envp, int *envp_size, char **cd)
 	old_value = getcwd(NULL, 0);
 	if (!old_value)
 	{
-		display_err_with_prefix(cd[0], " No such file or directory\n");
+		display_err_with_2_prefixes(cd[0], cd[1],
+			" No such file or directory\n");
 		return (1);
 	}
 	if (get_chdir_value(envp, envp_size, cd, &value) == -3)
@@ -74,7 +87,9 @@ int	built_cd(char ***envp, int *envp_size, char **cd)
 	if (chdir(value) < 0)
 	{
 		free(old_value);
-		display_err_with_prefix(cd[0], " too many arguments\n");
+		if (too_many_args(cd) == 0 && cd[1])
+			display_err_with_2_prefixes(cd[0], cd[1],
+				" No such file or directory\n");
 		return (1);
 	}
 	else

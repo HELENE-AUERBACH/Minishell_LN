@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/04 13:15:28 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:07:52 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static int	is_allowed(char *s)
 	int	i;
 
 	i = 1;
-	if (!ft_isalpha(s[0]))
+	if (!ft_isalpha(s[0]) && s[0] != '_')
 		return (1);
-	while (s[i] != '\0' && s[i] != '=')
+	while (s[i] != '\0' && s[i] != '=' && s[i] != '_')
 	{
 		if (!ft_isalnum(s[i]))
 			return (1);
@@ -64,8 +64,9 @@ int	modify_environement(char **export, t_list **to_list)
 	{
 		if (is_allowed(export[i]) == 1)
 		{
+			display_err_with_2_prefixes("export", export[i],
+				" not a valid identifier\n");
 			i++;
-			display_err_with_prefix("export", " not a valid identifier\n");
 			continue ;
 		}
 		read = (*to_list);
