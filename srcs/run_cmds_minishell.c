@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 15:09:10 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:26:05 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int	open_pipes_and_run_commands(t_data *d, t_list **start,
 	{
 		if (open_pipe_and_run_command(d, current, &is_piped, ds) < 0)
 			return (-1);
+		close_files_and_free_files_names_without_unlink(t->cmd_d);
 		current = current->next;
 		*start = current;
 		*end = current;
@@ -109,10 +110,8 @@ static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 	if (open_pipes_and_run_commands(d, start, &end) < 0)
 		return (EXIT_FAILURE);
 	t = (t_token *) current->content;
-	while (current && t && t->cmd_d)
+	while (current && t && t->cmd_d && (int) t->cmd_d->pid > 0)
 	{
-		if ((int) t->cmd_d->pid == -1)
-			return (EXIT_FAILURE);
 		w = waitpid(t->cmd_d->pid, &wstatus, 0);
 		current = current->next;
 		empty_dll_before_cur(d->lst, current, del_el_content);
@@ -124,7 +123,9 @@ static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 		return (perror("waitpid failed"), EXIT_FAILURE);
 	if (WIFEXITED(wstatus))
 		return (WEXITSTATUS(wstatus));
-	return (display_error("Last cmd signaled\n"), 128 + WTERMSIG(wstatus));
+	if (WIFSIGNALED(wstatus))
+		return (128 + WTERMSIG(wstatus));
+	return (display_error("Last cmd nor exited, nor signaled\n"), 1);
 }
 
 int	run_commands(t_data *d)
