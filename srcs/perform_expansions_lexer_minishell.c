@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:15:24 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/04/15 17:51:51 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:50:51 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,16 @@ int	perform_expansions(t_dll_el *el_ptr, void *param)
 	{
 		init_utils_data(d, t->src_len);
 		new_src = NULL;
-		while (d[END] < t->src_len)
+		while (d[END]++ < t->src_len)
 		{
 			result = loop_perform_expansions(&new_src, d, t, param);
 			if (result != 0)
 				return (result);
-			d[END]++;
 		}
 		if (d[HAS_EXPANSIONS] == 1)
 			replace_token_src(t, new_src);
+		else if (d[HAS_EXPANSIONS] != 1 && new_src)
+			free(new_src);
 	}
 	return (0);
 }
