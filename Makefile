@@ -6,7 +6,7 @@
 #    By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 17:04:21 by hauerbac          #+#    #+#              #
-#    Updated: 2024/06/04 12:54:02 by jbocktor         ###   ########.fr        #
+#    Updated: 2024/06/06 13:44:57 by hauerbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS =	free_2_minishell.c \
 	run_cmds_3_minishell.c \
 	run_cmds_2_minishell.c \
 	run_cmds_minishell.c \
+	parser_tokens_4_minishell.c \
 	parser_tokens_minishell.c \
 	debug_minishell.c \
 	process_interactive_mode_minishell.c \
