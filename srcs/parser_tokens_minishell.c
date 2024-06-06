@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/15 17:06:27 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:35:53 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,17 +123,25 @@ int	parse_tokens(t_data *d)
 	t_token		*t_cmdbi;
 	int			result;
 	int			is_piped;
+	int			forced;
 
 	if (!(d && d->lst && d->lst->size > 0))
 		return (-2);
 	is_piped = 0;
 	el_ptr = d->lst->head;
 	t_cmdbi = NULL;
-	while (el_ptr)
+	result = 0;
+	forced = 0;
+	while (el_ptr && !(result == 3 || result == -3))
 	{
 		result = find_cmd_or_bi(&t_cmdbi, &is_piped, &el_ptr, d);
 		if (result == 0 && t_cmdbi)
+		{
 			result = add_to_cmds_list(d, t_cmdbi);
+			force_in_redir_of_next_cmdbi(t_cmdbi, &forced, &result);
+		}
+		else if (!(result == 3 || result == -3))
+			forced = 1;
 	}
 	return (result);
 }

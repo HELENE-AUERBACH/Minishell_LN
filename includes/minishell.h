@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/05 12:52:11 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:33:25 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int		check_redir_files(t_dll_el **current, t_data *d,
 int		set_last_redir_files_names(t_token *t_cmdbi,
 			t_dll_el *start_el);
 int		add_to_cmds_list(t_data *d, t_token *t_cmdbi);
+void	force_in_redir_of_next_cmdbi(t_token *t_cmdbi,
+			int *next_has_to_be_forced, int *result);
 int		parse_tokens(t_data *d);
 int		files_open(t_token *t);
 int		check_and_run_bi(t_data *d, t_cmd *bi, int fd2);
