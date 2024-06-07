@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/04 13:16:23 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:40:00 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	change_value(char *content, t_list **to_list)
 	t_list	*read;
 
 	read = *(to_list);
-	while (read)
+	while (read && read->content)
 	{
 		content_envp = (char *)(read->content);
 		if (ft_strn_equal_cmp(content_envp, content,
@@ -77,7 +77,8 @@ static int	change_value(char *content, t_list **to_list)
 			equal = there_is_an_equal(content);
 			if (equal)
 			{
-				free(read->content);
+				if (read->content)
+					free(read->content);
 				read->content = ft_strdup(content);
 				if (!read->content)
 					return (-3);
@@ -93,7 +94,7 @@ int	if_have_to_change(t_list *read, t_list **to_list, char *export)
 {
 	char	*content_envp;
 
-	while (read)
+	while (read && read->content)
 	{
 		content_envp = (char *)(read->content);
 		if (ft_strn_equal_cmp(content_envp, export,

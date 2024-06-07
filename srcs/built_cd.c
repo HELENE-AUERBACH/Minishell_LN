@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/05 15:08:04 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:52:30 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ int	update_pwd_and_old(char ***envp, int *envp_size, char *new_pwd,
 
 	i = 0;
 	value = NULL;
-	free(new_pwd);
+	if (new_pwd)
+		free(new_pwd);
 	new_pwd = getcwd(NULL, 0);
 	if (modify_pwd_value(envp_size, envp, old_pwd, "OLDPWD") == -3)
 		return (3);
 	if (modify_pwd_value(envp_size, envp, new_pwd, "PWD") == -3)
 		return (3);
-	free(old_pwd);
-	free(new_pwd);
+	if (old_pwd)
+		free(old_pwd);
+	if (new_pwd)
+		free(new_pwd);
 	return (0);
 }
 
@@ -77,16 +80,16 @@ int	built_cd(char ***envp, int *envp_size, char **cd)
 
 	old_value = getcwd(NULL, 0);
 	if (!old_value)
-	{
-		display_err_with_2_prefixes(cd[0], cd[1],
-			" No such file or directory\n");
-		return (1);
-	}
+		return (display_err_with_2_prefixes(cd[0], cd[1], \
+				" No such file or directory\n"), 1);
 	if (get_chdir_value(envp, envp_size, cd, &value) == -3)
 		return (3);
 	if (chdir(value) < 0)
 	{
-		free(old_value);
+		if (old_value)
+			free(old_value);
+		if (value)
+			free(value);
 		if (too_many_args(cd) == 0 && cd[1])
 			display_err_with_2_prefixes(cd[0], cd[1],
 				" No such file or directory\n");
