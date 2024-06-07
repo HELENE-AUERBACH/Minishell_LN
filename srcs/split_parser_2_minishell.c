@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:28:07 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/03 21:10:20 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:36:28 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 	if (d[EXT_OPEN_S_QUOTE] == 1 || d[EXT_OPEN_D_QUOTE] == 1)
 	{
 		d[I] = d[J] + 1;
-		if (!is_a_space(src[d[I]]))
+		if (d[I] < d[STR_LEN] && !is_a_space(src[d[I]]))
 			d[END] = -1;
 	}
 	else if (is_a_space(src[d[J]]))
