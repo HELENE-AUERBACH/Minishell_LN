@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/04 12:44:32 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:59:32 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,17 @@ static int	create_list_by_environement(char **tab, t_list **to_list)
 static int	new_environement(char ***envp, int *envp_size, char **export)
 {
 	int		delta;
+	int		return_value;
 	char	**realoc;
 	t_list	*to_list;
 
 	delta = 0;
+	return_value = 0;
 	to_list = NULL;
 	if (create_list_by_environement(*envp, &to_list) == -3)
 		return (-3);
 	free_tab(envp);
-	delta += modify_environement(&export[1], &to_list);
+	delta += modify_environement(&export[1], &to_list, &return_value);
 	if (delta == -3)
 		return (-3);
 	else
@@ -61,7 +63,7 @@ static int	new_environement(char ***envp, int *envp_size, char **export)
 	copy_list_into_tab_and_free_list(realoc, &to_list, *envp_size);
 	realoc[(*envp_size)] = NULL;
 	*envp = realoc;
-	return (0);
+	return (return_value);
 }
 
 void	print_export(char ***envp, int i, int fd)
@@ -93,7 +95,9 @@ void	print_export(char ***envp, int i, int fd)
 int	built_export(char ***envp, int *envp_size, char **export, int fd)
 {
 	int	i;
+	int	return_value;
 
+	return_value = 0;
 	i = 0;
 	while (export[i])
 		i++;
@@ -110,7 +114,8 @@ int	built_export(char ***envp, int *envp_size, char **export, int fd)
 		}
 		return (0);
 	}
-	if (new_environement(envp, envp_size, export) == -3)
-		return (3);
-	return (0);
+	return_value = new_environement(envp, envp_size, export);
+	if (return_value < 0)
+		return_value = return_value * -1;
+	return (return_value);
 }
