@@ -6,13 +6,13 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:13 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/29 13:41:01 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:29:39 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_set(char **unset, char *envp)
+static int	is_set(char **unset, char *envp)
 {
 	int	i;
 	int	len_envp;
@@ -35,7 +35,7 @@ int	is_set(char **unset, char *envp)
 	return (1);
 }
 
-int	create_new_list(t_list **new, char ***envp, int pos)
+static int	create_new_list(t_list **new, char ***envp, int pos)
 {
 	char	*content;
 

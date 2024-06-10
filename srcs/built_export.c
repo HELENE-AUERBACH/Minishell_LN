@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:54:16 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/10 13:59:32 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:28:56 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	new_environement(char ***envp, int *envp_size, char **export)
 	return (return_value);
 }
 
-void	print_export(char ***envp, int i, int fd)
+static void	print_export(char ***envp, int i, int fd)
 {
 	int		y;
 	char	*string;
