@@ -6,13 +6,13 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/29 13:24:01 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:27:28 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	transform_to_list(t_list **to_list, char ***envp, char *equal_exp,
+static int	transform_to_list(t_list **to_list, char ***envp, char *equal_exp,
 		char *value)
 {
 	char	*content;
@@ -42,7 +42,7 @@ int	transform_to_list(t_list **to_list, char ***envp, char *equal_exp,
 	return (0);
 }
 
-int	add_value_for_pwd(char ***envp, char *equal_exp, int *envp_size,
+static int	add_value_for_pwd(char ***envp, char *equal_exp, int *envp_size,
 		char *value)
 {
 	t_list	*to_list;
@@ -62,7 +62,8 @@ int	add_value_for_pwd(char ***envp, char *equal_exp, int *envp_size,
 	return (0);
 }
 
-int	change_value_for_pwd(char ***envp, char *exp, char *equal_exp, char *value)
+static int	change_value_for_pwd(char ***envp, char *exp, char *equal_exp,
+		char *value)
 {
 	int	i;
 

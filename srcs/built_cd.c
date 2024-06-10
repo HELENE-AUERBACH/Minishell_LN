@@ -6,13 +6,13 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/07 15:52:30 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:28:20 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	update_pwd_and_old(char ***envp, int *envp_size, char *new_pwd,
+static int	update_pwd_and_old(char ***envp, int *envp_size, char *new_pwd,
 		char *old_pwd)
 {
 	char	*value;
@@ -34,7 +34,8 @@ int	update_pwd_and_old(char ***envp, int *envp_size, char *new_pwd,
 	return (0);
 }
 
-int	get_chdir_value(char ***envp, int *envp_size, char **cd, char **value)
+static int	get_chdir_value(char ***envp, int *envp_size, char **cd,
+		char **value)
 {
 	int	i;
 
@@ -80,7 +81,7 @@ int	built_cd(char ***envp, int *envp_size, char **cd)
 
 	old_value = getcwd(NULL, 0);
 	if (!old_value)
-		return (display_err_with_2_prefixes(cd[0], cd[1], \
+		return (display_err_with_2_prefixes(cd[0], cd[1],
 				" No such file or directory\n"), 1);
 	if (get_chdir_value(envp, envp_size, cd, &value) == -3)
 		return (3);
