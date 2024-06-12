@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:13 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/10 15:29:39 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:31:03 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ int	built_unset(char ***envp, int *envp_size, char **unset)
 
 	i = 0;
 	to_list = NULL;
+	if (unset[1][0] == '-')
+	{
+		display_err_with_2_prefixes(unset[0], unset[1], " invalid option\n");
+		return (1);
+	}
 	delta = create_list_by_tab(envp, unset, &to_list);
 	if (delta == -3)
 		return (3);

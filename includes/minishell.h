@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/06 14:33:25 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:47:11 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		built_env(char **envp, char **arg_env, int fd);
 int		built_exit(t_data *d, char **exit_args);
 int		built_export(char ***envp, int *envp_size, char **export,
 			int fd);
-int		modify_environement(char **export, t_list **to_list);
+int		modify_environement(char **export, t_list **to_list, int *return_value);
 int		ft_strn_equal_cmp(const char *s1, const char *s2, size_t n);
 size_t	ft_str_equal_len(const char *s);
 int		if_have_to_change(t_list *read, t_list **to_list, char *export);
