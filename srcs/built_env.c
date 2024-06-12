@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:09:00 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/04 12:57:26 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:41:25 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ int	built_env(char **envp, char **env, int fd)
 	i = 0;
 	while (env[i])
 		i++;
+	if (env[1][0] == '-')
+	{
+		return (display_err_with_2_prefixes(env[0], env[1], \
+				" invalid option\n"), 1);
+	}
 	if (i > 1)
 	{
-		display_err_with_prefix(env[1], " No such file or directory\n");
-		return (0);
+		return (display_err_with_prefix(env[1], " invalid argument\n"), 1);
 	}
 	i = 0;
 	while (envp[i])

@@ -6,7 +6,7 @@
 /*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:44 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/10 15:28:20 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:20:51 by jbocktor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	get_chdir_value(char ***envp, int *envp_size, char **cd,
 		if (!(*value))
 		{
 			display_err_with_prefix(cd[0], " HOME not set\n");
-			return (0);
+			return (-1);
 		}
 	}
 	else if (i == 2)
@@ -77,14 +77,16 @@ static int	too_many_args(char **args)
 int	built_cd(char ***envp, int *envp_size, char **cd)
 {
 	char	*value;
+	int		return_value;
 	char	*old_value;
 
+	return_value = get_chdir_value(envp, envp_size, cd, &value);
+	if (return_value < 0)
+		return (return_value * -1);
 	old_value = getcwd(NULL, 0);
 	if (!old_value)
-		return (display_err_with_2_prefixes(cd[0], cd[1],
+		return (display_err_with_2_prefixes(cd[0], cd[1], \
 				" No such file or directory\n"), 1);
-	if (get_chdir_value(envp, envp_size, cd, &value) == -3)
-		return (3);
 	if (chdir(value) < 0)
 	{
 		if (old_value)
@@ -92,7 +94,7 @@ int	built_cd(char ***envp, int *envp_size, char **cd)
 		if (value)
 			free(value);
 		if (too_many_args(cd) == 0 && cd[1])
-			display_err_with_2_prefixes(cd[0], cd[1],
+			display_err_with_2_prefixes(cd[0], cd[1], \
 				" No such file or directory\n");
 		return (1);
 	}
