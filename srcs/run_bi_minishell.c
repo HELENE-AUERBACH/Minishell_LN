@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_bi_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 13:09:29 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/05/22 20:04:49 by hauerbac         ###   ########.fr       */
+/*   Created: 2024/05/14 15:56:35 by hauerbac          #+#    #+#             */
+/*   Updated: 2024/07/03 14:14:25 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	check_and_run_bi(t_data *d, t_cmd *bi, int fd2)
 		if (ft_strncmp("echo", bi->cmd, 4) == 0)
 			return (built_echo(bi->args, fd2));
 		if (ft_strncmp("cd", bi->cmd, 2) == 0)
-			return (built_cd(&d->envp, &d->envp_size, bi->args));
+			return (built_cd(&d->envp, &d->envp_size, bi->args, \
+						fd2));
 		if (ft_strncmp("pwd", bi->cmd, 3) == 0)
-			return (built_pwd(bi->args));
+			return (built_pwd(bi->args, fd2));
 		if (ft_strncmp("export", bi->cmd, 6) == 0)
-			return (built_export(&d->envp, &d->envp_size, bi->args,
-					fd2));
+			return (built_export(&d->envp, &d->envp_size, \
+						bi->args, fd2));
 		if (ft_strncmp("unset", bi->cmd, 5) == 0)
 			return (built_unset(&d->envp, &d->envp_size, bi->args));
 		if (ft_strncmp("env", bi->cmd, 3) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/12 12:25:51 by jbocktor         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:06:00 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define PARENT_CLOSE_OUT_ERR "In fork-Parent-Output file close error"
 # define BI_REDIR_IN_ERR "run_bi_without_fork-Input file redirection error"
 # define BI_REDIR_OUT_ERR "run_bi_without_fork-Output file redirection error"
+# define WRONG_CWD_1 "chdir: error retrieving current directory"
+# define WRONG_CWD_2 " getcwd: cannot access parent directories"
 
 # include "lexer_minishell.h"
 # include <sys/stat.h>
@@ -59,6 +61,7 @@ int		perr_cds(t_data *d, const char *s, int pipedescriptors[3],
 void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
 			int pipedescr[3], int is_piped);
 void	close_ds_in_parent(t_token *t, int ds[3], int is_piped);
+void	copy_pwd_var_into_env(char **envp, int envp_size);
 void	copy_environment(t_data *d, char **envp);
 void	free_tab_with_size(char ***tab, int size);
 void	free_cmd_d_without_unlink(t_cmd *cmd_d);
@@ -91,21 +94,20 @@ int		files_open(t_token *t);
 int		check_and_run_bi(t_data *d, t_cmd *bi, int fd2);
 int		run_bi_without_fork(t_data *d, t_token *t);
 void	set_signals_actions_in_fork(t_dll *lst, t_list *current);
-int		built_cd(char ***envp, int *envp_size, char **cd);
-int		modify_pwd_value(int *envp_size, char ***envp, char *new_value,
-			char *exp);
-int		built_echo(char **echo, int fd);
-int		built_env(char **envp, char **arg_env, int fd);
-int		built_exit(t_data *d, char **exit_args);
-int		built_export(char ***envp, int *envp_size, char **export,
+int		updenv(char ***envp, int *envp_size, char *var_name,
+			char *var_value);
+int		built_cd(char ***envp, int *envp_size, char **args, int fd);
+int		built_echo(char **args, int fd);
+int		built_env(char **envp, char **args, int fd);
+int		built_exit(t_data *d, char **args);
+int		var_name_found_in_env(char *envp_at_idx_i, char *var_name,
+			size_t var_name_len);
+int		update_envp_with_var(char ***envp, int *envp_size, char *var,
+			int i);
+int		built_export(char ***envp, int *envp_size, char **args,
 			int fd);
-int		modify_environement(char **export, t_list **to_list,
-			int *return_value);
-int		ft_strn_equal_cmp(const char *s1, const char *s2, size_t n);
-size_t	ft_str_equal_len(const char *s);
-int		if_have_to_change(t_list *read, t_list **to_list, char *export);
-int		built_pwd(char **pwd);
-int		built_unset(char ***envp, int *envp_size, char **unset);
+int		built_pwd(char **args, int fd);
+int		built_unset(char ***envp, int *envp_size, char **args);
 void	run_bi_in_fork(t_data *d, t_token *t, int ds[3], t_list *current);
 int		check_error_on_command(char *cmd);
 void	run_command(t_data *d, t_token *t, int ds[3], t_list *current);
