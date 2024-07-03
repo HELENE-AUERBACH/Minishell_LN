@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:51:27 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/17 14:37:47 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:14:40 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_new_shell_level(void)
 
 static void	exit_when_error_on_envp_copy(t_data *d, int j)
 {
-	while (j > 0)
+	while (j > 0 && d->envp[j - 1])
 		free(d->envp[--j]);
 	free(d->envp);
 	d->envp = NULL;
@@ -102,7 +102,7 @@ void	copy_environment(t_data *d, char **envp)
 	to_be_copied = 0;
 	shlvl_new = get_new_shell_level();
 	if (d->envp_size == 0)
-		d->envp_size = 1;
+		d->envp_size = 2;
 	else
 		to_be_copied = 1;
 	d->envp = (char **) malloc((d->envp_size + 1) * sizeof(char *));
@@ -110,10 +110,11 @@ void	copy_environment(t_data *d, char **envp)
 		copy_environment_strings(d, envp, shlvl_new);
 	else if (d->envp && !to_be_copied)
 	{
-		d->envp[0] = (char *) malloc((7 + 1) * sizeof(char));
-		if (!d->envp[0])
-			exit_when_error_on_envp_copy(d, 0);
-		ft_strlcpy(d->envp[0], shlvl_new, 7 + 1);
+		copy_pwd_var_into_env(d->envp, d->envp_size);
+		d->envp[1] = (char *) malloc((7 + 1) * sizeof(char));
+		if (!d->envp[0] || !d->envp[1])
+			exit_when_error_on_envp_copy(d, 1);
+		ft_strlcpy(d->envp[1], shlvl_new, 7 + 1);
 	}		
 	if (shlvl_new)
 		free(shlvl_new);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_exit.c                                       :+:      :+:    :+:   */
+/*   built_in_exit_minishell.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbocktor <jbocktor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 13:09:03 by jbocktor          #+#    #+#             */
-/*   Updated: 2024/06/12 11:27:59 by jbocktor         ###   ########.fr       */
+/*   Created: 2024/06/25 13:34:39 by hauerbac          #+#    #+#             */
+/*   Updated: 2024/06/25 16:29:06 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ static int	too_many_args(char **args)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (args[i])
+	{
 		i++;
+	}
 	if (i > 2)
 		return (1);
 	return (0);
 }
 
-static long long	get_value(char *exit_value)
+static long long	get_value(int *error, char *exit_value)
 {
 	int					sign;
 	char				*endptr;
@@ -34,7 +36,9 @@ static long long	get_value(char *exit_value)
 	uval = ft_strtoll(exit_value, &endptr, &sign);
 	if (endptr && (endptr == exit_value || endptr[0] != '\0'))
 	{
-		display_err_with_prefix(exit_value, " numeric argument required\n");
+		display_err_with_prefix(exit_value, \
+					" numeric argument required\n");
+		*error = 1;
 		return (2);
 	}
 	return (uval * sign);
@@ -43,14 +47,17 @@ static long long	get_value(char *exit_value)
 int	built_exit(t_data *d, char **args)
 {
 	long long	value;
+	int			error;
 
 	if (!args[1])
 		value = d->return_code;
 	else
 	{
-		if (too_many_args(args))
-			display_err_with_prefix(args[0], " too many arguments\n");
-		value = get_value(args[1]);
+		error = 0;
+		value = get_value(&error, args[1]);
+		if (!error && too_many_args(args))
+			return (display_err_with_prefix(args[0], \
+						" too many arguments\n"), 1);
 	}
 	empty_list(&d->cmds);
 	empty_list(&d->new_files);
@@ -58,5 +65,5 @@ int	built_exit(t_data *d, char **args)
 	if (is_in_interactive_mode())
 		rl_clear_history();
 	free_data(d);
-	exit(value % 256);
+	exit (value % 256);
 }
