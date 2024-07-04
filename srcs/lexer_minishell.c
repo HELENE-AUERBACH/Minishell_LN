@@ -6,11 +6,18 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:09 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/20 12:39:27 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:34:38 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
+
+void	init_utils_data_and_new_src(int *utils_data, char **new_src,
+		int str_len)
+{
+	init_utils_data(utils_data, str_len);
+	*new_src = NULL;
+}
 
 int	get_end_index_of_file_or_delimiter_name(int *i, const char *str)
 {

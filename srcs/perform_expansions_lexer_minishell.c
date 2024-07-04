@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:15:24 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/06 11:50:51 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:37:00 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ int	perform_expansions(t_dll_el *el_ptr, void *param)
 	if (t->type == S_IN_REDI || t->type == HEREDOC || t->type == S_OUT_REDI
 		|| t->type == COMMAND || t->type == D_OUT_REDI || t->type == BI)
 	{
-		init_utils_data(d, t->src_len);
-		new_src = NULL;
-		while (d[END]++ < t->src_len)
+		init_utils_data_and_new_src(d, &new_src, t->src_len);
+		while (d[END] < t->src_len)
 		{
 			result = loop_perform_expansions(&new_src, d, t, param);
 			if (result != 0)
 				return (result);
+			d[END]++;
 		}
 		if (d[HAS_EXPANSIONS] == 1)
 			replace_token_src(t, new_src);
