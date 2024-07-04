@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:28:48 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/05 11:56:28 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:20:00 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_error_or_sign_and_base(unsigned int boundaries[2],
 	*base = 0;
 	result = 1;
 	*i = ft_spaces_truncating(str);
-	if (str[*i] && (str[*i] == '+' || str[*i] == '-'))
+	if (str[*i] && (str[*i] == '+' || str[*i] == '-') && str[(*i) + 1])
 	{
 		if (str[*i] == '-')
 			result = -1 * result;
