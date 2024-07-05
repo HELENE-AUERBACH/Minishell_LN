@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:35:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/04/15 16:32:01 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:49:22 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	find_boundaries_of_redirection(int *type, int *j,
 		d->i++;
 		while (is_a_space(str[d->i]))
 			d->i++;
-		if (has_wrong_start(str[d->i]))
+		if (has_wrong_start(str[d->i], str[*j]))
 			return (-2);
 	}
 	*j = get_end_index_of_file_or_delimiter_name(&d->i, str);
@@ -52,7 +52,7 @@ static int	extract_redirection(t_tokenizer_data *d, const char *str)
 		d->i++;
 		while (is_a_space(str[d->i]))
 			d->i++;
-		if (has_wrong_start(str[d->i]))
+		if (has_wrong_start(str[d->i], str[j]))
 			return (-2);
 		type = 0;
 		if (find_boundaries_of_redirection(&type, &j, d, str) < 0)
