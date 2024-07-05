@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:07:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/16 14:00:11 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:52:50 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	remove_first_spaces_and_ext_quotes(t_token *t)
 		s = NULL;
 	}
 	if ((t->type == COMMAND || t->type == BI) && t->src_len > 1
-		&& has_wrong_start(t->src[0]))
+		&& has_wrong_start(t->src[0], '\0'))
 		return (2);
 	return (0);
 }

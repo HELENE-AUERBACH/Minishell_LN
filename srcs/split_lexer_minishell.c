@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:06:54 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/07 18:40:07 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:51:25 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	split_in_tokens(const char *str, t_dll *lst)
 		d.i = suppress_spaces(d.i, d.data, str);
 		if (d.data[STR_LEN] - d.i <= 0)
 			break ;
-		if (has_wrong_start(str[d.i]))
+		if (has_wrong_start(str[d.i], '\0'))
 			return (2);
 		d.data[START] = d.i;
 		d.data[END] = d.i;

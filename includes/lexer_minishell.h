@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/04 18:03:37 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:58:58 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ void				check_simple_quotes(int i, int *data,
 						const char *str);
 void				check_parenthesis(int i, int *data,
 						const char *str);
-int					has_wrong_start(const char c);
+int					has_wrong_start(const char c,
+						const char c2);
 int					has_wrong_format(int *data,
 						const char *str);
 int					get_end_index_of_file_or_delimiter_name(

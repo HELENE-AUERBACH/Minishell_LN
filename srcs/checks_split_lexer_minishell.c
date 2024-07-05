@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:28:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/04/15 16:18:13 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:57:52 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,15 @@ int	has_wrong_format(int *data, const char *str)
 	return (0);
 }
 
-int	has_wrong_start(const char c)
+int	has_wrong_start(const char c, const char c2)
 {
 	if (is_a_command_separator(c))
-		return (display_syntax_error(c), 1);
+	{
+		if (c != '\0')
+			display_syntax_error(c);
+		else
+			display_syntax_error(c2);
+		return (1);
+	}
 	return (0);
 }
