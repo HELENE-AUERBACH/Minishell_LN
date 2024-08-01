@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:28:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/27 19:18:57 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:53:17 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ void	sigquit_handler_in_fork(int signo)
 	return ;
 }
 
-void	heredoc_handler_in_fork(int signo)
+void	heredoc_handler_in_main(int signo)
 {
 	(void) signo;
-	close(0);
 	g_exit_status = 130;
+	if (close(STDIN_FILENO) == -1)
+		perror("STDIN_FILENO close error");
 	return ;
 }

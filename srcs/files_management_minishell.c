@@ -6,7 +6,7 @@
 /*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/28 15:54:34 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:46:37 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	open_file(t_list **new_files, t_list **cmd_new_files, t_token *t,
 }
 
 static int	open_in_file_and_close_prev(t_list **new_files,
-			t_list **cmd_new_files, t_data *d, t_dll_el *current)
+			t_list **cmd_new_files, t_dll_el *current)
 {
 	char		*file_name;
 	t_token		*t;
@@ -73,7 +73,7 @@ static int	open_in_file_and_close_prev(t_list **new_files,
 		return (-1);
 	if (current && current->prev && close_previous_file(current->prev) < 0)
 		return (-2);
-	if (t->type == HEREDOC && create_heredoc_file(d, t, current) < 0)
+	if (t->type == HEREDOC && create_heredoc_file(t, current) < 0)
 		return (-4);
 	file_name = NULL;
 	if (t->type == S_IN_REDI)
@@ -111,7 +111,7 @@ int	check_files_for_in_redirections(t_dll_el **current,
 				d->cmd_new_files, is_in_piped) < 0))
 			return (-1 * t->position);
 		if (open_in_file_and_close_prev(&d->new_files, \
-			&d->cmd_new_files, d, *current) < 0)
+			&d->cmd_new_files, *current) != 0)
 			return (-1 * t->position);
 		*current = (*current)->next;
 		if (*current)

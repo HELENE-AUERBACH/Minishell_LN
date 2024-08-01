@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/03 14:06:00 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:27:10 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int		is_a_pipe_or_ctrloperator(enum e_token_types type);
 t_token	*cast_dll_el_into_token(t_dll_el **current);
 int		open_file(t_list **new_files, t_list **cmd_new_files,
 			t_token *t, char *file_name);
-int		write_here_doc_file(t_data *d, t_cmd *cmd_d, t_list *cur);
-int		create_heredoc_file(t_data *d, t_token *t, t_dll_el *prev);
+int		write_here_doc_file(t_cmd *cmd_d);
+int		create_heredoc_file(t_token *t, t_dll_el *prev);
 int		check_files_for_in_redirections(t_dll_el **current,
 			int redir_error_first_position, t_data *d,
 			int is_in_piped);
