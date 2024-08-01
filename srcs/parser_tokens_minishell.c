@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/06 14:35:53 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:44:43 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ static int	find_cmd_or_bi(t_token **t_cmdbi, int *is_piped,
 	{
 		ignore_others_redirections(current);
 		result = 1;
+		if (g_exit_status != 0)
+			result = g_exit_status;
 	}
 	handle_a_command_or_a_bi(t_cmdbi, current, result);
 	if (t_cmdbi && *t_cmdbi && (*t_cmdbi)->cmd_d && (*t_cmdbi)->cmd_d->args
@@ -140,7 +142,7 @@ int	parse_tokens(t_data *d)
 			result = add_to_cmds_list(d, t_cmdbi);
 			force_in_redir_of_next_cmdbi(t_cmdbi, &forced, &result);
 		}
-		else if (!(result == 3 || result == -3))
+		else if (!(result == 3 || result == -3 || g_exit_status == 130))
 			forced = 1;
 	}
 	return (result);

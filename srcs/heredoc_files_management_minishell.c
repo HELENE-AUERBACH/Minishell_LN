@@ -3,42 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_files_management_minishell.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 12:26:58 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:03:25 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	open_and_write_here_doc_file_in_fork(t_data *d, t_token *t,
-			t_list *cur)
+static int	open_and_write_here_doc_file(t_token *t)
 {
-	pid_t	pid;
-	int		wstatus;
-	int		res;
+	int	fd0;
+	int	res;
 
-	pid = fork();
-	if (pid == -1)
-		return (display_error("Fork error"), -1);
-	if (pid == 0)
-	{
-		t->cmd_d->fd1 = open(t->cmd_d->file1, \
-			O_WRONLY | O_CREAT | O_TRUNC, 0600);
-		if (t->cmd_d->fd1 == -1)
-			return (display_error("T.f.cre.e\n"), free_data(d), -4);
-		res = write_here_doc_file(d, t->cmd_d, cur);
-		if (t->cmd_d->fd1 != -1 && close(t->cmd_d->fd1) == -1)
-			return (display_error("T.f.clo.e\n"), free_data(d), -6);
-		t->cmd_d->fd1 = -1;
-		return (ft_lstclear(&d->cmds, del_el_content), free_data(d), \
-			res);
-	}
-	if (waitpid(pid, &wstatus, 0) <= 0)
-		return (display_error("waitpid failed"), -2);
-	if (g_exit_status == 0 && WIFEXITED(wstatus))
-		return (WEXITSTATUS(wstatus));
+	fd0 = dup(STDIN_FILENO);
+	if (fd0 == -1)
+		return (display_error("STDIN_FILENO dup failed"), -8);
+	t->cmd_d->fd1 = open(t->cmd_d->file1, O_WRONLY | O_CREAT | O_TRUNC, \
+				0600);
+	if (t->cmd_d->fd1 == -1)
+		return (display_error("Temporary file creation error\n"), -4);
+	res = write_here_doc_file(t->cmd_d);
+	if (t->cmd_d->fd1 != -1 && close(t->cmd_d->fd1) == -1)
+		return (display_error("Temporary file close error\n"), -6);
+	t->cmd_d->fd1 = -1;
+	set_signals_actions();
+	if (dup2(fd0, STDIN_FILENO) == -1)
+		return (display_error("STDIN_FILENO dup2 failed"), -7);
+	if (close(fd0) != 0)
+		return (display_error("STDIN_FILENO dup des. close error"), -9);
+	if (g_exit_status == 0)
+		return (res);
 	return (g_exit_status);
 }
 
@@ -70,10 +66,8 @@ static char	*get_file_name_for_heredoc(char *limiter, t_dll_el *prev)
 	return (file_name);
 }
 
-int	create_heredoc_file(t_data *d, t_token *t, t_dll_el *current)
+int	create_heredoc_file(t_token *t, t_dll_el *current)
 {
-	t_list	*curr;
-
 	t->cmd_d->limiter = (char *) malloc((t->src_len + 1) * sizeof(char));
 	if (!t->cmd_d->limiter)
 		return (-3);
@@ -83,16 +77,8 @@ int	create_heredoc_file(t_data *d, t_token *t, t_dll_el *current)
 							current->prev);
 	if (!t->cmd_d->file1)
 		return (free_cmd_d(&t->cmd_d), -3);
-	curr = (t_list *) current;
-	if (open_and_write_here_doc_file_in_fork(d, t, curr) < 0)
-	{
-		close(t->cmd_d->fd1);
-		t->cmd_d->fd1 = -1;
+	if (open_and_write_here_doc_file(t) < 0)
 		return (display_error("Temporary file writing error\n"), -5);
-	}
-	if (t->cmd_d->fd1 != -1 && close(t->cmd_d->fd1) == -1)
-		return (perror("Temporary input just created file close error"),
-			-6);
 	return (g_exit_status);
 }
 

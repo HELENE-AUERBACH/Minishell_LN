@@ -6,7 +6,7 @@
 /*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/05 11:58:58 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:20:51 by hauerbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void				display_err_with_2_prefixes(const char *prefix1,
 void				sigint_handler_in_main(int signo);
 void				sigint_handler_in_fork(int signo);
 void				sigquit_handler_in_fork(int signo);
-void				heredoc_handler_in_fork(int signo);
+void				heredoc_handler_in_main(int signo);
+void				set_signals_actions(void);
 void				close_in_file_and_free_file_name(t_cmd *cmd_d);
 void				close_out_file_and_free_file_name(t_cmd *cmd_d);
 char				*ft_strjoin_with_free(char *s1, char *s2);
