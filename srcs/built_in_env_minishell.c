@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_env_minishell.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:20:12 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/28 12:31:38 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:22:35 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                        print_env_vars_with_a_value                         */
+/* -------------------------------------------------------------------------- */
+/* This function writes into fd every variables contained into envp that have */
+/* an associated value (contained "=") follow by '\n'                         */
+/* rq : if envp[i] begin with "_=" but isn't "_=env" then we replace envp[i]  */
+/* by it                                                                      */
+/* Inputs :                                                                   */
+/*  - char **envp : the system environment datas                              */
+/*  - int fd : the output file descriptor                                     */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	print_env_vars_with_a_value(char **envp, int fd)
 {
 	int		i;
@@ -40,6 +53,17 @@ static void	print_env_vars_with_a_value(char **envp, int fd)
 	}
 }
 
+/* ************************************************************************** */
+/*                        is_there_a_special_parameter                        */
+/* -------------------------------------------------------------------------- */
+/* This function checks if envp contained a "special parameter" (one that     */
+/* begin with "_=")                                                           */
+/* Inputs :                                                                   */
+/*  - char **envp : the system environment datas                              */
+/* Return :                                                                   */
+/*  - 1 : if envp contained a "special parameter"                             */
+/*  - 0 : otherwise                                                           */
+/* ************************************************************************** */
 static int	is_there_a_special_parameter(char **envp)
 {
 	int	i;
@@ -54,6 +78,21 @@ static int	is_there_a_special_parameter(char **envp)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                                 built_env                                  */
+/* -------------------------------------------------------------------------- */
+/* This function writes into fd every variables contained into envp that have */
+/* an associated value (contained "=") follow by '\n'                         */
+/* rq : if no special parameter exist in envp then we write (into fd ouput)   */
+/* "_=env\n" after the last variable                                          */
+/* Inputs :                                                                   */
+/*  - char **envp : the system environment datas                              */
+/*  - char **args         */
+/*  - int fd : the output file descriptor                                     */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	built_env(char **envp, char **args, int fd)
 {
 	int	i;

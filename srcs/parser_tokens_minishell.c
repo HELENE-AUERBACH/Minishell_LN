@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tokens_minishell.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/31 17:44:43 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:21:05 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                       find_next_pipe_or_ctrloperator                       */
+/* -------------------------------------------------------------------------- */
+/* This function looks for the next token of type pipe or control operator    */
+/* the type of this token is saved in t_cmdbi                                 */
+/* Inputs :                                                                   */
+/*  - t_token **t_cmdbi      */
+/*  - int *is_piped      */
+/*  - t_dll_el **current      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	find_next_pipe_or_ctrloperator(t_token **t_cmdbi, int *is_piped,
 			t_dll_el **current)
 {
@@ -41,6 +53,16 @@ static void	find_next_pipe_or_ctrloperator(t_token **t_cmdbi, int *is_piped,
 		(*t_cmdbi)->cmd_d->is_out_piped = *is_piped;
 }
 
+/* ************************************************************************** */
+/*                         ignore_others_redirections                         */
+/* -------------------------------------------------------------------------- */
+/* This function ignores consecutives redirections and moves until the next   */
+/* token that isn't a redirection or, if no such token exist, until NULL.     */
+/* Input :                                                                    */
+/*  - t_dll_el **current      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	ignore_others_redirections(t_dll_el **current)
 {
 	t_token	*t;
@@ -60,6 +82,19 @@ static void	ignore_others_redirections(t_dll_el **current)
 	}
 }
 
+/* ************************************************************************** */
+/*                          handle_a_command_or_a_bi                          */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the token is of type COMMAND or BI (builts in). If */
+/* that is the case and no problems where encounter with the redirections,    */
+/* the "command" is split to separate the command name and its arguments      */
+/* Input :                                                                    */
+/*  - t_token **t_cmdbi      */
+/*  - t_dll_el **current      */
+/*  - int result_of_check_files_for_redirections      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	handle_a_command_or_a_bi(t_token **t_cmdbi, t_dll_el **current,
 			int result_of_check_files_for_redirections)
 {
@@ -89,6 +124,26 @@ static void	handle_a_command_or_a_bi(t_token **t_cmdbi, t_dll_el **current,
 	}
 }
 
+/* ************************************************************************** */
+/*                               find_cmd_or_bi                               */
+/* -------------------------------------------------------------------------- */
+/* This function ???                  */
+/* To do so we checks the redirection files. If a problem occured then others */
+/* redirections are ignored                                                   */
+/* Then we check if the token is a command type or a built in type (if it is  */
+/* a command type then the command is split)                                  */
+/* After that we looks for the last input and output redirection as well as   */
+/* the next pipe or control operator                                          */
+/* the elements of cmd_new_files are free and clear                           */
+/* Inputs :                                                                   */
+/*  - t_token **t_cmdbi      */
+/*  - int *is_piped      */
+/*  - t_dll_el **current      */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	find_cmd_or_bi(t_token **t_cmdbi, int *is_piped,
 			t_dll_el **current, t_data *d)
 {
@@ -119,6 +174,19 @@ static int	find_cmd_or_bi(t_token **t_cmdbi, int *is_piped,
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                                parse_tokens                                */
+/* -------------------------------------------------------------------------- */
+/* This function finds for each node of the dll (as long as no error occured) */
+/* the command or builtin (???) */
+/* then, the command is add to commands list and a force redirection is done  */
+/* when needed                                                                */
+/* Input :                                                                    */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	parse_tokens(t_data *d)
 {
 	t_dll_el	*el_ptr;

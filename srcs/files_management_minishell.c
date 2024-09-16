@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   files_management_minishell.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/31 16:46:37 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:30:53 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                           save_created_file_name                           */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the file exist. If it doesn't exist then filename  */
+/* is added at the end of new_files and at the end of cmd_new_files lists     */
+/* Inputs :                                                                   */
+/*  - t_list **new_files :     */
+/*  - t_list **cmd_new_files :     */
+/*  - char *file_name : the name of the file to check and optionally add      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - 3 : otherwise (malloc error)                                            */
+/* ************************************************************************** */
 static int	save_created_file_name(t_list **new_files,
 			t_list **cmd_new_files, char *file_name)
 {
@@ -32,6 +45,26 @@ static int	save_created_file_name(t_list **new_files,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                                 open_file                                  */
+/* -------------------------------------------------------------------------- */
+/* This function opens the file that needed t be open with the expected       */
+/* options and save their name and fd (file descriptor) into file1 and fd1    */
+/* (if input redirection) or file2 and fd2 (if output redirection)            */
+/* First the type of the token is check to deetermined if we are preparing    */
+/* for an input redirection oor an output redirection.                        */
+/* If the type isn't "heredoc" the the file1 or file2 name is update          */
+/* Then the file is open (if output file doesn't exist it is created and add  */
+/* to new_files and cmd_new_files lists                                       */
+/* Inputs :                                                                   */
+/*  - t_list **new_files :     */
+/*  - t_list **cmd_new_files :     */
+/*  - t_token *t :     */
+/*  - char *file_name : */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	open_file(t_list **new_files, t_list **cmd_new_files, t_token *t,
 		char *file_name)
 {
@@ -62,6 +95,22 @@ int	open_file(t_list **new_files, t_list **cmd_new_files, t_token *t,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                        open_in_file_and_close_prev                         */
+/* -------------------------------------------------------------------------- */
+/* This function closes files previously open, creates if needed a temporary  */
+/* file for "heredoc". The input filename (existing file or temporary file)   */
+/* is saved and the file in question is open                                  */
+/*  */
+/* Inputs :                                                                   */
+/*  - t_list **new_files      */
+/*  - t_list **cmd_new_files      */
+/*  - t_dll_el *current      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// I need to add what cast_dll_el_into_token do to the description
 static int	open_in_file_and_close_prev(t_list **new_files,
 			t_list **cmd_new_files, t_dll_el *current)
 {
@@ -92,6 +141,26 @@ static int	open_in_file_and_close_prev(t_list **new_files,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                      check_files_for_in_redirections                       */
+/* -------------------------------------------------------------------------- */
+/* This function cleans, for every input redirection,  the string "t->src" by */
+/* removing spaces present at the beginning of src as well as the external    */
+/* quotes (if needed)                                                         */
+/* Then we check if we have an input redirection and if the file concerned    */
+/* exist and if we have the needed rights                                     */
+/* if files where previously open they are closed before we open the new      */
+/* needed files                                                               */
+/* Inputs :                                                                   */
+/*  - t_dll_el **current      */
+/*  - int redir_error_first_position      */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - int is_in_piped      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// I need to add what cast_dll_el_into_token do to the description
 int	check_files_for_in_redirections(t_dll_el **current,
 		int redir_error_first_position, t_data *d, int is_in_piped)
 {

@@ -3,15 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   perform_expansions_lexer_minishell.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:15:24 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/04 14:37:00 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:31:12 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                              is_a_special_char                             */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the char receive as input is a "special char".     */
+/* a "special char" is a single or a double quote, percent, dollar, opening   */
+/* or closing bracket, tilde, grave, ampersand, question mark, semicolon,     */
+/* opening or closing parenthesis, opening or closing square bracket,         */
+/* asterisk, plus, minus, '@', colon, dot, comma, slash, equal, pipe or       */
+/* new line)                                                                  */
+/* Input :                                                                    */
+/*  - const char c : the char to check                                        */
+/* Return :                                                                   */
+/*  - 1 : if the char given in input is a "special char"                      */
+/*  - 0 : othewrwise                                                          */
+/* ************************************************************************** */
 int	is_a_special_char(const char c)
 {
 	if (is_a_space(c) || c == '\'' || c == '"' || c == '%' || c == '$'
@@ -24,6 +39,18 @@ int	is_a_special_char(const char c)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                              init_utils_data                               */
+/* -------------------------------------------------------------------------- */
+/* This function initialises the utils_data structure received in arguments   */
+/* This structure contained datas about the command line overall and actual   */
+/* state                                                                      */
+/* Input :                                                                    */
+/*  - t_data *d : the structure to initialise                                 */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - 1 othewrwise                                                            */
+/* ************************************************************************** */
 void	init_utils_data(int *utils_data, int str_len)
 {
 	utils_data[STR_LEN] = str_len;
@@ -38,6 +65,19 @@ void	init_utils_data(int *utils_data, int str_len)
 	utils_data[HAS_EXPANSIONS] = 0;
 }
 
+/* ************************************************************************** */
+/*                             replace_token_src                              */
+/* -------------------------------------------------------------------------- */
+/* This function replaces t->src with new_src (if it exist, otherwise it is   */
+/* replace by a void string).                                                 */
+/* The length of the src is then updates with the length of new_src           */
+/* Inputs :                                                                   */
+/*  - t_token *t  */
+/*  - char *new_src : the sub-string that defines the token                   */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - 3 : othewrwise (malloc error)                                           */
+/* ************************************************************************** */
 static int	replace_token_src(t_token *t, char *new_src)
 {
 	if (t)
@@ -56,6 +96,19 @@ static int	replace_token_src(t_token *t, char *new_src)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                           perform_one_expansion                            */
+/* -------------------------------------------------------------------------- */
+/* This function expands   */
+/* Inputs :                                                                   */
+/*  - char **new_src : a pointer to the sub-string that defines the token     */
+/*  - int *d :  */
+/*  - t_token *t :  */
+/*  - void *param :       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	perform_one_expansion(char **new_src, int *d, t_token *t, void *param)
 {
 	int	result;
@@ -85,6 +138,17 @@ int	perform_one_expansion(char **new_src, int *d, t_token *t, void *param)
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                             perform_expansions                             */
+/* -------------------------------------------------------------------------- */
+/* This function expands   */
+/* Inputs :                                                                   */
+/*  - t_dll_el *el_ptr :  */
+/*  - void *param :       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	perform_expansions(t_dll_el *el_ptr, void *param)
 {
 	t_token		*t;

@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   files_management_3_minishell.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:56:52 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/27 15:03:03 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:23:56 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                        open_out_file_and_close_prev                        */
+/* -------------------------------------------------------------------------- */
+/* This function closes files previously open and opens the new outfile       */
+/* needed                                                                     */
+/* Inputs :                                                                   */
+/*  - t_list **new_files      */
+/*  - t_list **cmd_new_files      */
+/*  - t_dll_el *current      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	open_out_file_and_close_prev(t_list **new_files,
 			t_list **cmd_new_files, t_token *t, t_dll_el *prev)
 {
@@ -35,6 +48,30 @@ static int	open_out_file_and_close_prev(t_list **new_files,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                      check_files_for_out_redirections                      */
+/* -------------------------------------------------------------------------- */
+/* This function cleans, for every output redirection,  the string "t->src"   */
+/* by removing spaces present at the beginning of src as well as the external */
+/* quotes (if needed)                                                         */
+/* Then we check if we have an output redirection and if the file concerned   */
+/* exist and if we have the needed rights                                     */
+/* if files where previously open they are closed before we open the new      */
+/* needed files                                                               */
+/* If the output file doesn't alredy exist then its name is added at the and  */
+/* new_file an at the end oof cmd_new_files lists                             */
+/*   */
+/*   */
+/* Inputs :                                                                   */
+/*  - t_dll_el **current      */
+/*  - t_list **new_files      */
+/*  - t_list **cmd_new_files      */
+/*  - int redir_error_first_position      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// I need to add what cast_dll_el_into_token do to the description
 int	check_files_for_out_redirections(t_dll_el **current,
 		t_list **new_files, t_list **cmd_new_files,
 		int redir_error_first_position)

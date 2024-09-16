@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_unset_minishell.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:56 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/01 18:30:23 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:24:18 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                       var_name_found_in_env_at_idx_i                       */
+/* -------------------------------------------------------------------------- */
+/* This function checks if var is found at the beginning of envp_at_idx_i and */
+/* if the first character after the comparison is either "=" or "\0"          */
+/* rq : envp_at_idx_i is the input that correpond to envp at the index i      */
+/* Inputs :                                                                   */
+/*  - char *envp_at_idx_i : the string contained at index i of envp           */
+/*  - char *var : the string that we are looking for in envp_at_idx_i         */
+/*  - size_t var_name_len : the length of the string var                      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	var_name_found_in_env_at_idx_i(char *envp_at_idx_i, char *var,
 			size_t var_name_len)
 {
@@ -27,12 +41,37 @@ static int	var_name_found_in_env_at_idx_i(char *envp_at_idx_i, char *var,
 		return (0);
 }
 
+/* ************************************************************************** */
+/*                          free_from_envp_at_idx_i                           */
+/* -------------------------------------------------------------------------- */
+/* This function frees envp[i] and set it to NULL                             */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int i : the index of the element of envp to free and set to NULL        */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	free_from_envp_at_idx_i(char ***envp, int i)
 {
 	free((*envp)[i]);
 	(*envp)[i] = NULL;
 }
 
+/* ************************************************************************** */
+/*                            delete_var_from_envp                            */
+/* -------------------------------------------------------------------------- */
+/* This function searchs for the index corresponding to var in envp then      */
+/* envp[i] is freed and point to NULL and all the datas of envp that have a   */
+/* greater index are copy one index prior (remove the void string created)    */
+/* The environment size is update (decreased by one)                          */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/*  - char *var : a string that contained a var name that might exist in envp */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter (-3 malloc error)         */
+/* ************************************************************************** */
 static int	delete_var_from_envp(char ***envp, int *envp_size, char *var)
 {
 	int		i;
@@ -62,6 +101,20 @@ static int	delete_var_from_envp(char ***envp, int *envp_size, char *var)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                                built_unset                                 */
+/* -------------------------------------------------------------------------- */
+/* This function deletes every variables and associated datas contained in    */
+/* args (but the first) from the environment. That means that we remove every */
+/* element associated to the arguments of unset in the environment            */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/*  - char **args       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	built_unset(char ***envp, int *envp_size, char **args)
 {
 	int	i;

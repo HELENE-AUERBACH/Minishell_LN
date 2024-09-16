@@ -3,15 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   perform_expansions_2_lexer_minishell.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:56:53 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 15:24:38 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:29:42 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                         is_not_a_valid_identifier                          */
+/* -------------------------------------------------------------------------- */
+/* This function checks if is a "valid identifier" or not.                    */
+/* A "valid identifier" is ??????????????? */
+/*  */
+/* If it isn't a "valid identifier" then an error message is display and the  */
+/* function returns 1. Otherwise the return value will be 0                   */
+/* Inputs :                                                                   */
+/*  - t_token *t :    */
+/*  - int i :   */
+/*  - int j :   */
+/*  - char **new_src : a pointer to the sub-string that defines the token     */
+/* Return :                                                                   */
+/*  - 0 : if it is a "valid identifier"                                       */
+/*  - 1 : othewrwise                                                          */
+/* ************************************************************************** */
 int	is_not_a_valid_identifier(t_token *t, int i, int j, char **new_src)
 {
 	if (i > 0 && i < t->src_len && t->src[i] && t->src[i - 1] == '{' \
@@ -40,6 +57,23 @@ int	is_not_a_valid_identifier(t_token *t, int i, int j, char **new_src)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                        get_new_src_before_expansion                        */
+/* -------------------------------------------------------------------------- */
+/* This function looks for the last consecutive '$'. If if it is followed by  */
+/* a space then the index of the end of the sub-string  that will become the  */
+/* token is incremented to keep the space.                                    */
+/* If a sub-string already exist then we add the new substring obtained at    */
+/* the end of it. Otherwise we create a new subtring.                         */
+/* Inputs :                                                                   */
+/*  - char **new_src : a pointer to the sub-string that defines the token     */
+/*  - int *d :  */
+/*  - t_token *t :  */
+/*  - void *param :       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	get_new_src_before_expansion(char **new_src, int *d, t_token *t)
 {
 	char	*s;
@@ -69,6 +103,23 @@ static int	get_new_src_before_expansion(char **new_src, int *d, t_token *t)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                         get_new_src_for_expansion                          */
+/* -------------------------------------------------------------------------- */
+/* This function replaces the part to expand by the associated value. To do   */
+/* so a substring is created with the "name" of the variable to expand then   */
+/* the current environment of our shell is check to find the value associated */
+/* The expand part is then added at the end of new_src. If new_src doesn't    */
+/* exist then it is created and it will contained the value obtained          */
+/* Inputs :                                                                   */
+/*  - char **new_src : a pointer to the sub-string that defines the token     */
+/*  - t_token *t :  */
+/*  - int *d :  */
+/*  - void *param :       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	get_new_src_for_expansion(char **new_src, t_token *t, int *d,
 		void *param)
 {
@@ -97,6 +148,24 @@ int	get_new_src_for_expansion(char **new_src, t_token *t, int *d,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                        get_new_src_after_expansion                         */
+/* -------------------------------------------------------------------------- */
+/* This function  */
+/*  */
+/*  */
+/*  */
+/*  */
+/* Inputs :                                                                   */
+/*  - char **new_src : a pointer to the sub-string that defines the token     */
+/*  - t_token *t :  */
+/*  - int *d :  */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// ??? s is add at the back of new_src but is contained in s ???
+// why do we check double quote in the while but not in the criteria for the while to loop ???
 static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 {
 	char	*s;
@@ -125,6 +194,27 @@ static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                          loop_perform_expansions                           */
+/* -------------------------------------------------------------------------- */
+/* This function expands   */
+/* Inputs :                                                                   */
+/*  - char **new_src : a pointer to the sub-string that defines the token     */
+/*  - int *d :  */
+/*  - t_token *t :  */
+/*  - void *param :       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// I suppose that this fonction combine two part of the token at a time :
+//  - if the token start with an expansion then new_src will become the expanded value
+//  - if the token start with a non-expandable then new_src will become the part
+//    that need not to be expand and the value of the first part that needed to be expand
+// as this function is call in a loop then little by little every expansion will be
+// done and add at the end of new_src.
+// if their is no more expansion to do in the token then the "rest" is added
+// Is that it ???
 int	loop_perform_expansions(char **new_src, int *d, t_token *t, void *param)
 {
 	int	result;

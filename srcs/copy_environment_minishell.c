@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   copy_environment_minishell.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:51:27 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/28 11:14:40 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:14:21 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                            get_environment_size                            */
+/* -------------------------------------------------------------------------- */
+/* This function calculates the size of the char array that contained the     */
+/* informations relative to the system environment                            */
+/* Input :                                                                    */
+/*  - char **envp : the system environment datas                              */
+/* Return :                                                                   */
+/*  - 0 : if envp is NULL or void                                             */
+/*  - int : othewrwise                                                        */
+/* ************************************************************************** */
 static int	get_environment_size(char **envp)
 {
 	int	size;
@@ -31,6 +42,18 @@ static int	get_environment_size(char **envp)
 	return (size);
 }
 
+/* ************************************************************************** */
+/*                            get_new_shell_level                             */
+/* -------------------------------------------------------------------------- */
+/* This function calculates the "new" shlvl. It increment by one the current  */
+/* shell level (if no information about the shell level are known it          */
+/* initialises the shlvl to 1).                                               */
+/* Input :                                                                    */
+/*  - char **envp : the system environment datas                              */
+/* Return :                                                                   */
+/*  - char * : a char formated "SHLVL="+int                                   */
+/*  - and if a problem occured ???                                            */
+/* ************************************************************************** */
 static char	*get_new_shell_level(void)
 {
 	char	*shlvl_new;
@@ -53,6 +76,18 @@ static char	*get_new_shell_level(void)
 	return (shlvl_new);
 }
 
+/* ************************************************************************** */
+/*                        exit_when_error_on_envp_copy                        */
+/* -------------------------------------------------------------------------- */
+/* This function frees the array that contained a copy of infomations about   */
+/* the environment (and every elements until an error in the copy occured).   */
+/* Then it displays an error message and exits with the code error 1.         */
+/* Inputs :                                                                   */
+/*  - t_data *d : the structures that contained the array to free             */
+/*  - int j : the index of the element of the array where the error occured   */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	exit_when_error_on_envp_copy(t_data *d, int j)
 {
 	while (j > 0 && d->envp[j - 1])
@@ -63,6 +98,18 @@ static void	exit_when_error_on_envp_copy(t_data *d, int j)
 	exit (1);
 }
 
+/* ************************************************************************** */
+/*                          copy_environment_strings                          */
+/* -------------------------------------------------------------------------- */
+/* This function copies the environment datas into an array contained into    */
+/* the structure d. The line relative to SHLVL is replace by the array shlvl  */
+/* Inputs :                                                                   */
+/*  - t_data *d : the structures that contained the array to complete         */
+/*  - char **envp : the system environment datas                              */
+/*  - char *shlvl : string well formated about the actual SHLVL               */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	copy_environment_strings(t_data *d, char **envp, char *shlvl)
 {
 	int		i;
@@ -92,6 +139,19 @@ static void	copy_environment_strings(t_data *d, char **envp, char *shlvl)
 	return ;
 }
 
+/* ************************************************************************** */
+/*                              copy_environment                              */
+/* -------------------------------------------------------------------------- */
+/* This function copies the environment. It defines as well the size of the   */
+/* environment, the shell level and add the cwd (current woking directory) to */
+/* the t_data struct. If their is no environment then it specified the cdw    */
+/* and the shelvl.                                                            */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained datas about our shell            */
+/*  - char **envp : the system environment datas                              */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	copy_environment(t_data *d, char **envp)
 {
 	int		to_be_copied;
@@ -115,7 +175,7 @@ void	copy_environment(t_data *d, char **envp)
 		if (!d->envp[0] || !d->envp[1])
 			exit_when_error_on_envp_copy(d, 1);
 		ft_strlcpy(d->envp[1], shlvl_new, 7 + 1);
-	}		
+	}
 	if (shlvl_new)
 		free(shlvl_new);
 	return ;

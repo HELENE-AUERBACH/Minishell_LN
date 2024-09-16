@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tokens_2_minishell.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:07:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/05 11:52:50 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:06:36 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                          get_substr_after_spaces                           */
+/* -------------------------------------------------------------------------- */
+/* This function looks for the firs character that isn't a space. The index   */
+/* of this char will determined the start of the substring that will be the   */
+/* new "src". The substring is src without the spaces at the beginning of src */
+/* (if src doesn't start with spaces then substring will be a copy of src)    */
+/* Inputs :                                                                   */
+/*  - t_token *t :      */
+/*  - int *utils_d :    */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - 3 : otherwise (malloc error)                                            */
+/* ************************************************************************** */
 static int	get_substr_after_spaces(t_token *t, int *utils_d)
 {
 	int		i;
@@ -36,6 +50,21 @@ static int	get_substr_after_spaces(t_token *t, int *utils_d)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                     remove_first_spaces_and_ext_quotes                     */
+/* -------------------------------------------------------------------------- */
+/* This function removes, if needed, the starting spaces as well as the       */
+/* eternals quotes symboles                                                   */
+/* (we assumed that the quote symbole is the first char after spaces, that it */
+/* is closed and that the last character before '\0' is the closing quote     */
+/* symbole)                                                                   */
+/* To be sure we check that the substring obtained is well formated           */
+/* Input :                                                                    */
+/*  - t_token *t        */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
 int	remove_first_spaces_and_ext_quotes(t_token *t)
 {
 	int		utils_d[9];
@@ -65,6 +94,17 @@ int	remove_first_spaces_and_ext_quotes(t_token *t)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                         is_a_pipe_or_ctrloperator                          */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the type received is a pipe ("|") or a control     */
+/* operator (";", "&", double ";;", "&&", "||", ";&", ";;&", "|&")            */
+/* Input :                                                                    */
+/*  - enum e_token_types type : the type to check                             */
+/* Return :                                                                   */
+/*  - 1 : if the type received is a pipe or a control operator                */
+/*  - 0 : otherwise                                                           */
+/* ************************************************************************** */
 int	is_a_pipe_or_ctrloperator(enum e_token_types type)
 {
 	if (type == PIPE || type == SEMICOLON || type == AMPERSAND
@@ -75,6 +115,17 @@ int	is_a_pipe_or_ctrloperator(enum e_token_types type)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                                   ft_min                                   */
+/* -------------------------------------------------------------------------- */
+/* This function returns the minimal value between the two integrals values   */
+/* given in input                                                             */
+/* Inputs :                                                                   */
+/*  - int value1 : the first value to compare                                 */
+/*  - int value2 : the second value to compare                                */
+/* Return :                                                                   */
+/*  - int : the minimal value between value1 and value2                       */
+/* ************************************************************************** */
 static int	ft_min(int value1, int value2)
 {
 	if (value1 <= value2)
@@ -83,6 +134,21 @@ static int	ft_min(int value1, int value2)
 		return (value2);
 }
 
+/* ************************************************************************** */
+/*                             check_redir_files                              */
+/* -------------------------------------------------------------------------- */
+/* This function checks for each redirection (in or out) if we have access to */
+/* it and if we have the needed rights. Then ??? (cast token) */
+/* If we already have open one file for the same type of redirection then we  */
+/* close the one previous open to be ready to open the new file               */
+/* Inputs :                                                                   */
+/*  - t_dll_el **current      */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - int is_in_piped      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	check_redir_files(t_dll_el **current, t_data *d, int is_in_piped)
 {
 	int			redir_err;

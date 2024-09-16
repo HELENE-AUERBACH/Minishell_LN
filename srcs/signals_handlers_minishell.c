@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   signals_handlers_minishell.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:28:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/31 14:53:17 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:12:29 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                           sigint_handler_in_main                           */
+/* -------------------------------------------------------------------------- */
+/* This function displays a newline, tells the function that we have move on  */
+/* to a new line that we set as void and refreshed the display                */
+/* rq : g_exit_status is set to 130                                           */
+/* Input :                                                                    */
+/*  - int signo : the signal used to "build" this handling function           */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	sigint_handler_in_main(int signo)
 {
 	(void) signo;
@@ -23,6 +34,17 @@ void	sigint_handler_in_main(int signo)
 	return ;
 }
 
+/* ************************************************************************** */
+/*                           sigint_handler_in_fork                           */
+/* -------------------------------------------------------------------------- */
+/* This function displays a newline, tells the function that we have move on  */
+/* to a new line that we set as void                                          */
+/* rq : g_exit_status is set to 130                                           */
+/* Input :                                                                    */
+/*  - int signo : the signal used to "build" this handling function           */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	sigint_handler_in_fork(int signo)
 {
 	(void) signo;
@@ -33,6 +55,17 @@ void	sigint_handler_in_fork(int signo)
 	return ;
 }
 
+/* ************************************************************************** */
+/*                           sigint_handler_in_fork                           */
+/* -------------------------------------------------------------------------- */
+/* This function displays a newline, tells the function that we have move on  */
+/* to a new line that we set as void                                          */
+/* rq : g_exit_status is set to 131                                           */
+/* Input :                                                                    */
+/*  - int signo : the signal used to "build" this handling function           */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	sigquit_handler_in_fork(int signo)
 {
 	(void) signo;
@@ -43,6 +76,17 @@ void	sigquit_handler_in_fork(int signo)
 	return ;
 }
 
+/* ************************************************************************** */
+/*                          heredoc_handler_in_main                           */
+/* -------------------------------------------------------------------------- */
+/* This function closes STDIN_FILENO. If an error occured then an error       */
+/* message is display                                                         */
+/* rq : g_exit_status is set to 130                                           */
+/* Input :                                                                    */
+/*  - int signo : the signal used to "build" this handling function           */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	heredoc_handler_in_main(int signo)
 {
 	(void) signo;

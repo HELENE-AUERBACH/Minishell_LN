@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/31 14:27:10 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:21:56 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ void	run_command(t_data *d, t_token *t, int ds[3], t_list *current);
 
 // run_cmds_minishell.c
 int		run_commands(t_data *d);
+
 //  process_interactive_mode_minishell.c
 void	empty_list(t_list **lst);
 int		process_a_line(char *a_line, t_data *d);

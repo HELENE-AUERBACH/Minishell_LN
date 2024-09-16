@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmds_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/05 15:26:05 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:29:16 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                              add_to_cmds_list                              */
+/* -------------------------------------------------------------------------- */
+/* This function copies and adds the current command at the end of d->cmds.   */
+/* The number of command is then update and the order of priority of this     */
+/* command is specified                                                       */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_token *t_cmdbi   */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// from what I see we only copy the command name, but we need to link it to the args
+// or did I misread the type of the copy element and it is the array of string that
+// contained cmd_name && args ???
 int	add_to_cmds_list(t_data *d, t_token *t_cmdbi)
 {
 	int		result;
@@ -41,6 +57,23 @@ int	add_to_cmds_list(t_data *d, t_token *t_cmdbi)
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                         open_pipe_and_run_command                          */
+/* -------------------------------------------------------------------------- */
+/* This function opens the files needed, opens a pipe if needed amd run the   */
+/* current command or builtin                                                 */
+/* If the token is of type builtin then, if it isn't piped and isn't followed */
+/* by a pipe token then the builtin is run without forking the system.        */
+/* Otherwise, the builtin is run inside a child process                       */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_list *current      */
+/*  - int *is_piped      */
+/*  - int *ds      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	open_pipe_and_run_command(t_data *d, t_list *current,
 			int *is_piped, int *ds)
 {
@@ -69,6 +102,23 @@ static int	open_pipe_and_run_command(t_data *d, t_list *current,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                        open_pipes_and_run_commands                         */
+/* -------------------------------------------------------------------------- */
+/* This function opens every needed pipe(s) and run every command encountered */
+/* (token of type command or builtin) until an operator that isn't a pipe is  */
+/* met                                                                        */
+/* The files opened are closed and every associated variable is free, if      */
+/* needed, and reinitialised                                                  */
+/* The pipe descriptors are closed once no longer needed                      */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_list **start : the first element to take into account                 */
+/*  - t_list **end : the element where we stopped to run the token            */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	open_pipes_and_run_commands(t_data *d, t_list **start,
 			t_list **end)
 {
@@ -98,6 +148,23 @@ static int	open_pipes_and_run_commands(t_data *d, t_list **start,
 	return (close_descriptors(ds, is_piped), 0);
 }
 
+/* ************************************************************************** */
+/*                           run_subset_of_commands                           */
+/* -------------------------------------------------------------------------- */
+/* This function runs every commands that are part of the same sub-set. That  */
+/* mean every command separated by a pipe or a single command. A sub-set is   */
+/* delimited by the end of the command line or an operator that isn't a pipe. */
+/* rq : if the process as been fork then we wait for every child process to   */
+/* finished and we free the element that has been treated                     */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_list **start      */
+/*  - int wstatus      */
+/*  - pid_t w      */
+/* Return :                                                                   */
+/*  - ??? ( what is the "everything goes well" exit value ?)   */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 			pid_t w)
 {
@@ -128,6 +195,18 @@ static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 	return (display_error("Last cmd nor exited, nor signaled\n"), 1);
 }
 
+/* ************************************************************************** */
+/*                                run_commands                                */
+/* -------------------------------------------------------------------------- */
+/* This function checks that we have some commands to run. If that is the     */
+/* case then the builtin function associated to the token or the subset of    */
+/* commands that we encountered is run                                        */
+/* Input :                                                                    */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/* Return :                                                                   */
+/*  - ??? ( what is the "everything goes well" exit value ?)   */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	run_commands(t_data *d)
 {
 	t_list	*start;

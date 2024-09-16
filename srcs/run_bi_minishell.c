@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   run_bi_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:56:35 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/03 14:14:25 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:47:24 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                              check_and_run_bi                              */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the token is a builtin. If that is the case, the   */
+/* relative built function is call.                                           */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_cmd *bi      */
+/*  - int fd2 : the file descriptor of the output                             */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	check_and_run_bi(t_data *d, t_cmd *bi, int fd2)
 {
 	if (bi && bi->cmd && bi->cmd[0] != '\0')
@@ -40,6 +53,19 @@ int	check_and_run_bi(t_data *d, t_cmd *bi, int fd2)
 	return (127);
 }
 
+/* ************************************************************************** */
+/*                     set_signals_actions_in_fork_for_bi                     */
+/* -------------------------------------------------------------------------- */
+/* This function changes the action associated to signal SIGINT and SIGQUIT   */
+/* (cf. set_signals_actions_in_fork). Then if an array of paths exist then it */
+/* is freed                                                                   */
+/* Inputs :                                                                   */
+/*  - t_dll *lst      */
+/*  - t_token *t      */
+/*  - t_list *current      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	set_signals_actions_in_fork_for_bi(t_dll *lst, t_token *t,
 			t_list *current)
 {
@@ -48,6 +74,18 @@ static void	set_signals_actions_in_fork_for_bi(t_dll *lst, t_token *t,
 		free_tab(&t->cmd_d->paths_tab);
 }
 
+/* ************************************************************************** */
+/*                            run_bi_without_fork                             */
+/* -------------------------------------------------------------------------- */
+/* This function opens the wanted files with the expencted options then it    */
+/* checks if the command is a builtin (echo, cd, pwd, export, unset, env,     */
+/* exit) and, if that is the case, the builtin function is run                */
+/* Once the builtin finished running then opened files are closed             */
+/* Input :                                                                    */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/* Return :                                                                   */
+/*  - int : the return value (error code or exit status)                      */
+/* ************************************************************************** */
 int	run_bi_without_fork(t_data *d, t_token *t)
 {
 	int	result;
@@ -70,6 +108,17 @@ int	run_bi_without_fork(t_data *d, t_token *t)
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                            free_for_bi_in_fork                             */
+/* -------------------------------------------------------------------------- */
+/* This function frees every lists relative to cmds and files as well as      */
+/* everything that can be freed inside d                                      */
+/* rq : if we are in interactive mode then the history is cleared as well     */
+/* Input :                                                                    */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	free_for_bi_in_fork(t_data *d)
 {
 	empty_list(&d->cmds);
@@ -80,6 +129,25 @@ static void	free_for_bi_in_fork(t_data *d)
 	free_data(d);
 }
 
+/* ************************************************************************** */
+/*                               run_bi_in_fork                               */
+/* -------------------------------------------------------------------------- */
+/* This function clones the calling process and if no error occured it change */
+/* the action associated to the signals SIGINT and SIGQUIT in the child       */
+/* process. The input and output are redirected if needed.                    */
+/* Then the function associated to the builtin token is call.                 */
+/* If an error occured then an error message is display and we free and       */
+/* closed the pipe descriptors and file descriptors. We also clear everything */
+/* related to the command and files                                           */
+/* In the parent proccess we only close the file descriptors and ds.          */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_token *t :  */
+/*  - int ds[3] :  */
+/*  - t_list *current :  */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	run_bi_in_fork(t_data *d, t_token *t, int ds[3], t_list *current)
 {
 	const int	is_piped = (ds[0] != -1 && ds[1] != -1);

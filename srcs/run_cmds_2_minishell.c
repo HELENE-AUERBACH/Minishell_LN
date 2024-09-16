@@ -3,15 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmds_2_minishell.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:17:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/29 15:38:55 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:58:35 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                        set_signals_actions_in_fork                         */
+/* -------------------------------------------------------------------------- */
+/* This function changes the action associated to signal SIGINT to the one    */
+/* associated to s1 and changes the action associated to signal SIGQUIT to    */
+/* the one associated to s2                                                   */
+/* To do so it specified that s1.sa_handler should displays a newline and     */
+/* tells the system that we have move to a newline with (g_exit_status = 130) */
+/* It also specified that s2.sa_handler should displays a newline and tells   */
+/* system that we have move to a newline with (g_exit_status = 131)           */
+/* rq : every signals given by s1.sa_mask and s2.sa_mask is emptied before    */
+/* sigaction calls                                                            */
+/* Inputs :                                                                   */
+/*  - t_dll *lst      */
+/*  - t_list *current          */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
+// ???
+// why do we delete every node of lst before the one that as the same content as current
+// in this function ???
 void	set_signals_actions_in_fork(t_dll *lst, t_list *current)
 {
 	struct sigaction	s1;
@@ -28,6 +49,20 @@ void	set_signals_actions_in_fork(t_dll *lst, t_list *current)
 	empty_dll_before_cur(lst, current, del_el_content);
 }
 
+/* ************************************************************************** */
+/*                             join_path_with_cmd                             */
+/* -------------------------------------------------------------------------- */
+/* This function checks if command_with_path2 is executable or if such file   */
+/* exist. If that is the case then cmd_d->cmd is replaced by it.              */
+/* Inputs :                                                                   */
+/*  - t_cmd *cmd_d      */
+/*  - char *command : the actual command                                      */
+/*  - char *command_with_path2 : the command with the path to check           */
+/* Return :                                                                   */
+/*  - 0 : if the command_with_path2 is executable                             */
+/*  - 1 : if the command_with_path2 is an existing file                       */
+/*  - int : the error code of the error encounter (negative values)           */
+/* ************************************************************************** */
 static int	join_path_with_cmd(t_cmd *cmd_d, char *command,
 			char *command_with_path2)
 {
@@ -48,6 +83,19 @@ static int	join_path_with_cmd(t_cmd *cmd_d, char *command,
 	return (-1);
 }
 
+/* ************************************************************************** */
+/*                               check_command                                */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the command is well formated, if it exist and/or   */
+/* if it is executable as well as checking the path needed to launch it       */
+/* Inputs :                                                                   */
+/*  - t_cmd *cmd_d     */
+/*  - char *command : the command to check                                    */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well and cmd_d->cmd is executable                */
+/*  - 1 : if everything goes well and cmd_d->cmd is an existing file          */
+/*  - int : the error code of the error encounter (negative values)           */
+/* ************************************************************************** */
 static int	check_command(t_cmd *cmd_d, char *command)
 {
 	int		i;
@@ -77,6 +125,25 @@ static int	check_command(t_cmd *cmd_d, char *command)
 	return (free_tab(&cmd_d->paths_tab), -5);
 }
 
+/* ************************************************************************** */
+/*                        check_command_and_find_path                         */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the commands is well formated and finds the path   */
+/* needed to run this command                                                 */
+/* To do so it removes leading and tailing spaces. Then it checks if the      */
+/* command exist, is well formatted and can be run (as well as its path).     */
+/* If that is not the case, then we check every kind of error that can happen */
+/* and display the associated error message. We also free every datas about   */
+/* commands and files relative to the current state as well as structure d.   */
+/* If we are in interactive mode then the history is cleared                  */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_token *t     */
+/*  - int ds[3]      */
+/*  - int is_piped      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 			int is_piped)
 {
@@ -106,6 +173,26 @@ static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 	trimmed_cmd = NULL;
 }
 
+/* ************************************************************************** */
+/*                                run_command                                 */
+/* -------------------------------------------------------------------------- */
+/* This function clones the calling process and if no error occured it change */
+/* the action associated to the signals SIGINT and SIGQUIT in the child       */
+/* process. The input and output are redirected if needed. Then we search the */
+/* path of the command and check if she can be called. Then file descriptors  */
+/* are closed and we try to execute the command. If an error occured then an  */
+/* error message is display and we free and closed the pipe descriptors and   */
+/* file descriptors. We clear everything related to the command and files     */
+/* In the parent proccess we only close the file descriptors and ds.          */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_token *t     */
+/*  - int ds[3]      */
+/*  - t_list *current      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
+// WARNING : declaration and assignation on the same line... ???
 void	run_command(t_data *d, t_token *t, int ds[3], t_list *current)
 {
 	const int	is_piped = (ds[0] != -1 && ds[1] != -1);

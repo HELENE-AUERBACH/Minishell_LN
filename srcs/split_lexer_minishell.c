@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   split_lexer_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:06:54 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/05 11:51:25 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:46:16 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                              suppress_spaces                               */
+/* -------------------------------------------------------------------------- */
+/* This function moves to the first that isn't a space (if the space is into  */
+/* quotes then the space isn't suppress)                                      */
+/* Inputs :                                                                   */
+/*  - int i : the index of the first char to look at                          */
+/*  - int *data : array that contained infos about the current situation      */
+/*  - const char *str : the line that we are processing                       */
+/* Return :                                                                   */
+/*  - int  : the index of the first index that isn't a space (out of quotes)  */
+/* ************************************************************************** */
 static int	suppress_spaces(int i, int *data, const char *str)
 {
 	int	j;
@@ -29,6 +41,18 @@ static int	suppress_spaces(int i, int *data, const char *str)
 	return (j);
 }
 
+/* ************************************************************************** */
+/*                            init_tokenizer_data                             */
+/* -------------------------------------------------------------------------- */
+/* This function initialses the tokenizer data that contained informations    */
+/* relative to the current state of the command analyse                       */
+/* Inputs :                                                                   */
+/*  - t_tokenizer_data *d : a pointer to the structure to initialise          */
+/*  - const char *str : the line that we are processing                       */
+/*  - t_dll *lst : the double list       */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	init_tokenizer_data(t_tokenizer_data *d, const char *str,
 			t_dll *lst)
 {
@@ -47,6 +71,17 @@ static void	init_tokenizer_data(t_tokenizer_data *d, const char *str,
 	d->dll_current_el_ptr = NULL;
 }
 
+/* ************************************************************************** */
+/*                              split_in_tokens                               */
+/* -------------------------------------------------------------------------- */
+/* This function splits the string into tokens                                */
+/* Inputs :                                                                   */
+/*  - const char *str : the string to split                                   */
+/*  - t_dll *lst : the double list       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	split_in_tokens(const char *str, t_dll *lst)
 {
 	t_tokenizer_data	d;
@@ -76,6 +111,19 @@ int	split_in_tokens(const char *str, t_dll *lst)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                             check_builtin_type                             */
+/* -------------------------------------------------------------------------- */
+/* This function changes the type to "BI" (6) if the raw command corresponds  */
+/* to a builtin function (echo, cd, pwd, export, unset, env, exit)            */
+/* Inputs :                                                                   */
+/*  - int *type : a pointer to an int that define the kind of command met     */
+/*  - int i : the offset to ignore, if needed, an open bracket                */
+/*  - t_tokenizer_data *d : a struct about the current state of cmd analyse   */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static void	check_builtin_type(int *type, int i, t_tokenizer_data *d)
 {
 	if ((ft_strncmp("echo", d->raw_command + i, 4) == 0
@@ -102,6 +150,18 @@ static void	check_builtin_type(int *type, int i, t_tokenizer_data *d)
 		*type = BI;
 }
 
+/* ************************************************************************** */
+/*                              end_raw_command                               */
+/* -------------------------------------------------------------------------- */
+/* This function decrementes the index of the ending of the command if the    */
+/* raw command ended with a space. It also specified if the command type is   */
+/* "BI" or "COMMAND" and initialised the datas relative to this token         */
+/* Input :                                                                    */
+/*  - t_tokenizer_data *d : a struct about the current state of cmd analyse   */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
 int	end_raw_command(t_tokenizer_data *d)
 {
 	int	type;

@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   process_non_interactive_mode_minishell.c           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:39:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 17:02:51 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:48:23 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                                   loop1                                    */
+/* -------------------------------------------------------------------------- */
+/* This function reads BUFFER_SIZE characters from the fd input and put them  */
+/* into char *buff */
+/* Inputs :                                                                   */
+/*  - int fd : the file descriptor relative to the input                      */
+/*  - char *buff : a string type buffer that contained what is read           */
+/* Return :                                                                   */
+/*  - int : the lenght of the line readed (max BUFFER_SIZE)                   */
+/* ************************************************************************** */
+// ??? I don't understand, buff isn't a pointer so the modificaton should be
+// lost outside of the function loop1... ^^'
+// plus if you replace every char that appear after a '\n' by '\0' then you loose
+// infos... is it because a '\n' mean the end of the instructions ???
+// and why don't we update read_len to be length of buff until first '\n' include ???
 static ssize_t	loop1(int fd, char *buff)
 {
 	ssize_t		read_len;
@@ -28,6 +44,22 @@ static ssize_t	loop1(int fd, char *buff)
 	return (read_len);
 }
 
+/* ************************************************************************** */
+/*                                   loop3                                    */
+/* -------------------------------------------------------------------------- */
+/* This function process the line (splits it into tokens, determines the role */
+/* of each token, do redirections and extension and runs builtin functions or */
+/* sub-set of commands)                                                       */
+/* Then it frees and point toward NULL everything that is no longer usefull   */
+/* Inputs :                                                                   */
+/*  - t_data *d : the structure that contained infos relative to the shell    */
+/*  - ssize_t read_len : the length of the string read (nb char read)         */
+/*  - char *buff : a string type buffer that contained what is read           */
+/*  - ssize_t j */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	loop3(t_data *d, ssize_t read_len, char *buff, ssize_t j)
 {
 	int	result;
@@ -44,6 +76,27 @@ static int	loop3(t_data *d, ssize_t read_len, char *buff, ssize_t j)
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                                   loop2                                    */
+/* -------------------------------------------------------------------------- */
+/* This function process every lines that has been encountered.               */
+/* To do so, it splits the line into tokens, determines the role of each      */
+/* token, do redirections and extension and runs builtin functions or sub-set */
+/* of commands)                                                               */
+/* Inputs :                                                                   */
+/*  - t_data *d : the structure that contained infos relative to the shell    */
+/*  - ssize_t read_len : the length of the string read (nb char read)         */
+/*  - char *buff : a string type buffer that contained what is read           */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// hmm... if buff doesn't contained a full line but just a part of the command line
+// then we will not have a '\n' => buff[j] != '\0' as j == 0 (if non void string)
+// can we "process_a_line" this way ??? Don't we risk to have only a partial
+// non interactive command line ? Or is their a len max for a non interactive
+// command line ?? And if it is the case then how will it work if -D is use with
+// a smaller value than the length of the line ????
 static int	loop2(t_data *d, ssize_t read_len, char *buff)
 {
 	ssize_t		i;
@@ -73,6 +126,18 @@ static int	loop2(t_data *d, ssize_t read_len, char *buff)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                        process_non_interactive_mode                        */
+/* -------------------------------------------------------------------------- */
+/* This function initialises the data relatives to the shell status. Then it  */
+/* reads the input and process it line by line                                */
+/* Inputs :                                                                   */
+/*  - int fd : the file descriptor relative to the input                      */
+/*  - t_data *d : the structure that contained infos relative to the shell    */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	process_non_interactive_mode(int fd, t_data *d)
 {
 	ssize_t	read_len;
@@ -102,6 +167,23 @@ int	process_non_interactive_mode(int fd, t_data *d)
 	return (free_data(d), 0);
 }
 
+/* ************************************************************************** */
+/*                  process_non_interactive_mode_with_c_opt                   */
+/* -------------------------------------------------------------------------- */
+/* This function process the input obtained through a non interactive mode    */
+/* with 'c' option  */
+/*  */
+/*  */
+/* Inputs :                                                                   */
+/*  - char *an_argv */
+/*  - t_data *d : the structure that contained infos relative to the shell    */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// I am not quite sure what the c option is suppose to do ???
+// I do realised that we don't loop until all the input is read and only take an_argv
+// into consideration but is that it ???
 int	process_non_interactive_mode_with_c_opt(char *an_argv, t_data *d)
 {
 	int	result;

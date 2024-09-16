@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_exit_minishell.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:34:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/25 16:29:06 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:46:28 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                               too_many_args                                */
+/* -------------------------------------------------------------------------- */
+/* This function checks the number of arguments (size of args)                */
+/* This function is call for exit builtin that doesn't accept more than 2     */
+/* arguments                                                                  */
+/* Input :                                                                    */
+/*  - char **args : an array of char that contained arguments (check is size) */
+/* Return :                                                                   */
+/*  - 1 : if the number of arguments is greater than 2 (too many arguments)   */
+/*  - 0 : otherwise                                                           */
+/* ************************************************************************** */
 static int	too_many_args(char **args)
 {
 	int	i;
@@ -26,6 +38,20 @@ static int	too_many_args(char **args)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                                 get_value                                  */
+/* -------------------------------------------------------------------------- */
+/* This function converts exit_value into a long long int in base 10          */
+/* if an error occured then an error message is display, otherwise the signed */
+/* value obtained is returned                                                 */
+/* rq : if an error occured, error value become 1                             */
+/* Inputs :                                                                   */
+/*  - int *error            */
+/*  - char *exit_value         */
+/* Return :                                                                   */
+/*  - long long : the value obtained in base 10 (if everything goes well)     */
+/*  - 2 : if an error occured                                                 */
+/* ************************************************************************** */
 static long long	get_value(int *error, char *exit_value)
 {
 	int					sign;
@@ -44,6 +70,21 @@ static long long	get_value(int *error, char *exit_value)
 	return (uval * sign);
 }
 
+/* ************************************************************************** */
+/*                                 built_exit                                 */
+/* -------------------------------------------------------------------------- */
+/* This function terminates execution with STATUS {value % 256}               */
+/* This cause the shell or the subshell to exit its current execution         */
+/* environment                                                                */
+/* rq if we are in a subshell then the shell exit the subshell and continue   */
+/* in the environment from which the subshell was invoked                     */
+/* rq : if we are in interactive mode the history is clear beforre exit       */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - char **args         */
+/* Return :                                                                   */
+/*  - int : the exit status obtained (value % 256)                            */
+/* ************************************************************************** */
 int	built_exit(t_data *d, char **args)
 {
 	long long	value;

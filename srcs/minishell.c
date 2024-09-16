@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:38:35 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 16:43:36 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:58:02 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                            init_minishell_data                             */
+/* -------------------------------------------------------------------------- */
+/* This function initialises the t_data structure received in arguments       */
+/* Input :                                                                    */
+/*  - t_data *d : the structure to initialise                                 */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - 1 othewrwise                                                            */
+/* ************************************************************************** */
 static int	init_minishell_data(t_data *d)
 {
 	g_exit_status = 0;
@@ -28,6 +38,19 @@ static int	init_minishell_data(t_data *d)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                           is_in_interactive_mode                           */
+/* -------------------------------------------------------------------------- */
+/* This function checks if we are in interactive mode or not (interactive     */
+/* mode means that the user is allow to type commands and will receive output */
+/* from those commands. Non-interactive mode mean that a script is launch)    */
+/* arguments                                                                  */
+/* Input :                                                                    */
+/*  - None                                                                    */
+/* Return :                                                                   */
+/*  - 0 : if we are not in interactive mode                                   */
+/*  - 1 : if we are in interactive mode                                       */
+/* ************************************************************************** */
 int	is_in_interactive_mode(void)
 {
 	return (isatty(STDIN_FILENO) && isatty(STDERR_FILENO));
@@ -35,6 +58,25 @@ int	is_in_interactive_mode(void)
 
 int	g_exit_status;
 
+/* ************************************************************************** */
+/*                              main - minishell                              */
+/* -------------------------------------------------------------------------- */
+/* This function displays a prompt and waits for a command. Then it searched  */
+/* and launched the right executable. Once the command line has been          */
+/* processed and the result has been displayed or saved where expected a new  */
+/* line prompt is display and the function waits again, etc.                  */
+/* rq : a working history is kept, quoting is taking into account as well as  */
+/* redirections, pipes, environmental variables.                              */
+/* rq2 : interactive and non interactive mode has been implemented            */
+/* rq3 : some functions builtins as been implemented                          */
+/* Inputs :                                                                   */
+/*  - const int argc : the number of arguments received (contained in argv)   */
+/*  - char **argv : the list of arguments given in input                      */
+/*  - char **envp : the list of the environment datas                         */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	main(const int argc, char **argv, char **envp)
 {
 	int		fd;

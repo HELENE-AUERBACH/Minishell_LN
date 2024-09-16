@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_pwd_minishell.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:33:42 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/28 11:33:26 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:39:07 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                           copy_pwd_var_into_env                            */
+/* -------------------------------------------------------------------------- */
+/* This function extracts the Current Working Directory and copies it in      */
+/* first place of envp array                                                  */
+/* Inputs :                                                                   */
+/*  - char **envp : the system environment datas                              */
+/*  - int envp_size : the size of the envp array                              */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	copy_pwd_var_into_env(char **envp, int envp_size)
 {
 	char	*pathname;
@@ -35,6 +46,17 @@ void	copy_pwd_var_into_env(char **envp, int envp_size)
 	}
 }
 
+/* ************************************************************************** */
+/*                                 built_pwd                                  */
+/* -------------------------------------------------------------------------- */
+/* This function displays the Current Working Directory into fd output        */
+/* Inputs :                                                                   */
+/*  - char **args                              */
+/*  - int fd : the output file descriptor                                     */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	built_pwd(char **args, int fd)
 {
 	char	*pathname;

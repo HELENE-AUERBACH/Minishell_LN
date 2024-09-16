@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   split_parser_2_minishell.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:28:07 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/07 16:36:28 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:18:45 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                                del_content                                 */
+/* -------------------------------------------------------------------------- */
+/* This function frees content and make it points toward NULL.                */
+/* Input :                                                                    */
+/*  - void *content : the element to free and replaces by NULL                */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	del_content(void *content)
 {
 	if (content)
@@ -22,6 +31,24 @@ static void	del_content(void *content)
 	return ;
 }
 
+/* ************************************************************************** */
+/*                         add_or_concatenate_substr                          */
+/* -------------------------------------------------------------------------- */
+/* This function adds or concatenates the sub-string sstr at the end of the   */
+/* list lst. In case of concatenation the substring is joined to the last     */
+/* content of lst.                                                            */
+/* The add or the concatenation depends of the valu of d[END]. If d[END] == 0 */
+/* then the substring is add at the back of the list, otherwise it is joined  */
+/* to lst's last node content                                                 */
+/* Inputs :                                                                   */
+/*  - t_list **lst      */
+/*  - char *sstr      */
+/*  - int *d      */
+/*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - -3 : otherwise (malloc error)                                           */
+/* ************************************************************************** */
 static int	add_or_concatenate_substr(t_list **lst, char *sstr, int *d,
 			int *nb_substrs)
 {
@@ -52,6 +79,25 @@ static int	add_or_concatenate_substr(t_list **lst, char *sstr, int *d,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                     add_new_substr_to_list_of_cmd_args                     */
+/* -------------------------------------------------------------------------- */
+/* This function creates a substring that is a copy of src from index d[I] to */
+/* d[J]. Then this substring is added to lst (list of commands arguments ???) */
+/* Then, the index d[I] is update to the first index after the end of the     */
+/* sub-string if the substring was quoted or if src[d[J]] is a space.         */
+/* Otherwise the inde d[J] become the new index d[I]                          */
+/* the index d[END] is also update (decreased by 1) if the new d[I] does not  */
+/* point toward a space in src                                                */
+/* Inputs :                                                                   */
+/*  - t_list **lst      */
+/*  - char *src      */
+/*  - int *d      */
+/*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
 static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 			int *d, int *nb_substrs)
 {
@@ -81,6 +127,30 @@ static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                          extract_list_of_cmd_args                          */
+/* -------------------------------------------------------------------------- */
+/* This function updates the index of start and end of the token and add the  */
+/* sub-string obtained at the end of the lst of command and arguments         */
+/* To do so it increment by one d[I] if the first char is an opening quote or */
+/* by as many consecutives spaces their is at the beginning of src (starting  */
+/* with d[I] index)                                                           */
+/* Then d[J] is incremented until the first unquoted space is encounter or a  */
+/* closing parenthesis is encountered                                         */
+/* We then used these indexes to create a sub-string that is added at the end */
+/* of lst. The value of d[I], d[J] and d[End] is update if needed             */
+/* we put to 0 booleans used to determined if we have met an opening quote    */
+/* Inputs :                                                                   */
+/*  - t_list **lst      */
+/*  - char *src      */
+/*  - int *d      */
+/*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
+// we increment d[I] then we look at d[J] but how are we sure that d[J] < d[I]
+// even after the d[I] incrementation ???
 int	extract_list_of_cmd_args(t_list **lst, char *src, int *d,
 		int *nb_substrs)
 {
@@ -111,6 +181,22 @@ int	extract_list_of_cmd_args(t_list **lst, char *src, int *d,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                      copy_list_into_tab_and_free_list                      */
+/* -------------------------------------------------------------------------- */
+/* This function copies each and every elements of lst into the array of      */
+/* string "tab". Each node is then free                                       */
+/* if no sub-string have been created we clear the list lst                   */
+/* Inputs :                                                                   */
+/*  - char **tab      */
+/*  - t_list **lst      */
+/*  - int nb_substrs : the number of sub-strings contained in lst             */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
+// hmm... why don't we need to specified the length of each strings contained
+// in the array of str ???
 void	copy_list_into_tab_and_free_list(char **tab, t_list **lst,
 		int nb_substrs)
 {

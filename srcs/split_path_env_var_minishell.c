@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   split_path_env_var_minishell.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:46:04 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/14 15:50:19 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:26:02 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                               get_nb_colons                                */
+/* -------------------------------------------------------------------------- */
+/* This function calculates the number of paths contained in the PATH section */
+/* of the environment datas                                                   */
+/* To do so, we count the number of colons as each path is separated by a     */
+/* colon                                                                      */
+/* Inputs :                                                                   */
+/*  - char **envp : the system environment datas                              */
+/*  - char **path_env_var : a pointer to a str, a copy of PATH line from envp */
+/* Return :                                                                   */
+/*  - int : the number of colons (+1) => number of paths                      */
+/* ************************************************************************** */
 static int	get_nb_colons(char **envp, char **path_env_var)
 {
 	int	i;
@@ -41,6 +54,18 @@ static int	get_nb_colons(char **envp, char **path_env_var)
 	return (nb_colons);
 }
 
+/* ************************************************************************** */
+/*                        split_path_env_var_into_tab                         */
+/* -------------------------------------------------------------------------- */
+/* This function splits the paths contained in path_env_var and copies each   */
+/* path into tab, each path is separated by ":"                               */
+/* rq : "." is added at the end of tab (a NULL terminated array)              */
+/* Inputs :                                                                   */
+/*  - char **tab :      */
+/*  - char **path_env_var : a pointer to a str, a copy of PATH line from envp */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	split_path_env_var_into_tab(char **tab, char *path_env_var)
 {
 	int	i;
@@ -70,6 +95,16 @@ static void	split_path_env_var_into_tab(char **tab, char *path_env_var)
 		ft_strlcpy(tab[j], ".", 2);
 }
 
+/* ************************************************************************** */
+/*                                 get_paths                                  */
+/* -------------------------------------------------------------------------- */
+/* This function creates an array of strings that contained every possible    */
+/* path from the environment                                                  */
+/* Input :                                                                    */
+/*  - char **envp : the system environment datas                              */
+/* Return :                                                                   */
+/*  - char **: the array created                                              */
+/* ************************************************************************** */
 char	**get_paths(char **envp)
 {
 	char	**tab;

@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   extract_lexer_minishell.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:35:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/05 11:49:22 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:18:03 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                       find_boundaries_of_redirection                       */
+/* -------------------------------------------------------------------------- */
+/* This function determines if the redirection encounter is of type '<', '>'  */
+/* '<<' or '>>' (Single in or out redirection, pseudo heredoc or double out)  */
+/* It checks if it is well formulated and places the index j right after the  */
+/* end of file name or delimiter word                                         */
+/* Inputs :                                                                   */
+/*  - int *type : a pointer to an int that define the kind of redirection met */
+/*  - int *j : a pointer to the index that should point to the end of name    */
+/*  - t_tokenizer_data *d : a structure that contained analyse status datas   */
+/*  - const char *str : the command line use as reference                     */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - -2 : otherwise                                                          */
+/* ************************************************************************** */
 static int	find_boundaries_of_redirection(int *type, int *j,
 			t_tokenizer_data *d, const char *str)
 {
@@ -40,6 +56,20 @@ static int	find_boundaries_of_redirection(int *type, int *j,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                            extract_redirection                             */
+/* -------------------------------------------------------------------------- */
+/* This function detemines the type of redirection that we have as well as    */
+/* the file name or delimiter (pseudo-heredoc) associated.                    */
+/* The index i is move until the next character that isn´t a space and the    */
+/* structure d is reinitialized with informations relative to the token       */
+/* Inputs :                                                                   */
+/*  - t_tokenizer_data *d : a struct about current state of the cmd analyse   */
+/*  - const char *str : the command line to use as reference                  */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter (negative values)         */
+/* ************************************************************************** */
 static int	extract_redirection(t_tokenizer_data *d, const char *str)
 {
 	int		j;
@@ -69,6 +99,20 @@ static int	extract_redirection(t_tokenizer_data *d, const char *str)
 	return (-1);
 }
 
+/* ************************************************************************** */
+/*                          extract_control_operator                          */
+/* -------------------------------------------------------------------------- */
+/* This function determines if the char that we are checking is a control     */
+/* operator ('|', ';' or '&'). AS of now we don't take into account '&' but   */
+/* if it is one of the other two operators then the type of the token is      */
+/* adapt to specified if we have a PIPE or a SEMICOLON                        */
+/* Inputs :                                                                   */
+/*  - t_tokenizer_data *d : a struct about current state of the cmd analyse   */
+/*  - const char *str : the command line to use as reference                  */
+/* Return :                                                                   */
+/*  - O : if everything goes well                                             */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
 static int	extract_control_operator(t_tokenizer_data *d, const char *str)
 {
 	char	*control_operator;
@@ -98,6 +142,24 @@ static int	extract_control_operator(t_tokenizer_data *d, const char *str)
 	return (-1);
 }
 
+/* ************************************************************************** */
+/*                       extract_char_into_raw_command                        */
+/* -------------------------------------------------------------------------- */
+/* This function updates d->raw_command to make it point toward str[d->i] if  */
+/* this char is considered as one of a raw command.                           */
+/* We also update, if needed, datas about quotes (single and double) as well  */
+/* as parenthesis                                                             */
+/* ??? */
+/* Inputs :                                                                   */
+/*  - t_tokenizer_data *d : a struct about current state of the cmd analyse   */
+/*  - const char *str : the command line to use as reference                  */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
+// why do we do i++ in every cases ??? (be it a char of raw_command, or a
+// quote or a parenthesis or none of the previous...)
+// and why do we check if we have a redirection right after the char that we check ???
+// And why do we ignored this redirection in that case ???
 static void	extract_char_into_raw_command(t_tokenizer_data *d,
 			const char *str)
 {
@@ -118,6 +180,17 @@ static void	extract_char_into_raw_command(t_tokenizer_data *d,
 	}
 }
 
+/* ************************************************************************** */
+/*                          extract_tokens_into_dll                           */
+/* -------------------------------------------------------------------------- */
+/* This function  */
+/* Inputs :                                                                   */
+/*  - t_tokenizer_data *d : a struct about current state of the cmd analyse   */
+/*  - const char *str : the command line to use as reference                  */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	extract_tokens_into_dll(t_tokenizer_data *d, const char *str)
 {
 	if (d && d->lst && !d->dll_current_el_ptr)

@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   free_2_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:15:31 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/05 12:51:07 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:19:00 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*              close_in_file_and_free_file_name_without_unlink               */
+/* -------------------------------------------------------------------------- */
+/* This function closes the input file (temporary file if pseudo-heredoc)     */
+/* opened, frees the variable associated to this file name and makes it point */
+/* toward NULL. The fd1 (input file descriptor) variable is set to -1.        */
+/* If an error occured then an error message is displayed.                    */
+/* Input :                                                                    */
+/*  - t_cmd *cmd_d     */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	close_in_file_and_free_file_name_without_unlink(t_cmd *cmd_d)
 {
 	if (cmd_d)
@@ -36,6 +48,11 @@ static void	close_in_file_and_free_file_name_without_unlink(t_cmd *cmd_d)
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//                                    ???                                     //
+// -------------------------------------------------------------------------- //
+// is that used anywhere ??? If yes, where ?                                  //
+////////////////////////////////////////////////////////////////////////////////
 void	free_cmd_d_without_unlink(t_cmd *cmd_d)
 {
 	if (cmd_d)
@@ -61,6 +78,21 @@ void	free_cmd_d_without_unlink(t_cmd *cmd_d)
 	return ;
 }
 
+/* ************************************************************************** */
+/*              close_files_and_free_files_names_without_unlink               */
+/* -------------------------------------------------------------------------- */
+/* This function closes the input and / or output file(s) opened, frees the   */
+/* variable(s) associated to this / these file(s) name and makes it / them    */
+/* point toward NULL. The fd1 (input file descriptor) and / or fd2 (output    */
+/* file descriptor) variable is / are set to -1.                              */
+/* If an error occured then an error message is displayed.                    */
+/* rq : In the case of a pseudo-heredoc, the variable associated to the       */
+/* limiter is free and make to point toward NULL                              */
+/* Input :                                                                    */
+/*  - t_cmd *cmd_d     */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	close_files_and_free_files_names_without_unlink(t_cmd *cmd_d)
 {
 	if (cmd_d)

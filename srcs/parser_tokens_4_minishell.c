@@ -3,15 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tokens_4_minishell.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:37:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/31 17:03:30 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:49:13 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                        force_in_redir_of_next_cmdbi                        */
+/* -------------------------------------------------------------------------- */
+/* This function specifies, if needed, the "infile" of the input redirection  */
+/* to "/dev/null"                                                             */
+/* It is done under specific conditions : no error has been encounter, the    */
+/* command is in pipe, no input file has been specified and the variable      */
+/* next_has_to_be_forced is set to 1                                          */
+/* Inputs :                                                                   */
+/*  - t_token *t_cmdbi      */
+/*  - int *next_has_to_be_forced      */
+/*  - int *result      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// when do we need to force next cmdbi ????
 void	force_in_redir_of_next_cmdbi(t_token *t_cmdbi,
 		int *next_has_to_be_forced, int *result)
 {

@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   split_parser_minishell.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:46:15 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/03 21:31:51 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:07:16 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                               split_cmd_args                               */
+/* -------------------------------------------------------------------------- */
+/* This function extracts the command name and its arguments and puts them    */
+/* into an array                                                              */
+/* Input :                                                                    */
+/*  - t_token *t      */
+/* Return :                                                                   */
+/*  - char ** : the array of strings generated                                */
+/*  - NULL : if an error occured                                              */
+/* ************************************************************************** */
 char	**split_cmd_args(t_token *t)
 {
 	int		nb_substrs;

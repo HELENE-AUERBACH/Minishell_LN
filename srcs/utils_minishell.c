@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 16:15:14 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/05 11:53:30 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:41:38 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                               display_error                                */
+/* -------------------------------------------------------------------------- */
+/* This function displays an error message in the error output. if no message */
+/* is given in input of the function it will display a default error message  */
+/* Input :                                                                    */
+/*  - char *error_msg : the error message to display. If NULL -> default msg  */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	display_error(const char *error_msg)
 {
 	if (!error_msg)
@@ -20,6 +30,23 @@ void	display_error(const char *error_msg)
 		write(2, error_msg, ft_strlen(error_msg));
 }
 
+/* ************************************************************************** */
+/*                          display_err_with_prefix                           */
+/* -------------------------------------------------------------------------- */
+/* This function displays an error message in the error output. if no message */
+/* is given in input of the function it will display a default error message  */
+/* Otherwise the error message will be formatted as <prefix>:<error_msg>      */
+/* Inputs :                                                                   */
+/*  - char *prefix : the prefix to display before the error message           */
+/*  - char *error_msg : the error message to display. If NULL -> default msg  */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
+// ???
+// if !err_msg && !prefix => "Error\n:"
+// if !err_msg && prefix => "Error\n"<prefix>":"
+// if err_msg && !prefix => ":"<err_msg>
+// is it really what we wanted ???
 void	display_err_with_prefix(const char *prefix, const char *error_msg)
 {
 	if (!error_msg)
@@ -31,6 +58,17 @@ void	display_err_with_prefix(const char *prefix, const char *error_msg)
 		write(2, error_msg, ft_strlen(error_msg));
 }
 
+/* ************************************************************************** */
+/*                            display_syntax_error                            */
+/* -------------------------------------------------------------------------- */
+/* This function displays an error message in the error output. The character */
+/* c given in input is added to the message. If c == '\0' then c2 replaces it */
+/* in the error message.                                                      */
+/* Input :                                                                    */
+/*  - char *error_msg : the error message to display. If NULL -> default msg  */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	display_syntax_error(const char c)
 {
 	display_error("Syntax error near unexpected token `");
@@ -38,6 +76,18 @@ void	display_syntax_error(const char c)
 	write(2, "'\n", 2);
 }
 
+/* ************************************************************************** */
+/*                            ft_strjoin_with_free                            */
+/* -------------------------------------------------------------------------- */
+/* This function creates a string that is the combination of s1 and s2. (s2   */
+/* is add at the end of s1)                                                   */
+/* s1 and s2 are then free and the string created is return                   */
+/* Input :                                                                    */
+/*  - char *s1 : the first string to join                                     */
+/*  - char *s2 : the string to add at the end of the previous string          */
+/* Return :                                                                   */
+/*  - char *: the string obtained by adding s2 at the end of s1               */
+/* ************************************************************************** */
 char	*ft_strjoin_with_free(char *s1, char *s2)
 {
 	char	*result;
@@ -67,6 +117,18 @@ char	*ft_strjoin_with_free(char *s1, char *s2)
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                         ends_with_a_closing_brace                          */
+/* -------------------------------------------------------------------------- */
+/* This function checks if "t->src" contained a closing brace (at j or a      */
+/* greater index)                                                             */
+/* Input :                                                                    */
+/*  - t_token *t :  */
+/*  - int j : the first index to check                                        */
+/* Return :                                                                   */
+/*  - 1 : if t->src contained a closing brace                                 */
+/*  - 0 : otherwise                                                           */
+/* ************************************************************************** */
 int	ends_with_a_closing_brace(t_token *t, int j)
 {
 	while (j < t->src_len && t->src[j] && t->src[j] != '}')

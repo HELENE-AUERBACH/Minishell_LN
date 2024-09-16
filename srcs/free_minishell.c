@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   free_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:15:31 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 16:44:35 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:17:09 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                             free_tab_with_size                             */
+/* -------------------------------------------------------------------------- */
+/* This function frees the size first elements of array tab then free tab     */
+/* (the expected size value is the size f the array)                          */
+/* Inputs :                                                                   */
+/*  - char ***tab : a pointer t th first element of an array to free          */
+/*  - int size : the number of element to free                                */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	free_tab_with_size(char ***tab, int size)
 {
 	int	i;
@@ -30,6 +41,16 @@ void	free_tab_with_size(char ***tab, int size)
 	}
 }
 
+/* ************************************************************************** */
+/*                                  free_tab                                  */
+/* -------------------------------------------------------------------------- */
+/* This function frees each elements of array tab and make it points toward   */
+/* NULL then free tab                                                         */
+/* Input :                                                                    */
+/*  - char ***tab : a pointer t th first element of an array to free          */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	free_tab(char ***tab)
 {
 	int	i;
@@ -48,6 +69,22 @@ void	free_tab(char ***tab)
 	}
 }
 
+/* ************************************************************************** */
+/*                                 free_cmd_d                                 */
+/* -------------------------------------------------------------------------- */
+/* This function closes the infile (temporary file if heredoc) and frees the  */
+/* string that contained the file name associated is needed. The same thing   */
+/* is done for the outfile if needed                                          */
+/* Variables associated to the command, its arguments and its path are also   */
+/* freed and cmd_d is set to point toward NULL                                */
+/* rq : In the case of a "heredoc", the file is unlink (disappear after use)  */
+/* and the variable that contained the limiter is freed and is set to point   */
+/* toward NULL                                                                */
+/* Input :                                                                    */
+/*  - t_cmd **cmd_d : */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	free_cmd_d(t_cmd **cmd_d)
 {
 	if (*cmd_d)
@@ -73,6 +110,16 @@ void	free_cmd_d(t_cmd **cmd_d)
 	}
 }
 
+/* ************************************************************************** */
+/*                               del_el_content                               */
+/* -------------------------------------------------------------------------- */
+/* This function frees every componants (src, cmd_d) that can be free from    */
+/* content                                                                    */
+/* Input :                                                                    */
+/*  - void *content :   */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	del_el_content(void *content)
 {
 	t_token	*token;
@@ -94,6 +141,16 @@ void	del_el_content(void *content)
 	return ;
 }
 
+/* ************************************************************************** */
+/*                                 free_data                                  */
+/* -------------------------------------------------------------------------- */
+/* This function frees d datas as envp, cmds and lst and every freeable       */
+/* elements contained.                                                        */
+/* Input :                                                                    */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	free_data(t_data *d)
 {
 	if (d)

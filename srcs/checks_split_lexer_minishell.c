@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   checks_split_lexer_minishell.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:28:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/05 11:57:52 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:29:17 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                            check_double_quotes                             */
+/* -------------------------------------------------------------------------- */
+/* This function updates the double quoted status if needed.                  */
+/* If the char is a double quote and the char is outside a single quote then  */
+/* if no lonely double quote exists then a new quoted part begin, otherwise   */
+/* the quoted part arrived to an end                                          */
+/* Inputs :                                                                   */
+/*  - int i : the index to check                                              */
+/*  - int *data : array that contained infos about the current situation      */
+/*  - const char *str : the command line to check                             */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	check_double_quotes(int i, int *data, const char *str)
 {
 	if (str[i] == '"' && data[EXT_OPEN_S_QUOTE] == 0)
@@ -23,6 +37,20 @@ void	check_double_quotes(int i, int *data, const char *str)
 	}
 }
 
+/* ************************************************************************** */
+/*                            check_simple_quotes                             */
+/* -------------------------------------------------------------------------- */
+/* This function updates the simple quoted status if needed.                  */
+/* If the char is a simple quote and the char is outside a double quote then  */
+/* if no lonely single quote exists then a new quoted part begin, otherwise   */
+/* the quoted part arrived to an end                                          */
+/* Inputs :                                                                   */
+/*  - int i : the index to check                                              */
+/*  - int *data : array that contained infos about the current situation      */
+/*  - const char *str : the command line to check                             */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	check_simple_quotes(int i, int *data, const char *str)
 {
 	if (str[i] == '\'' && data[EXT_OPEN_D_QUOTE] == 0)
@@ -34,6 +62,19 @@ void	check_simple_quotes(int i, int *data, const char *str)
 	}
 }
 
+/* ************************************************************************** */
+/*                             check_parenthesis                              */
+/* -------------------------------------------------------------------------- */
+/* This function updates the parenthesis status if needed.                    */
+/* If the char is a bracket ('(' or ')') and the char isn't quoted then the   */
+/* number of open or close parenthesis is update (incremented)                */
+/* Inputs :                                                                   */
+/*  - int i : the index to check                                              */
+/*  - int *data : array that contained infos about the current situation      */
+/*  - const char *str : the command line to check                             */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	check_parenthesis(int i, int *data, const char *str)
 {
 	if (str[i] == '(' && data[EXT_OPEN_S_QUOTE] == 0
@@ -48,6 +89,18 @@ void	check_parenthesis(int i, int *data, const char *str)
 	}
 }
 
+/* ************************************************************************** */
+/*                              has_wrong_format                              */
+/* -------------------------------------------------------------------------- */
+/* This function checks if the string is well formatted (every open quotes    */
+/* has been closed, their is as much opening parenthesis than closing ones)   */
+/* Inputs :                                                                   */
+/*  - int *data : array that contained infos about the current situation      */
+/*  - const char *str : the command line to check                             */
+/* Return :                                                                   */
+/*  - 0 : if the string is well formatted                                     */
+/*  - 1 : otherwise                                                           */
+/* ************************************************************************** */
 int	has_wrong_format(int *data, const char *str)
 {
 	if (data[EXT_OPEN_S_QUOTE] == 1)
@@ -61,6 +114,18 @@ int	has_wrong_format(int *data, const char *str)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                              has_wrong_start                               */
+/* -------------------------------------------------------------------------- */
+/* This function checks if c is a command separator. If it is then that mean  */
+/* that the syntax is incorrect and an error message is display.              */
+/* Inputs :                                                                   */
+/*  - const char c : the char to add to the error message display             */
+/*  - const char c2 : the char to use if c == '\0'                            */
+/* Return :                                                                   */
+/*  - 0 : if the string is well formatted                                     */
+/*  - 1 : otherwise                                                           */
+/* ************************************************************************** */
 int	has_wrong_start(const char c, const char c2)
 {
 	if (is_a_command_separator(c))

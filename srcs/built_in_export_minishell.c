@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_export_minishell.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:08:25 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/03 14:06:47 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:10:21 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                               print_env_var                                */
+/* -------------------------------------------------------------------------- */
+/* This function writes into fd the environment variable given in input while */
+/* following the format "export "<var_name>"=\""<var_value>"\"\n" or, if no   */
+/* "=" char is met, "export "<var_name>"\n"                                   */
+/* rq : if env_var == "_=env" nothing is display                              */
+/* Inputs :                                                                   */
+/*  - char *env_var : the environment variable to display                     */
+/*  - size_t env_var_len : the length of the environment variable             */
+/*  - int fd : the output file descriptor                                     */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 static void	print_env_var(char *env_var, size_t env_var_len, int fd)
 {
 	size_t	j;
@@ -40,6 +54,22 @@ static void	print_env_var(char *env_var, size_t env_var_len, int fd)
 	}
 }
 
+/* ************************************************************************** */
+/*                          split_var_name_and_value                          */
+/* -------------------------------------------------------------------------- */
+/* This function splits the args[i] into a variable name and its associated   */
+/* value. This two parts are copy respectively into vns and vvals             */
+/* Before the copy we check if the var_name is well formatted (only alphanum  */
+/* char or "_") until the "=" char that delimit the two part to split or "\0" */
+/* Inputs :                                                                   */
+/*  - int i : the index of the element of args that we want to split          */
+/*  - char **args      */
+/*  - char **vns    */
+/*  - char **vvals */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	split_var_name_and_value(int i, char **args, char **vns,
 				char **vvals)
 {
@@ -70,6 +100,23 @@ static int	split_var_name_and_value(int i, char **args, char **vns,
 	return (return_code);
 }
 
+/* ************************************************************************** */
+/*                                   updenv                                   */
+/* -------------------------------------------------------------------------- */
+/* This function updates the environment datas to add or update the value     */
+/* associated to var_name. To do so we check if var_name already exist in     */
+/* envp and, if that is the case what is the index associated                 */
+/* If var_name exist then var_value is update, otherwise var_name and its     */
+/* associated value are add at the end of envp (which size increased by one)  */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/*  - char *var_name : the name of the variable that we want to update or add */
+/*  - char *var_value : the current value associated to var_name              */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	updenv(char ***envp, int *envp_size, char *var_name, char *var_value)
 {
 	int		i;
@@ -96,6 +143,22 @@ int	updenv(char ***envp, int *envp_size, char *var_name, char *var_value)
 	return (return_code);
 }
 
+
+/* ************************************************************************** */
+/*                                export_vars                                 */
+/* -------------------------------------------------------------------------- */
+/* This function splits the args[i] into a variable name and its associated   */
+/* value for the first nv elements of args.                                   */
+/* envp is update to keep val_name and its associated value                   */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/*  - char **args      */
+/*  - int nv : the number of variables to splits                              */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	export_vars(char ***envp, int *envp_size, char **args, int nv)
 {
 	int		i;
@@ -125,6 +188,22 @@ static int	export_vars(char ***envp, int *envp_size, char **args, int nv)
 		final_return_code);
 }
 
+/* ************************************************************************** */
+/*                                built_export                                */
+/* -------------------------------------------------------------------------- */
+/* This function exports variables into envp if size args[i] > 1 or, writes   */
+/* into fd the environment variable if size args[i] == 1                      */
+/* rq : if OLDPWD isn't found into envp then a default export message is      */
+/* write into fd                                                              */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/*  - char **args      */
+/*  - int fd : the output file descriptor                                     */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	built_export(char ***envp, int *envp_size, char **args, int fd)
 {
 	int	i;

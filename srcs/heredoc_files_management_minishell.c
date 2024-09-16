@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_files_management_minishell.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <hauerbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/31 16:03:25 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:52:19 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                        open_and_write_here_doc_file                        */
+/* -------------------------------------------------------------------------- */
+/* This function opens the file associated to the pseudo-heredoc and write    */
+/* into it everything that is taped into the prompt until the specified       */
+/* limiter. Then the temporary file is closed.                                */
+/* rq : The actions associated to SIGINT and SIGQUIT are changed              */
+/* Input :                                                                    */
+/*  - t_token *t      */
+/* Return :                                                                   */
+/*  - ??? : if everything goes well   */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	open_and_write_here_doc_file(t_token *t)
 {
 	int	fd0;
@@ -38,6 +51,20 @@ static int	open_and_write_here_doc_file(t_token *t)
 	return (g_exit_status);
 }
 
+/* ************************************************************************** */
+/*                         get_file_name_for_heredoc                          */
+/* -------------------------------------------------------------------------- */
+/* This function extracts the number of the previous input file (???).        */
+/* Then the name of the temporary file is generated, it follow the model :    */
+/* ".here_doc_file_"<limiter>"_"<index>                                       */
+/* Inputs :                                                                   */
+/*  - char *limiter : the limiter of the "heredoc"                            */
+/*  - t_dll_el *prev      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// Where is incremented the index ???
 static char	*get_file_name_for_heredoc(char *limiter, t_dll_el *prev)
 {
 	char	*index;
@@ -66,6 +93,19 @@ static char	*get_file_name_for_heredoc(char *limiter, t_dll_el *prev)
 	return (file_name);
 }
 
+/* ************************************************************************** */
+/*                            create_heredoc_file                             */
+/* -------------------------------------------------------------------------- */
+/* This function saves the limiter and specified that we have a "heredoc".    */
+/* The filename of the temporary file use for the heredoc is determined, then */
+/* it's open and we write in it what was tape by the user (until limiter)     */
+/* Inputs :                                                                   */
+/*  - t_token *t      */
+/*  - t_dll_el *current      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	create_heredoc_file(t_token *t, t_dll_el *current)
 {
 	t->cmd_d->limiter = (char *) malloc((t->src_len + 1) * sizeof(char));
@@ -82,6 +122,17 @@ int	create_heredoc_file(t_token *t, t_dll_el *current)
 	return (g_exit_status);
 }
 
+/* ************************************************************************** */
+/*                      close_in_file_and_free_file_name                      */
+/* -------------------------------------------------------------------------- */
+/* This function closes the infile (temporary file if heredoc) and frees the  */
+/* string that contained the file name                                        */
+/* In the case of a "heredoc", the file is unlink (disappear after use)       */
+/* Input :                                                                    */
+/*  - t_cmd **cmd_d : */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	close_in_file_and_free_file_name(t_cmd *cmd_d)
 {
 	if (cmd_d)
@@ -109,6 +160,18 @@ void	close_in_file_and_free_file_name(t_cmd *cmd_d)
 	}
 }
 
+/* ************************************************************************** */
+/*                     close_out_file_and_free_file_name                      */
+/* -------------------------------------------------------------------------- */
+/* This function closes the output file opened, frees the variable associated */
+/* to this file name and makes it point toward NULL. The fd2 (ouput file      */
+/* descriptor) variable is set to -1                                          */
+/* If an error occured then an error message is displayed.                    */
+/* Input :                                                                    */
+/*  - t_cmd *cmd_d     */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	close_out_file_and_free_file_name(t_cmd *cmd_d)
 {
 	if (cmd_d)

@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cd_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:57:29 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/03 17:02:28 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:36:27 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                       update_oldpwd_pwd_vars_in_envp                       */
+/* -------------------------------------------------------------------------- */
+/* This function updates the value associated to OLDPWD with previous_pwd and */
+/* PWD with the pathname of the current working directory                     */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : the size of the array of strings envp                  */
+/*  - char **previous_pwd : a pointer to a string that contained previous pwd */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	update_oldpwd_pwd_vars_in_envp(char ***envp, int *envp_size,
 			char **previous_pwd)
 {
@@ -40,6 +53,23 @@ static int	update_oldpwd_pwd_vars_in_envp(char ***envp, int *envp_size,
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                              change_directory                              */
+/* -------------------------------------------------------------------------- */
+/* This function changes the current working directory for the one associated */
+/* with the new_dir variable in envp.                                         */
+/* If no such value is found then an error message is display on the error    */
+/* standard output                                                            */
+/* Otherwise the process's working directory is changed to the value obtained */
+/* If an error occured in this process then an error message is display       */
+/* Inputs :                                                                   */
+/*  - char *new_dir : the path to the new directory where we want to "work"   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	change_directory(char *new_dir, char **envp, int envp_size)
 {
 	char	*new_dir_val;
@@ -59,6 +89,22 @@ static int	change_directory(char *new_dir, char **envp, int envp_size)
 	return (free(new_dir_val), 0);
 }
 
+/* ************************************************************************** */
+/*                                 execute_cd                                 */
+/* -------------------------------------------------------------------------- */
+/* This function changes the current working directory and updates the envp   */
+/* datas associated (PWD, OLD_PWD).                                           */
+/* rq : "cd -" => go back to the previous directory                           */
+/*      "cd" => go back to home                                               */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/*  - char **args      */
+/*  - int i :       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	execute_cd(char ***envp, int *envp_size, char **args, int i)
 {
 	char	*cwd;
@@ -88,6 +134,25 @@ static int	execute_cd(char ***envp, int *envp_size, char **args, int i)
 		&previous_pwd));
 }
 
+/* ************************************************************************** */
+/*                                  built_cd                                  */
+/* -------------------------------------------------------------------------- */
+/* This function checks if args size is inferior or equal to 2 (cd and one    */
+/* option of type "-" or path). Then, if args is well formatted, it changes   */
+/* the current working directory and updates the envp  datas associated (PWD, */
+/* OLD_PWD)                                                                   */
+/* rq : "cd -" => go back to the previous directory                           */
+/*      "cd" => go back to home                                               */
+/* rq2 : if the opt is "-" then new_dir_var (new working dir) is write in fd  */
+/* Inputs :                                                                   */
+/*  - char ***envp : a pointer to an array of string about the environment    */
+/*  - int *envp_size : a pointer to the size of the array of strings envp     */
+/*  - char **args      */
+/*  - int fd : the output file descriptor                                     */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	built_cd(char ***envp, int *envp_size, char **args, int fd)
 {
 	int		i;

@@ -3,15 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   environment_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/06/04 15:39:34 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:06:08 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                             get_val_from_envp                              */
+/* -------------------------------------------------------------------------- */
+/* This function extracts the value associated at <name> variable in envp     */
+/* The variable "value" is update to NULL if name doesn't exist in envp or    */
+/* envp is NULL                                                               */
+/* Inputs :                                                                   */
+/*  - char **value : a pointer to a string that we are looking for            */
+/*  - char *name : the "variable" for which we want the associated value      */
+/*  - int envp_size : the size of the char **envp variable                    */
+/*  - char **envp : the system environment (of our current shell)             */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well ???                       */
+/*  - 3 : otherwise (malloc error)                                            */
+/* ************************************************************************** */
+// 0 if everything goes well I suppose...
+// but why do we return 0 if !name of name == '\0' ???
+// do we suppose that <name> exists in the environment (as we don't check if it
+// was found in the environment ???) or we don't care as if the name doesn't
+// exist then value == NULL so it will be taken into account later on ???
 static int	get_val_from_envp(char **value, char *name, int envp_size,
 			char **envp)
 {
@@ -42,6 +62,24 @@ static int	get_val_from_envp(char **value, char *name, int envp_size,
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                            get_value_from_envp                             */
+/* -------------------------------------------------------------------------- */
+/* This function looks for the value associated to the <name> variable in the */
+/* environment datas. The variable "value" is update to NULL if name doesn't  */
+/* exist in envp or envp is NULL                                              */
+/* if name is NULL or void then 0 is return                                   */
+/* if name is "?\0" then -1 is return                                         */
+/* otherwise, we extract the value associated with <name> in envp.            */
+/* Inputs :                                                                   */
+/*  - char **value : a pointer to a string that we are looking for            */
+/*  - char *name : the "variable" for which we want the associated value      */
+/*  - int envp_size : the size of the char **envp variable                    */
+/*  - char **envp : the system environment (of our current shell)             */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well ???                       */
+/*  - 3 : otherwise (malloc error)                                            */
+/* ************************************************************************** */
 int	get_value_from_envp(char **value, char *name, int envp_size, char **envp)
 {
 	size_t	name_len;
@@ -58,6 +96,20 @@ int	get_value_from_envp(char **value, char *name, int envp_size, char **envp)
 		return (get_val_from_envp(value, name, envp_size, envp));
 }
 
+/* ************************************************************************** */
+/*                       get_value_from_minishell_envp                        */
+/* -------------------------------------------------------------------------- */
+/* This function looks for the value associated to the <name> variable in the */
+/* current environment.                                                       */
+/* if name == ? then we are looking for the exit code of the last command     */
+/* Inputs :                                                                   */
+/*  - char **value : a pointer to a string that we are looking for            */
+/*  - char *name : the "variable" for which we want the associated value      */
+/*  - t_data *d :  */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well ???                       */
+/*  - 3 : otherwise (malloc error)                                            */
+/* ************************************************************************** */
 int	get_value_from_minishell_envp(char **value, char *name, t_data *d)
 {
 	size_t	name_len;

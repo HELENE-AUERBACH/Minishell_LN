@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:09 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/07/04 14:34:38 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:06:36 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_minishell.h"
 
+/* ************************************************************************** */
+/*                        init_utils_data_and_new_src                         */
+/* -------------------------------------------------------------------------- */
+/* This function initialises utils_data and makes new_src point to null       */
+/* Inputs :                                                                   */
+/*  - int *utils_data :                         */
+/*  - char **new_src :                 */
+/*  - int str_len : the length of the full command line                       */
+/* Return :                                                                   */
+/*  - -1 : if everything goes well                                            */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
 void	init_utils_data_and_new_src(int *utils_data, char **new_src,
 		int str_len)
 {
@@ -19,6 +31,19 @@ void	init_utils_data_and_new_src(int *utils_data, char **new_src,
 	*new_src = NULL;
 }
 
+/* ************************************************************************** */
+/*                  get_end_index_of_file_or_delimiter_name                   */
+/* -------------------------------------------------------------------------- */
+/* This function traverses the string starting from the index i until it met  */
+/* a metacharacter. Then it returns the index of the first metacharacter      */
+/* encounter.                                                                 */
+/* Inputs :                                                                   */
+/*  - int *i : a pointer to the index where we start                          */
+/*  - const char *str : the command line to use as reference                  */
+/* Return :                                                                   */
+/*  - -1 : if everything goes well                                            */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
 int	get_end_index_of_file_or_delimiter_name(int *i, const char *str)
 {
 	int	j;
@@ -48,6 +73,17 @@ int	get_end_index_of_file_or_delimiter_name(int *i, const char *str)
 	return (j);
 }
 
+/* ************************************************************************** */
+/*                              init_token_cmd_d                              */
+/* -------------------------------------------------------------------------- */
+/* This function initialises the structure t_token token received in argument */
+/* This structure contained all the datas relative to the current command     */
+/* Input :                                                                    */
+/*  - t_tokenizer *token : the structure to initialise                        */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - -3 : otherwise                                                          */
+/* ************************************************************************** */
 int	init_token_cmd_d(t_token *token)
 {
 	token->cmd_d = (t_cmd *) malloc(sizeof(t_cmd));
@@ -71,6 +107,19 @@ int	init_token_cmd_d(t_token *token)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                                 init_token                                 */
+/* -------------------------------------------------------------------------- */
+/* This function initialises the structure t_tokenizer_data d received in     */
+/* arguments. This structure describes the current state of the analyse       */
+/* Inputs :                                                                   */
+/*  - int type : an int that defines the kind of token met                    */
+/*  - const char *str : the command line to use as reference                  */
+/*  - t_tokenizer_data *d : the structure to initialise                       */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : otherwise                                                         */
+/* ************************************************************************** */
 int	init_token(int type, char *src, t_tokenizer_data *d)
 {
 	t_token	*token;

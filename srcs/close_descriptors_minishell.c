@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   close_descriptors_minishell.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:46:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/21 16:53:11 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:18:36 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                              perror_and_code                               */
+/* -------------------------------------------------------------------------- */
+/* This function display a message error associated to the value of errno and */
+/* update, if needed, the result value (overall error code)                   */
+/* Inputs :                                                                   */
+/*  - int *result : a pointer to an error code that might need to be update   */
+/*  - const char *s : errno value ??? */
+/*  - int new_result : the value by which result might be replace             */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	perror_and_code(int *result, const char *s, int new_result)
 {
 	if (*result == 0)
@@ -19,6 +31,19 @@ void	perror_and_code(int *result, const char *s, int new_result)
 	perror(s);
 }
 
+/* ************************************************************************** */
+/*                             close_descriptors                              */
+/* -------------------------------------------------------------------------- */
+/* This function closes pipe's descriptors and pipedescr values are set to -1 */
+/* If an error occured then an error message is display and result value is   */
+/* update to specified where the error occured.                               */
+/* Inputs :                                                                   */
+/*  - int pipedescr[3]      */
+/*  - int *is_piped      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	close_descriptors(int pipedescr[3], int is_piped)
 {
 	int	result;
@@ -36,6 +61,23 @@ int	close_descriptors(int pipedescr[3], int is_piped)
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                                  perr_cds                                  */
+/* -------------------------------------------------------------------------- */
+/* This function displays an error message, closes the pipe's descriptors and */
+/* free every datas about commands and files relative to the current state    */
+/* If we are in interactive mode then the history is cleared                  */
+/* Then we exit the system with EXIT_FAILURE value if everything goes well    */
+/* and 126 if a specific error occured                                        */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - const char *s : the error message to display                            */
+/*  - int pipedescriptors[3]      */
+/*  - int is_piped      */
+/* Return :                                                                   */
+/*  - int EXIT_FAILURE : if everything goes well                              */
+/*  - 126 : if the command execution failed and errno equal EACCES            */
+/* ************************************************************************** */
 int	perr_cds(t_data *d, const char *s, int pipedescriptors[3], int is_piped)
 {
 	perror(s);
@@ -52,6 +94,23 @@ int	perr_cds(t_data *d, const char *s, int pipedescriptors[3], int is_piped)
 	exit (EXIT_FAILURE);
 }
 
+/* ************************************************************************** */
+/*                     close_descrs_with_a_possible_exit                      */
+/* -------------------------------------------------------------------------- */
+/* This function closes file's descriptors as well as pipe's descriptor and   */
+/* set fd1, fd2 and pipedescr values to -1                                    */
+/* It also frees every datas about commands and files relative to the current */
+/* state. If we are in interactive mode then the history is cleared           */
+/* rq : if an error occured while closing pipe's descriptor then the function */
+/* is exit with EXIT_FAILURE value, otherwise src is free                     */
+/* Inputs :                                                                   */
+/*  - t_data *d : a structure that contained infos relative to the shell      */
+/*  - t_token *t     */
+/*  - int pipedescr[3]      */
+/*  - int is_piped      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
 		int pipedescr[3], int is_piped)
 {
@@ -81,6 +140,19 @@ void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
 	t->src = NULL;
 }
 
+/* ************************************************************************** */
+/*                             close_ds_in_parent                             */
+/* -------------------------------------------------------------------------- */
+/* This function closes file descriptors and ??? (ds). If an error occured an */
+/* error message is display                                                   */
+/* If an element as been closed without error then it value is set to -1      */
+/* Inputs :                                                                   */
+/*  - t_token *t     */
+/*  - int ds[3]      */
+/*  - int is_piped      */
+/* Return :                                                                   */
+/*  - None                                                                    */
+/* ************************************************************************** */
 void	close_ds_in_parent(t_token *t, int ds[3], int is_piped)
 {
 	int	result;

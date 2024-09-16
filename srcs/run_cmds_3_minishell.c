@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmds_3_minishell.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hauerbac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:12:13 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/05/29 17:07:55 by hauerbac         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:02:09 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* ************************************************************************** */
+/*                                 files_open                                 */
+/* -------------------------------------------------------------------------- */
+/* This function checks that we have the right access for the file and if we  */
+/* can open them with expected options. Then, if everything is okay, it open  */
+/* the files as wanted, otherwise an error message is display                 */
+/* Input :                                                                    */
+/*  - t_token *t      */
+/* Return :                                                                   */
+/*  - 0 : if everything goes well                                             */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
+// why do we check with access only for input ???
 int	files_open(t_token *t)
 {
 	if (t && t->cmd_d && t->cmd_d->file1
@@ -38,6 +51,21 @@ int	files_open(t_token *t)
 	return (0);
 }
 
+/* ************************************************************************** */
+/*                          ft_strjoin_with_free_s1                           */
+/* -------------------------------------------------------------------------- */
+/* This function returns a string that is the result of the copy of s1 then   */
+/* the copy of s2 right after the previous one. The string obtained is the    */
+/* same as if we have join s1 and s2. The difference is on the fact that the  */
+/* newly obtained string is return and the s1 is free during the process      */
+/* Inputs :                                                                   */
+/*  - char *s1 : the first string to copy                                     */
+/*  - char *s2 : the second string to copy (right after the previous one)     */
+/* Return :                                                                   */
+/*  - char * : the string obtained (result = s1 + s2)                         */
+/*  - NULL : if an error occured                                              */
+/* ************************************************************************** */
+// don't we need to be sure that s1 and a2 exist and aren't NULL ??? (strlen tout ça tout ça)
 char	*ft_strjoin_with_free_s1(char *s1, char *s2)
 {
 	char	*result;
@@ -64,6 +92,16 @@ char	*ft_strjoin_with_free_s1(char *s1, char *s2)
 	return (result);
 }
 
+/* ************************************************************************** */
+/*                          check_error_on_command_2                          */
+/* -------------------------------------------------------------------------- */
+/* This function checks what kind of error is encounter and displays an error */
+/* message associated to it.                                                  */
+/* Input :                                                                    */
+/*  - char *cmd : the invalid command to check                                */
+/* Return :                                                                   */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 static int	check_error_on_command_2(char *cmd)
 {
 	int	cmd_len;
@@ -86,6 +124,16 @@ static int	check_error_on_command_2(char *cmd)
 	return (perror("stat error"), EXIT_FAILURE);
 }
 
+/* ************************************************************************** */
+/*                           check_error_on_command                           */
+/* -------------------------------------------------------------------------- */
+/* This function checks what kind of error is encounter and displays an error */
+/* message associated to it.                                                  */
+/* Input :                                                                    */
+/*  - char *cmd : the invalid command to check                                */
+/* Return :                                                                   */
+/*  - int : the error code of the problem encounter                           */
+/* ************************************************************************** */
 int	check_error_on_command(char *cmd)
 {
 	struct stat	sb;
