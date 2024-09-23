@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:08:25 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 11:58:42 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:36:17 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ int	updenv(char ***envp, int *envp_size, char *var_name, char *var_value)
 	free(var);
 	return (return_code);
 }
-
 
 /* ************************************************************************** */
 /*                                export_vars                                 */
