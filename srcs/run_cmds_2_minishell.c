@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:17:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/13 13:58:35 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:22:34 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_signals_actions_in_fork(t_dll *lst, t_list *current)
 /* This function checks if command_with_path2 is executable or if such file   */
 /* exist. If that is the case then cmd_d->cmd is replaced by it.              */
 /* Inputs :                                                                   */
-/*  - t_cmd *cmd_d      */
+/*  - t_cmd *cmd_d : a struct that contained datas relative to a specific cmd */
 /*  - char *command : the actual command                                      */
 /*  - char *command_with_path2 : the command with the path to check           */
 /* Return :                                                                   */
@@ -89,7 +89,7 @@ static int	join_path_with_cmd(t_cmd *cmd_d, char *command,
 /* This function checks if the command is well formated, if it exist and/or   */
 /* if it is executable as well as checking the path needed to launch it       */
 /* Inputs :                                                                   */
-/*  - t_cmd *cmd_d     */
+/*  - t_cmd *cmd_d : a struct that contained datas relative to a specific cmd */
 /*  - char *command : the command to check                                    */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well and cmd_d->cmd is executable                */
@@ -138,8 +138,8 @@ static int	check_command(t_cmd *cmd_d, char *command)
 /* If we are in interactive mode then the history is cleared                  */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_token *t     */
-/*  - int ds[3]      */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - int ds[3] : an array that contained fds associated to pipe              */
 /*  - int is_piped      */
 /* Return :                                                                   */
 /*  - None                                                                    */
@@ -186,8 +186,8 @@ static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 /* In the parent proccess we only close the file descriptors and ds.          */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_token *t     */
-/*  - int ds[3]      */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - int ds[3] : an array that contained fds associated to pipe              */
 /*  - t_list *current      */
 /* Return :                                                                   */
 /*  - None                                                                    */

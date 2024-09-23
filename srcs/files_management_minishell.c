@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 16:30:53 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:26:59 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static int	save_created_file_name(t_list **new_files,
 /* Inputs :                                                                   */
 /*  - t_list **new_files :     */
 /*  - t_list **cmd_new_files :     */
-/*  - t_token *t :     */
-/*  - char *file_name : */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - char *file_name : the file name of the file that we want to open        */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

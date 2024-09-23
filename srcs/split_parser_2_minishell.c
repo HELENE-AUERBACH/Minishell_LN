@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:28:07 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 18:18:45 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:31:28 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	del_content(void *content)
 /* to lst's last node content                                                 */
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
-/*  - char *sstr      */
-/*  - int *d      */
+/*  - char *sstr : the sub-string to add at the end of the previous one       */
+/*  - int *d : an array of int ????     */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -91,8 +91,8 @@ static int	add_or_concatenate_substr(t_list **lst, char *sstr, int *d,
 /* point toward a space in src                                                */
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
-/*  - char *src      */
-/*  - int *d      */
+/*  - char *src :     */
+/*  - int *d : an array of int ????     */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -143,7 +143,7 @@ static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
 /*  - char *src      */
-/*  - int *d      */
+/*  - int *d : an array of int ????     */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 16:52:19 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:37:44 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* limiter. Then the temporary file is closed.                                */
 /* rq : The actions associated to SIGINT and SIGQUIT are changed              */
 /* Input :                                                                    */
-/*  - t_token *t      */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /* Return :                                                                   */
 /*  - ??? : if everything goes well   */
 /*  - int : the error code of the problem encounter                           */
@@ -100,7 +100,7 @@ static char	*get_file_name_for_heredoc(char *limiter, t_dll_el *prev)
 /* The filename of the temporary file use for the heredoc is determined, then */
 /* it's open and we write in it what was tape by the user (until limiter)     */
 /* Inputs :                                                                   */
-/*  - t_token *t      */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - t_dll_el *current      */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -129,7 +129,7 @@ int	create_heredoc_file(t_token *t, t_dll_el *current)
 /* string that contained the file name                                        */
 /* In the case of a "heredoc", the file is unlink (disappear after use)       */
 /* Input :                                                                    */
-/*  - t_cmd **cmd_d : */
+/*  - t_cmd *cmd_d : a struct that contained datas relative to a specific cmd */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -168,7 +168,7 @@ void	close_in_file_and_free_file_name(t_cmd *cmd_d)
 /* descriptor) variable is set to -1                                          */
 /* If an error occured then an error message is displayed.                    */
 /* Input :                                                                    */
-/*  - t_cmd *cmd_d     */
+/*  - t_cmd *cmd_d : a struct that contained datas relative to a specific cmd */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */

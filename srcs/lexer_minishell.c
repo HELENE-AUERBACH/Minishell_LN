@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:09 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/12 12:06:36 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:45:20 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 /* -------------------------------------------------------------------------- */
 /* This function initialises utils_data and makes new_src point to null       */
 /* Inputs :                                                                   */
-/*  - int *utils_data :                         */
-/*  - char **new_src :                 */
+/*  - int *utils_data : an array of int ?????       */
+/*  - char **new_src : a pointer to a str that contained the update cmd line  */
 /*  - int str_len : the length of the full command line                       */
 /* Return :                                                                   */
 /*  - -1 : if everything goes well                                            */

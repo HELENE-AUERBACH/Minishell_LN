@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 16:15:14 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/08/21 10:41:38 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:32:51 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*ft_strjoin_with_free(char *s1, char *s2)
 /* This function checks if "t->src" contained a closing brace (at j or a      */
 /* greater index)                                                             */
 /* Input :                                                                    */
-/*  - t_token *t :  */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int j : the first index to check                                        */
 /* Return :                                                                   */
 /*  - 1 : if t->src contained a closing brace                                 */

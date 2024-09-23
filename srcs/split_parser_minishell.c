@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:46:15 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/02 15:07:16 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:32:05 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /* This function extracts the command name and its arguments and puts them    */
 /* into an array                                                              */
 /* Input :                                                                    */
-/*  - t_token *t      */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /* Return :                                                                   */
 /*  - char ** : the array of strings generated                                */
 /*  - NULL : if an error occured                                              */

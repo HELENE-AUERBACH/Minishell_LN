@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 16:17:41 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:25:00 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,11 @@ static int	is_file_name_in_list(char *file_name, int file_name_len,
 /* -------------------------------------------------------------------------- */
 /* This function checks if we have an "in" type kind of redirection. If that  */
 /* is the case, we check if the file exist and if we can read it.             */
-/* Then, we check if we are in a pipe and if ???? => error ??? */
+/* Then, we check if we have in_is_pipe and if src is into new_files but not
+/* into cmd_new_files => error ??? */
 /*  */
 /* Inputs :                                                                   */
-/*  - t_token *t      */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - t_list *new_files  */
 /*  - t_list *cmd_new_files      */
 /*  - int is_in_piped  */
@@ -139,7 +140,7 @@ int	check_in_redir_file(t_token *t, t_list *new_files,
 /* This function checks if we have an "out" type kind of redirection. If that */
 /* is the case, and the file exists we check if we can write in it            */
 /* Input :                                                                    */
-/*  - t_token *t     */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : otherwise                                                         */

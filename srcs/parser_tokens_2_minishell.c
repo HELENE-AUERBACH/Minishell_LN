@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:07:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/12 12:06:36 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:46:33 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* new "src". The substring is src without the spaces at the beginning of src */
 /* (if src doesn't start with spaces then substring will be a copy of src)    */
 /* Inputs :                                                                   */
-/*  - t_token *t :      */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int *utils_d :    */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -60,7 +60,7 @@ static int	get_substr_after_spaces(t_token *t, int *utils_d)
 /* symbole)                                                                   */
 /* To be sure we check that the substring obtained is well formated           */
 /* Input :                                                                    */
-/*  - t_token *t        */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : otherwise                                                         */

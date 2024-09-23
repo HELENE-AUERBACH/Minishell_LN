@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:46:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/12 13:18:36 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:39:43 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /* update, if needed, the result value (overall error code)                   */
 /* Inputs :                                                                   */
 /*  - int *result : a pointer to an error code that might need to be update   */
-/*  - const char *s : errno value ??? */
+/*  - const char *s : the error message to display                            */
 /*  - int new_result : the value by which result might be replace             */
 /* Return :                                                                   */
 /*  - None                                                                    */
@@ -38,7 +38,7 @@ void	perror_and_code(int *result, const char *s, int new_result)
 /* If an error occured then an error message is display and result value is   */
 /* update to specified where the error occured.                               */
 /* Inputs :                                                                   */
-/*  - int pipedescr[3]      */
+/*  - int pipedescr[3] : an array that contained fds associated to pipe       */
 /*  - int *is_piped      */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -72,7 +72,7 @@ int	close_descriptors(int pipedescr[3], int is_piped)
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - const char *s : the error message to display                            */
-/*  - int pipedescriptors[3]      */
+/*  - int pipedescriptors[3] : an array that contained fds associated to pipe */
 /*  - int is_piped      */
 /* Return :                                                                   */
 /*  - int EXIT_FAILURE : if everything goes well                              */
@@ -105,8 +105,8 @@ int	perr_cds(t_data *d, const char *s, int pipedescriptors[3], int is_piped)
 /* is exit with EXIT_FAILURE value, otherwise src is free                     */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_token *t     */
-/*  - int pipedescr[3]      */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - int pipedescr[3] : an array that contained fds associated to pipe       */
 /*  - int is_piped      */
 /* Return :                                                                   */
 /*  - None                                                                    */
@@ -147,8 +147,8 @@ void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
 /* error message is display                                                   */
 /* If an element as been closed without error then it value is set to -1      */
 /* Inputs :                                                                   */
-/*  - t_token *t     */
-/*  - int ds[3]      */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - int ds[3] : an array that contained fds associated to pipe              */
 /*  - int is_piped      */
 /* Return :                                                                   */
 /*  - None                                                                    */

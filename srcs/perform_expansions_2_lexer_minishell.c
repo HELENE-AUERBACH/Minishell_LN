@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:56:53 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:29:42 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:06:45 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 /* If it isn't a "valid identifier" then an error message is display and the  */
 /* function returns 1. Otherwise the return value will be 0                   */
 /* Inputs :                                                                   */
-/*  - t_token *t :    */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int i :   */
 /*  - int j :   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
@@ -67,8 +67,8 @@ int	is_not_a_valid_identifier(t_token *t, int i, int j, char **new_src)
 /* the end of it. Otherwise we create a new subtring.                         */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
-/*  - int *d :  */
-/*  - t_token *t :  */
+/*  - int *d : an array of int ???? */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - void *param :       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -113,8 +113,8 @@ static int	get_new_src_before_expansion(char **new_src, int *d, t_token *t)
 /* exist then it is created and it will contained the value obtained          */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
-/*  - t_token *t :  */
-/*  - int *d :  */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - int *d : an array of int ???? */
 /*  - void *param :       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -158,8 +158,8 @@ int	get_new_src_for_expansion(char **new_src, t_token *t, int *d,
 /*  */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
-/*  - t_token *t :  */
-/*  - int *d :  */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - int *d : an array of int ???? */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -200,8 +200,8 @@ static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 /* This function expands   */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
-/*  - int *d :  */
-/*  - t_token *t :  */
+/*  - int *d : an array of int ???? */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - void *param :       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

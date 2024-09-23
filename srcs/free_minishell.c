@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:15:31 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:17:09 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:35:13 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	free_tab(char ***tab)
 /* and the variable that contained the limiter is freed and is set to point   */
 /* toward NULL                                                                */
 /* Input :                                                                    */
-/*  - t_cmd **cmd_d : */
+/*  - t_cmd **cmd_d : a pointer to a struct that contained datas about a cmd  */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -116,7 +116,7 @@ void	free_cmd_d(t_cmd **cmd_d)
 /* This function frees every componants (src, cmd_d) that can be free from    */
 /* content                                                                    */
 /* Input :                                                                    */
-/*  - void *content :   */
+/*  - void *content : the element that we want to freed and cleared           */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */

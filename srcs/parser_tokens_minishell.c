@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:21:05 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:25:17 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /* This function looks for the next token of type pipe or control operator    */
 /* the type of this token is saved in t_cmdbi                                 */
 /* Inputs :                                                                   */
-/*  - t_token **t_cmdbi      */
+/*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
 /*  - int *is_piped      */
 /*  - t_dll_el **current      */
 /* Return :                                                                   */
@@ -89,7 +89,7 @@ static void	ignore_others_redirections(t_dll_el **current)
 /* that is the case and no problems where encounter with the redirections,    */
 /* the "command" is split to separate the command name and its arguments      */
 /* Input :                                                                    */
-/*  - t_token **t_cmdbi      */
+/*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
 /*  - t_dll_el **current      */
 /*  - int result_of_check_files_for_redirections      */
 /* Return :                                                                   */
@@ -136,7 +136,7 @@ static void	handle_a_command_or_a_bi(t_token **t_cmdbi, t_dll_el **current,
 /* the next pipe or control operator                                          */
 /* the elements of cmd_new_files are free and clear                           */
 /* Inputs :                                                                   */
-/*  - t_token **t_cmdbi      */
+/*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
 /*  - int *is_piped      */
 /*  - t_dll_el **current      */
 /*  - t_data *d : a structure that contained infos relative to the shell      */

@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:56:35 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:47:24 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:10:24 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /* relative built function is call.                                           */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_cmd *bi      */
+/*  - t_cmd *bi : a structure that contained datas relative to builtin cmd    */
 /*  - int fd2 : the file descriptor of the output                             */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -61,7 +61,7 @@ int	check_and_run_bi(t_data *d, t_cmd *bi, int fd2)
 /* is freed                                                                   */
 /* Inputs :                                                                   */
 /*  - t_dll *lst      */
-/*  - t_token *t      */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - t_list *current      */
 /* Return :                                                                   */
 /*  - None                                                                    */
@@ -142,8 +142,8 @@ static void	free_for_bi_in_fork(t_data *d)
 /* In the parent proccess we only close the file descriptors and ds.          */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_token *t :  */
-/*  - int ds[3] :  */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - int ds[3] : an array that contained fds associated to pipe              */
 /*  - t_list *current :  */
 /* Return :                                                                   */
 /*  - None                                                                    */

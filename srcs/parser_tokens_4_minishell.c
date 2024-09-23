@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:37:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/04 11:49:13 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:59:48 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 /* command is in pipe, no input file has been specified and the variable      */
 /* next_has_to_be_forced is set to 1                                          */
 /* Inputs :                                                                   */
-/*  - t_token *t_cmdbi      */
+/*  - t_token *t_cmdbi : a struct that contained datas about cmd or builtin   */
 /*  - int *next_has_to_be_forced      */
 /*  - int *result      */
 /* Return :                                                                   */

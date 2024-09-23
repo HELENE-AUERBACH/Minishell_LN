@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/13 11:29:16 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:26:22 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* command is specified                                                       */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_token *t_cmdbi   */
+/*  - t_token *t_cmdbi : a struct that contained datas about cmd or builtin   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -69,7 +69,7 @@ int	add_to_cmds_list(t_data *d, t_token *t_cmdbi)
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - t_list *current      */
 /*  - int *is_piped      */
-/*  - int *ds      */
+/*  - int *ds : an array that contained fds associated to pipe                */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

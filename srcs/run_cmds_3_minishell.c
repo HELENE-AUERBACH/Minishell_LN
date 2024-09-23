@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:12:13 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 18:02:09 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:23:57 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /* can open them with expected options. Then, if everything is okay, it open  */
 /* the files as wanted, otherwise an error message is display                 */
 /* Input :                                                                    */
-/*  - t_token *t      */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

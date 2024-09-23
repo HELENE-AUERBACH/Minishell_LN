@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:20:13 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 16:40:13 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:35:59 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	init_write_here_doc_file(void)
 /* and we tells the function that we have move on to a new line that we set   */
 /* as void                                                                    */
 /* Input :                                                                    */
-/*  - t_cmd *cmd_d      */
+/*  - t_cmd *cmd_d : a struct that contained datas relative to a specific cmd */
 /* Return :                                                                   */
 /*  - g_exit_status (unmodified in this function)                             */
 /* ************************************************************************** */

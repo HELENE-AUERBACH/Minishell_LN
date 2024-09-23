@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 16:06:08 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:01:06 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 /* The variable "value" is update to NULL if name doesn't exist in envp or    */
 /* envp is NULL                                                               */
 /* Inputs :                                                                   */
-/*  - char **value : a pointer to a string that we are looking for            */
-/*  - char *name : the "variable" for which we want the associated value      */
+/*  - char **value : pointer to a string that will contained the value found  */
+/*  - char *name : the name of the var for which we want the associated value */
 /*  - int envp_size : the size of the char **envp variable                    */
 /*  - char **envp : the system environment (of our current shell)             */
 /* Return :                                                                   */
-/*  - 0 : if everything goes well ???                       */
+/*  - 0 : if everything goes well                                             */
 /*  - 3 : otherwise (malloc error)                                            */
 /* ************************************************************************** */
 // 0 if everything goes well I suppose...
@@ -72,12 +72,12 @@ static int	get_val_from_envp(char **value, char *name, int envp_size,
 /* if name is "?\0" then -1 is return                                         */
 /* otherwise, we extract the value associated with <name> in envp.            */
 /* Inputs :                                                                   */
-/*  - char **value : a pointer to a string that we are looking for            */
-/*  - char *name : the "variable" for which we want the associated value      */
+/*  - char **value : pointer to a string that will contained the value found  */
+/*  - char *name : the name of the var for which we want the associated value */
 /*  - int envp_size : the size of the char **envp variable                    */
 /*  - char **envp : the system environment (of our current shell)             */
 /* Return :                                                                   */
-/*  - 0 : if everything goes well ???                       */
+/*  - 0 : if everything goes well                                             */
 /*  - 3 : otherwise (malloc error)                                            */
 /* ************************************************************************** */
 int	get_value_from_envp(char **value, char *name, int envp_size, char **envp)
@@ -103,11 +103,11 @@ int	get_value_from_envp(char **value, char *name, int envp_size, char **envp)
 /* current environment.                                                       */
 /* if name == ? then we are looking for the exit code of the last command     */
 /* Inputs :                                                                   */
-/*  - char **value : a pointer to a string that we are looking for            */
-/*  - char *name : the "variable" for which we want the associated value      */
-/*  - t_data *d :  */
+/*  - char **value : pointer to a string that will contained the value found  */
+/*  - char *name : the name of the var for which we want the associated value */
+/*  - t_data *d : a structure that contained datas about the shell & cmd line */
 /* Return :                                                                   */
-/*  - 0 : if everything goes well ???                       */
+/*  - 0 : if everything goes well                                             */
 /*  - 3 : otherwise (malloc error)                                            */
 /* ************************************************************************** */
 int	get_value_from_minishell_envp(char **value, char *name, t_data *d)

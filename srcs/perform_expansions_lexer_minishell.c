@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:15:24 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:31:12 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:07:46 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	init_utils_data(int *utils_data, int str_len)
 /* replace by a void string).                                                 */
 /* The length of the src is then updates with the length of new_src           */
 /* Inputs :                                                                   */
-/*  - t_token *t  */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - char *new_src : the sub-string that defines the token                   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -102,8 +102,8 @@ static int	replace_token_src(t_token *t, char *new_src)
 /* This function expands   */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
-/*  - int *d :  */
-/*  - t_token *t :  */
+/*  - int *d : an array of int ???? */
+/*  - t_token *t : a structure that contained datas about the current token   */
 /*  - void *param :       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
