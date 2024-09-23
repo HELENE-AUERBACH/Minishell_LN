@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:08:25 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 15:10:21 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:58:42 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static void	print_env_var(char *env_var, size_t env_var_len, int fd)
 /* char or "_") until the "=" char that delimit the two part to split or "\0" */
 /* Inputs :                                                                   */
 /*  - int i : the index of the element of args that we want to split          */
-/*  - char **args      */
-/*  - char **vns    */
-/*  - char **vvals */
+/*  - char **args : an array of str that containe variable name and its value */
+/*  - char **vns : an array that will contained the variable name found       */
+/*  - char **vvals : an array that will contained the variable value found    */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -198,7 +198,7 @@ static int	export_vars(char ***envp, int *envp_size, char **args, int nv)
 /* Inputs :                                                                   */
 /*  - char ***envp : a pointer to an array of string about the environment    */
 /*  - int *envp_size : a pointer to the size of the array of strings envp     */
-/*  - char **args      */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /*  - int fd : the output file descriptor                                     */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:20:12 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/06 14:22:35 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:18:39 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	is_there_a_special_parameter(char **envp)
 /* "_=env\n" after the last variable                                          */
 /* Inputs :                                                                   */
 /*  - char **envp : the system environment datas                              */
-/*  - char **args         */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /*  - int fd : the output file descriptor                                     */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

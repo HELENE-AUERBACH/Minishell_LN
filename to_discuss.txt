@@ -6,37 +6,37 @@ So if you could explained to me once more what a structure contained and why we 
 //     built_in_cd_minishell.c     //
 // ------------------------------- //
 -> execute_cd
-   - What is 'args' variable in this function ??? (bi->args so the arguments associated to the builtin function ???)
-   - What is 'i' variable ???  (the number of arguments ???)
+   - What is 'args' variable in this function ???     ---    DONE
+   - What is 'i' variable ???      ---    DONE
 
 -> built_cd
-   - What is 'args' variable in this function ??? (bi->args so the arguments associated to the builtin function ???)
+   - What is 'args' variable in this function ???     ---    DONE
 
 // --------------------------------- //
 //     built_in_echo_minishell.c     //
 // --------------------------------- //
 -> check_options_and_newline
-   - What is 'args' variable in this function ??? (bi->args so the arguments associated to the builtin function ???)
+   - What is 'args' variable in this function ???     ---    DONE
 
 -> built_echo
-   - What is 'args' variable in this function ??? (bi->args so the arguments associated to the builtin function ???)
+   - What is 'args' variable in this function ???     ---    DONE
    - We always return 0, why is this function not a void one ???
 
 // -------------------------------- //
 //     built_in_env_minishell.c     //
 // -------------------------------- //
 -> built_env
-   - What is 'args' variable in this function ??? (bi->args so the arguments associated to the builtin function ???)
+   - What is 'args' variable in this function ???     ---    DONE
 
 // --------------------------------- //
 //     built_in_exit_minishell.c     //
 // --------------------------------- //
 -> get value
-   - What is 'error' variable in this function ??? (something akin to a boolean ???)
-   - What is 'exit_value' variable in this function ??? (a string that contained a numerical value associated to an error code ???)
+   - What is 'error' variable in this function ???     ---    DONE
+   - What is 'exit_value' variable in this function ???     ---    DONE
 
 -> built_exit
-   - What is 'args' variable in this function ??? (bi->args so the arguments associated to the builtin function ???)
+   - What is 'args' variable in this function ???     ---    DONE
 
 // ------------------------------------- //
 //     built_in_export_2_minishell.c     //
@@ -418,7 +418,7 @@ So if you could explained to me once more what a structure contained and why we 
 //     run_bi_minishell.c     //
 // -------------------------- //
 -> check_and_run_bi
-   - What is 'bi' variable in this function ???
+   - What is 'bi' variable in this function ???    ---    DONE
 
 -> set_signals_actions_in_fork_for_bi
    - What is 'lst' variable in this function ???

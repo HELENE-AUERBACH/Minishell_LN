@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:33:42 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/06 12:39:07 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:00:00 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	copy_pwd_var_into_env(char **envp, int envp_size)
 /* -------------------------------------------------------------------------- */
 /* This function displays the Current Working Directory into fd output        */
 /* Inputs :                                                                   */
-/*  - char **args                              */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /*  - int fd : the output file descriptor                                     */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

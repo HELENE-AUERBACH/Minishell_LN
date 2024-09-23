@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:56 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 15:24:18 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:00:16 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static int	delete_var_from_envp(char ***envp, int *envp_size, char *var)
 /* Inputs :                                                                   */
 /*  - char ***envp : a pointer to an array of string about the environment    */
 /*  - int *envp_size : a pointer to the size of the array of strings envp     */
-/*  - char **args       */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

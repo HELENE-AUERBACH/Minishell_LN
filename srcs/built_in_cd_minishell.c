@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:57:29 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/12 13:36:27 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:16:37 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ static int	change_directory(char *new_dir, char **envp, int envp_size)
 /* Inputs :                                                                   */
 /*  - char ***envp : a pointer to an array of string about the environment    */
 /*  - int *envp_size : a pointer to the size of the array of strings envp     */
-/*  - char **args      */
-/*  - int i :       */
+/*  - char **args : array that contained the arguments associated to builtin  */
+/*  - int i : the size of args array (number of arguments)                    */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -147,7 +147,7 @@ static int	execute_cd(char ***envp, int *envp_size, char **args, int i)
 /* Inputs :                                                                   */
 /*  - char ***envp : a pointer to an array of string about the environment    */
 /*  - int *envp_size : a pointer to the size of the array of strings envp     */
-/*  - char **args      */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /*  - int fd : the output file descriptor                                     */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

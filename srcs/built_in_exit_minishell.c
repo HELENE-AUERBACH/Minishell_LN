@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:34:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/12 13:46:28 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:22:08 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static int	too_many_args(char **args)
 /* value obtained is returned                                                 */
 /* rq : if an error occured, error value become 1                             */
 /* Inputs :                                                                   */
-/*  - int *error            */
-/*  - char *exit_value         */
+/*  - int *error : a pointer to an int used to specified if an error occured  */
+/*  - char *exit_value : a string that contained the exit value to return     */
 /* Return :                                                                   */
 /*  - long long : the value obtained in base 10 (if everything goes well)     */
 /*  - 2 : if an error occured                                                 */
@@ -81,7 +81,7 @@ static long long	get_value(int *error, char *exit_value)
 /* rq : if we are in interactive mode the history is clear beforre exit       */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - char **args         */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /* Return :                                                                   */
 /*  - int : the exit status obtained (value % 256)                            */
 /* ************************************************************************** */

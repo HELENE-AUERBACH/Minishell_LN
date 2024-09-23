@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 11:32:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/04 13:47:44 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:17:41 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 /* Inputs :                                                                   */
 /*  - int *i : a pointer to the first index of args to check                  */
 /*  - int *with_a_newline : pointer to an int used to display or not newline  */
-/*  - char **args :     */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -63,13 +63,11 @@ static void	check_options_and_newline(int *i, int *with_a_newline,
 /* write (newline is write once all the remaining args had been write)        */
 /* rq : every args to write is separated by a space                           */
 /* Inputs :                                                                   */
-/*  - char **args      */
+/*  - char **args : array that contained the arguments associated to builtin  */
 /*  - int fd : the output file descriptor                                     */
 /* Return :                                                                   */
-/*  - 0 :                      */
+/*  - 0                                                                       */
 /* ************************************************************************** */
-// well it seems that we can only return 0 ^^' (I realised that it is for the return
-// value of the previous function but is there a story ???)
 int	built_echo(char **args, int fd)
 {
 	int	i;
