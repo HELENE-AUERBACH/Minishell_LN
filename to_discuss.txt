@@ -3,7 +3,7 @@ As a matter of fact I kind of understand why you are creating so many structures
 So if you could explained to me once more what a structure contained and why we couldn't used the datas that we copy directly from the source it would be a big help...
 
 // ------------------------------- //
-//     built_in_cd_minishell.c     //
+//     built_in_cd_minishell.c     //    OK
 // ------------------------------- //
 -> execute_cd
    - What is 'args' variable in this function ???     ---    DONE
@@ -13,7 +13,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'args' variable in this function ???     ---    DONE
 
 // --------------------------------- //
-//     built_in_echo_minishell.c     //
+//     built_in_echo_minishell.c     //    OK
 // --------------------------------- //
 -> check_options_and_newline
    - What is 'args' variable in this function ???     ---    DONE
@@ -23,13 +23,13 @@ So if you could explained to me once more what a structure contained and why we 
    - We always return 0, why is this function not a void one ???
 
 // -------------------------------- //
-//     built_in_env_minishell.c     //
+//     built_in_env_minishell.c     //    OK
 // -------------------------------- //
 -> built_env
    - What is 'args' variable in this function ???     ---    DONE
 
 // --------------------------------- //
-//     built_in_exit_minishell.c     //
+//     built_in_exit_minishell.c     //    OK
 // --------------------------------- //
 -> get value
    - What is 'error' variable in this function ???     ---    DONE
@@ -49,8 +49,8 @@ So if you could explained to me once more what a structure contained and why we 
 // ----------------------------------- //
 -> split_var_name_and_value
    - What is 'args' variable in this function ???     ---    DONE
-   - What is 'vns' variable in this function ??? (why don't we need a pointer to this array as we modified it ???)
-   - What is 'vvals' variable in this function ??? (why don't we need a pointer to this array as we modified it ???)
+   - What is 'vns' variable in this function ???     ---    DONE
+   - What is 'vvals' variable in this function ???     ---    DONE
 
 -> export_vars
    - What is 'args' variable in this function ??? (a pointer toward args[1] but what is it and why ???)
@@ -59,19 +59,19 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'args' variable in this function ???     ---    DONE
 
 // -------------------------------- //
-//     built_in_pwd_minishell.c     //
+//     built_in_pwd_minishell.c     //    Ok
 // -------------------------------- //
 -> built_pwd
    - What is 'args' variable in this function ???     ---    DONE
 
 // ---------------------------------- //
-//     built_in_unset_minishell.c     //
+//     built_in_unset_minishell.c     //    OK
 // ---------------------------------- //
 -> built_unset
    - What is 'args' variable in this function ???     ---    DONE
 
 // -------------------------------------- //
-//     checks_split_lexer_minishell.c     //
+//     checks_split_lexer_minishell.c     //    OK
 // -------------------------------------- //
    No specific questions here
 
@@ -100,7 +100,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'is_piped' variable in this function ??? (I supposed that is kind of a boolean about pipes but what does that specified ??? If we are in a pipe ??? If we right before or right after a pipe ??? all that ??? Something else ???)
 
 // ------------------------------------ //
-//     copy_environment_minishell.c     //
+//     copy_environment_minishell.c     //    OK
 // ------------------------------------ //
    No specific questions here
 
@@ -158,11 +158,11 @@ So if you could explained to me once more what a structure contained and why we 
 //     files_management_2_minishell.c     //
 // -------------------------------------- //
 -> cast_dll_el_into_token
-   - What is 'current' variable in this function ???    (hmm... if I didn't loose myself then it come from a pointer toward el_ptr that is equal to d->lst->head... but what kind of datas do we put into lst ??? ^^')
+   - What is 'current' variable in this function ???     ---    DONE
    - Did I properly explained what this function is supposed to do ???
 
 -> close_previous_file
-   - What is 'prev' variable in this function ???
+   - What is 'prev' variable in this function ???     ---    DONE
    - If fd1 could not be closed then we don't even try to closed fd2... is it normal ???
 
 -> is_file_name_in_list
@@ -183,10 +183,11 @@ So if you could explained to me once more what a structure contained and why we 
 -> open_out_file_and_close_prev
    - What is 'new_files' variable in this function ???
    - What is 'cmd_new_files' variable in this function ???
-   - What is 'current' variable in this function ???
+   - What is 't' variable in this function ???     ---    DONE
+   - What is 'prev' variable in this function ???     ---    DONE
 
 -> check_files_for_out_redirections
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
    - What is 'new_files' variable in this function ???
    - What is 'cmd_new_files' variable in this function ???
    - What is 'redir_error_first_position' variable in this function ???
@@ -208,11 +209,11 @@ So if you could explained to me once more what a structure contained and why we 
 -> open_in_file_and_close_prev
    - What is 'new_files' variable in this function ???
    - What is 'cmd_new_files' variable in this function ???
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
    (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 -> check_files_for_in_redirections
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
    - What is 'redir_error_first_position' variable in this function ???
    - What is 'is_in_piped' variable in this function ??? (Is it the same thin than the variable is_piped or is it something else ???)
    (I need to add what the function 'cast_dll_el_into_token' do to my function description)
@@ -230,7 +231,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'cmd_d' variable in this function ???     ---    DONE
 
 // ------------------------ //
-//     free_minishell.c     //
+//     free_minishell.c     //    OK
 // ------------------------ //
 -> free_cmd_d
    - What is 'cmd_d' variable in this function ???     ---    DONE
@@ -256,13 +257,13 @@ So if you could explained to me once more what a structure contained and why we 
    - Am I right to think that '0' is the return value expected when everything goes well ???
 
 -> get_file_name_for_heredoc
-   - What is 'prev' variable in this function ???
+   - What is 'prev' variable in this function ???     ---    DONE
    - If prev and prev->content exist then you want to incremented the name of the temporary file (if I remember correctly what you explained to me)
    ... I don't see where you "incremente" index... ^^'
 
 -> create_heredoc_file
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
 
 -> close_in_file_and_free_file_name
    - What is 'cmd_d' variable in this function ???     ---    DONE
@@ -293,12 +294,12 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't' variable in this function ???     ---    DONE
 
 -> check_redir_files
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
    - What is 'is_in_piped' variable in this function ??? (Is it the same thin than the variable is_piped or is it something else ???)
     (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 // ----------------------------------- //
-//     parser_tokens_3_minishell.c     //
+//     parser_tokens_3_minishell.c     //    OK
 // ----------------------------------- //
 -> set_last_redir_in
    - What is 't_cmdbi' variable in this function ???     ---    DONE
@@ -330,18 +331,20 @@ So if you could explained to me once more what a structure contained and why we 
 -> find_next_pipe_or_ctrloperator
    - What is 't_cmdbi' variable in this function ???     ---    DONE
    - What is 'is_piped' variable in this function ???
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
 
 -> ignore_others_redirections
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
 
 -> handle_a_command_or_a_bi
    - What is 't_cmdbi' variable in this function ???     ---    DONE
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
    - What is 'result_of_check_files_for_redirections' variable in this function ???
 
--> find_cmd_or_bi
+-> find_cmd_or_b
    - What is 't_cmdbi' variable in this function ???     ---    DONE
+   - What is 'is_piped' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
 
 -> parse_tokens
    (I need to complement my function description)
@@ -492,7 +495,7 @@ So if you could explained to me once more what a structure contained and why we 
    - Am I right to think that '0' is the return value expected when everything goes well ???
 
 // ------------------------------------ //
-//     signals_handlers_minishell.c     //
+//     signals_handlers_minishell.c     //    OK
 // ------------------------------------ //
    No specific questions here
 
@@ -529,7 +532,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'lst' variable in this function ???
 
 // -------------------------------- //
-//     split_parser_minishell.c     //
+//     split_parser_minishell.c     //    OK
 // -------------------------------- //
 -> split_cmd_args
    - What is 't' variable in this function ???     ---    DONE

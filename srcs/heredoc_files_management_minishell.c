@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 13:37:44 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 15:44:57 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	open_and_write_here_doc_file(t_token *t)
 /* ".here_doc_file_"<limiter>"_"<index>                                       */
 /* Inputs :                                                                   */
 /*  - char *limiter : the limiter of the "heredoc"                            */
-/*  - t_dll_el *prev      */
+/*  - t_dll_el *prev : previous element of double list relatives to cmd datas */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -101,7 +101,7 @@ static char	*get_file_name_for_heredoc(char *limiter, t_dll_el *prev)
 /* it's open and we write in it what was tape by the user (until limiter)     */
 /* Inputs :                                                                   */
 /*  - t_token *t : a structure that contained datas about the current token   */
-/*  - t_dll_el *current      */
+/*  - t_dll_el *current : an elt of a double list relative to cmd datas       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

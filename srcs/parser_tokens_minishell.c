@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:25:17 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 15:48:11 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* Inputs :                                                                   */
 /*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
 /*  - int *is_piped      */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ static void	find_next_pipe_or_ctrloperator(t_token **t_cmdbi, int *is_piped,
 /* This function ignores consecutives redirections and moves until the next   */
 /* token that isn't a redirection or, if no such token exist, until NULL.     */
 /* Input :                                                                    */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -90,7 +90,7 @@ static void	ignore_others_redirections(t_dll_el **current)
 /* the "command" is split to separate the command name and its arguments      */
 /* Input :                                                                    */
 /*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /*  - int result_of_check_files_for_redirections      */
 /* Return :                                                                   */
 /*  - None                                                                    */
@@ -138,7 +138,7 @@ static void	handle_a_command_or_a_bi(t_token **t_cmdbi, t_dll_el **current,
 /* Inputs :                                                                   */
 /*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
 /*  - int *is_piped      */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

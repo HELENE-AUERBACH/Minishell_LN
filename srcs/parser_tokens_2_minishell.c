@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:07:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 13:46:33 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 15:46:52 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ static int	ft_min(int value1, int value2)
 /* If we already have open one file for the same type of redirection then we  */
 /* close the one previous open to be ready to open the new file               */
 /* Inputs :                                                                   */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - int is_in_piped      */
 /* Return :                                                                   */

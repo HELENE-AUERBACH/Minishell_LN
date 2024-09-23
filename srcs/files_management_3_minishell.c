@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:56:52 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 16:23:56 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 15:40:45 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 /* Inputs :                                                                   */
 /*  - t_list **new_files      */
 /*  - t_list **cmd_new_files      */
-/*  - t_dll_el *current      */
+/*  - t_token *t : a structure that contained datas about the current token   */
+/*  - t_dll_el *prev : previous element of double list relatives to cmd datas */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -63,7 +64,7 @@ static int	open_out_file_and_close_prev(t_list **new_files,
 /*   */
 /*   */
 /* Inputs :                                                                   */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : pointer to an elt of double list about cmd datas   */
 /*  - t_list **new_files      */
 /*  - t_list **cmd_new_files      */
 /*  - int redir_error_first_position      */

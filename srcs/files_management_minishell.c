@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 13:26:59 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 15:43:52 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	open_file(t_list **new_files, t_list **cmd_new_files, t_token *t,
 /* Inputs :                                                                   */
 /*  - t_list **new_files      */
 /*  - t_list **cmd_new_files      */
-/*  - t_dll_el *current      */
+/*  - t_dll_el *current : an elt of a double list relative to cmd datas       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -152,7 +152,7 @@ static int	open_in_file_and_close_prev(t_list **new_files,
 /* if files where previously open they are closed before we open the new      */
 /* needed files                                                               */
 /* Inputs :                                                                   */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : pointer to an elt of double list about cmd datas   */
 /*  - int redir_error_first_position      */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - int is_in_piped      */

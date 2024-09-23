@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:36:27 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/23 15:46:18 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@
 /* -------------------------------------------------------------------------- */
 /* This function converts the double list element into a structure t_token    */
 /* Input :                                                                    */
-/*  - t_dll_el **current      */
+/*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /* Return :                                                                   */
 /*  - NULL : if input t_dll_el doesn't exist or is void                       */
 /*  - t_token : the converted result otherwise                                */
 /* ************************************************************************** */
-// ??? Is it really what this function is doing ???
 t_token	*cast_dll_el_into_token(t_dll_el **current)
 {
 	if (!(current && *current))
@@ -35,7 +34,7 @@ t_token	*cast_dll_el_into_token(t_dll_el **current)
 /* -------------------------------------------------------------------------- */
 /* This function closes fd1 and fd2 (of the files opened)                     */
 /* Inputs :                                                                   */
-/*  - t_dll_el *prev      */
+/*  - t_dll_el *prev : previous element of double list relatives to cmd datas */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : otherwise                                                         */
