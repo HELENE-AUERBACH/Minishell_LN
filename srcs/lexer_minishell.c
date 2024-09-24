@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:09 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 13:45:20 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 13:53:25 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@
 /* -------------------------------------------------------------------------- */
 /* This function initialises utils_data and makes new_src point to null       */
 /* Inputs :                                                                   */
-/*  - int *utils_data : an array of int ?????       */
+/*  - int *utils_data : array of datas about internal criteria of token to be */
 /*  - char **new_src : a pointer to a str that contained the update cmd line  */
 /*  - int str_len : the length of the full command line                       */
 /* Return :                                                                   */
-/*  - -1 : if everything goes well                                            */
-/*  - int : otherwise                                                         */
+/*  - NULL                                                                    */
 /* ************************************************************************** */
 void	init_utils_data_and_new_src(int *utils_data, char **new_src,
 		int str_len)
@@ -41,8 +40,7 @@ void	init_utils_data_and_new_src(int *utils_data, char **new_src,
 /*  - int *i : a pointer to the index where we start                          */
 /*  - const char *str : the command line to use as reference                  */
 /* Return :                                                                   */
-/*  - -1 : if everything goes well                                            */
-/*  - int : otherwise                                                         */
+/*  - int : index of the first metacharacter encounter                        */
 /* ************************************************************************** */
 int	get_end_index_of_file_or_delimiter_name(int *i, const char *str)
 {
@@ -82,7 +80,7 @@ int	get_end_index_of_file_or_delimiter_name(int *i, const char *str)
 /*  - t_tokenizer *token : the structure to initialise                        */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
-/*  - -3 : otherwise                                                          */
+/*  - -3 : otherwise (malloc error)                                           */
 /* ************************************************************************** */
 int	init_token_cmd_d(t_token *token)
 {

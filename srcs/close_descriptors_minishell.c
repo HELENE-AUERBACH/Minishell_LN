@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:46:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 12:39:43 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:15:32 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	perror_and_code(int *result, const char *s, int new_result)
 /* update to specified where the error occured.                               */
 /* Inputs :                                                                   */
 /*  - int pipedescr[3] : an array that contained fds associated to pipe       */
-/*  - int *is_piped      */
+/*  - int is_piped : specified if the token is preceded or followed by a pipe */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -73,7 +73,7 @@ int	close_descriptors(int pipedescr[3], int is_piped)
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - const char *s : the error message to display                            */
 /*  - int pipedescriptors[3] : an array that contained fds associated to pipe */
-/*  - int is_piped      */
+/*  - int is_piped : specified if the token is preceded or followed by a pipe */
 /* Return :                                                                   */
 /*  - int EXIT_FAILURE : if everything goes well                              */
 /*  - 126 : if the command execution failed and errno equal EACCES            */
@@ -107,7 +107,7 @@ int	perr_cds(t_data *d, const char *s, int pipedescriptors[3], int is_piped)
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int pipedescr[3] : an array that contained fds associated to pipe       */
-/*  - int is_piped      */
+/*  - int is_piped : specified if the token is preceded or followed by a pipe */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -149,7 +149,7 @@ void	close_descrs_with_a_possible_exit(t_data *d, t_token *t,
 /* Inputs :                                                                   */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int ds[3] : an array that contained fds associated to pipe              */
-/*  - int is_piped      */
+/*  - int is_piped : specified if the token is preceded or followed by a pipe */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */

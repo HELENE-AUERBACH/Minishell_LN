@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:56:52 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 15:40:45 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 13:24:15 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 /* This function closes files previously open and opens the new outfile       */
 /* needed                                                                     */
 /* Inputs :                                                                   */
-/*  - t_list **new_files      */
-/*  - t_list **cmd_new_files      */
+/*  - t_list **new_files : ptr to lst of files created for * cmd of cmd line  */
+/*  - t_list **cmd_new_files : ptr to lst of files created for current cmd    */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - t_dll_el *prev : previous element of double list relatives to cmd datas */
 /* Return :                                                                   */
@@ -59,15 +59,16 @@ static int	open_out_file_and_close_prev(t_list **new_files,
 /* exist and if we have the needed rights                                     */
 /* if files where previously open they are closed before we open the new      */
 /* needed files                                                               */
-/* If the output file doesn't alredy exist then its name is added at the and  */
-/* new_file an at the end oof cmd_new_files lists                             */
-/*   */
-/*   */
+/* If the output file doesn't already exist then its name is added at the and */
+/* new_file an at the end of cmd_new_files lists                              */
+/*  */
+/*  */
 /* Inputs :                                                                   */
 /*  - t_dll_el **current : pointer to an elt of double list about cmd datas   */
-/*  - t_list **new_files      */
-/*  - t_list **cmd_new_files      */
-/*  - int redir_error_first_position      */
+/*  - t_list **new_files : ptr to lst of files created for * cmd of cmd line  */
+/*  - t_list **cmd_new_files : ptr to lst of files created for current cmd    */
+/*  - int redir_error_first_position : position of the first redir error      */
+/* rq : if no such redirection exists, redir_error_first_position = 0         */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

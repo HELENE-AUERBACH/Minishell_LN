@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:28:48 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/12 14:26:38 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:30:12 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static unsigned int	ft_base(unsigned int *i, const char *str)
 /*  - 1 : if c is valid in base                                               */
 /*  - 0 : otherwise                                                           */
 /* ************************************************************************** */
-// base <= 36 ?????????
 static unsigned int	ft_is_a_valid_digit_in_base(unsigned int base, \
 			const char c)
 {
@@ -97,7 +96,6 @@ static unsigned int	ft_is_a_valid_digit_in_base(unsigned int base, \
 /*  - -1 || 1 : the sign multiplier, if everything goes well                  */
 /*  - 0 : if an error occured                                                 */
 /* ************************************************************************** */
-// base > 36 ????
 // if !str or !str[*i] -> we try to access it => SegFault, can that append ???
 // even if we pretend that SegFault doesn't occured, if str==<spaces>"\0", result == 1
 // hmm... boundaries[] is of type UNSIGNED INT yet you initialised its values with

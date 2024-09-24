@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:49:57 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 15:44:57 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 13:45:41 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 /* Input :                                                                    */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /* Return :                                                                   */
-/*  - ??? : if everything goes well   */
-/*  - int : the error code of the problem encounter                           */
+/*  - 0 (res) : if write stop by LIMITER and not by SIGINT / SIGQUIT (signal) */
+/*  - int : the value associated to the signal exit status (g_exit_status)    */
 /* ************************************************************************** */
 static int	open_and_write_here_doc_file(t_token *t)
 {
@@ -54,9 +54,8 @@ static int	open_and_write_here_doc_file(t_token *t)
 /* ************************************************************************** */
 /*                         get_file_name_for_heredoc                          */
 /* -------------------------------------------------------------------------- */
-/* This function extracts the number of the previous input file (???).        */
-/* Then the name of the temporary file is generated, it follow the model :    */
-/* ".here_doc_file_"<limiter>"_"<index>                                       */
+/* This function generates the name to associated to the temporary file.      */
+/* It follow the model : ".here_doc_file_"<limiter>"_"<index>                 */
 /* Inputs :                                                                   */
 /*  - char *limiter : the limiter of the "heredoc"                            */
 /*  - t_dll_el *prev : previous element of double list relatives to cmd datas */
@@ -64,7 +63,6 @@ static int	open_and_write_here_doc_file(t_token *t)
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// Where is incremented the index ???
 static char	*get_file_name_for_heredoc(char *limiter, t_dll_el *prev)
 {
 	char	*index;

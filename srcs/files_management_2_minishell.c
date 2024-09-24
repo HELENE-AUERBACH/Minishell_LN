@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 15:46:18 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:46:51 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /* ************************************************************************** */
 /*                           cast_dll_el_into_token                           */
 /* -------------------------------------------------------------------------- */
-/* This function converts the double list element into a structure t_token    */
+/* This function converts the double list element content into a structure    */
+/* t_token                                                                    */
 /* Input :                                                                    */
 /*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /* Return :                                                                   */
@@ -39,8 +40,6 @@ t_token	*cast_dll_el_into_token(t_dll_el **current)
 /*  - 0 : if everything goes well                                             */
 /*  - int : otherwise                                                         */
 /* ************************************************************************** */
-// ???
-// if fd1 couldn't be close we don't even try to close fd2...
 int	close_previous_file(t_dll_el *prev)
 {
 	t_token	*p;
@@ -75,7 +74,7 @@ int	close_previous_file(t_dll_el *prev)
 /* Inputs :                                                                   */
 /*  - char *file_name : the file_name that we are looking for                 */
 /*  - int file_name_len : the length of the file_name string                  */
-/*  - t_list *lst   */
+/*  - t_list *lst : the list in which we are looking for file_name            */
 /* Return :                                                                   */
 /*  - 1 : if file_name is in lst                                              */
 /*  - 0 : otherwise                                                           */
@@ -105,14 +104,13 @@ static int	is_file_name_in_list(char *file_name, int file_name_len,
 /* -------------------------------------------------------------------------- */
 /* This function checks if we have an "in" type kind of redirection. If that  */
 /* is the case, we check if the file exist and if we can read it.             */
-/* Then, we check if we have in_is_pipe and if src is into new_files but not
-/* into cmd_new_files => error ??? */
-/*  */
+/* Then, we check if we have in_is_pipe and if the file_name exist at the     */
+/* moment for the actual command                                              */
 /* Inputs :                                                                   */
 /*  - t_token *t : a structure that contained datas about the current token   */
-/*  - t_list *new_files  */
-/*  - t_list *cmd_new_files      */
-/*  - int is_in_piped  */
+/*  - t_list *new_files : list of files created for every cmd of the cmd line */
+/*  - t_list *cmd_new_files : list of files created for the current command   */
+/*  - int is_in_piped : specified if the token is preceded by a pipe          */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : otherwise                                                         */

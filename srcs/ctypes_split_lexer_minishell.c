@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:25:19 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/13 14:53:00 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:18:13 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	is_a_command_separator(const char c)
 /*  - 1 : if the char received is a redirection (out of quotes)               */
 /*  - 0 : otherwise                                                           */
 /* ************************************************************************** */
-// why do we check if in quotes for redirection and not for separator ???
 int	is_a_redirection(int i, int *data, const char *str)
 {
 	if (data[EXT_OPEN_S_QUOTE] == 0

@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 13:01:06 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:23:58 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@
 /*  - 0 : if everything goes well                                             */
 /*  - 3 : otherwise (malloc error)                                            */
 /* ************************************************************************** */
-// 0 if everything goes well I suppose...
-// but why do we return 0 if !name of name == '\0' ???
-// do we suppose that <name> exists in the environment (as we don't check if it
-// was found in the environment ???) or we don't care as if the name doesn't
-// exist then value == NULL so it will be taken into account later on ???
 static int	get_val_from_envp(char **value, char *name, int envp_size,
 			char **envp)
 {

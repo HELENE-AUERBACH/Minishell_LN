@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:20:13 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 13:35:59 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 13:27:33 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	init_write_here_doc_file(void)
 /* Input :                                                                    */
 /*  - t_cmd *cmd_d : a struct that contained datas relative to a specific cmd */
 /* Return :                                                                   */
-/*  - g_exit_status (unmodified in this function)                             */
+/*  - g_exit_status                                                           */
 /* ************************************************************************** */
 int	write_here_doc_file(t_cmd *cmd_d)
 {

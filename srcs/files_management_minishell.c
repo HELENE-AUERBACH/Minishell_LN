@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 15:43:52 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 13:22:24 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 /* This function checks if the file exist. If it doesn't exist then filename  */
 /* is added at the end of new_files and at the end of cmd_new_files lists     */
 /* Inputs :                                                                   */
-/*  - t_list **new_files :     */
-/*  - t_list **cmd_new_files :     */
+/*  - t_list **new_files : ptr to lst of files created for * cmd of cmd line  */
+/*  - t_list **cmd_new_files : ptr to lst of files created for current cmd    */
 /*  - char *file_name : the name of the file to check and optionally add      */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -57,8 +57,8 @@ static int	save_created_file_name(t_list **new_files,
 /* Then the file is open (if output file doesn't exist it is created and add  */
 /* to new_files and cmd_new_files lists                                       */
 /* Inputs :                                                                   */
-/*  - t_list **new_files :     */
-/*  - t_list **cmd_new_files :     */
+/*  - t_list **new_files : ptr to lst of files created for * cmd of cmd line  */
+/*  - t_list **cmd_new_files : ptr to lst of files created for current cmd    */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - char *file_name : the file name of the file that we want to open        */
 /* Return :                                                                   */
@@ -103,8 +103,8 @@ int	open_file(t_list **new_files, t_list **cmd_new_files, t_token *t,
 /* is saved and the file in question is open                                  */
 /*  */
 /* Inputs :                                                                   */
-/*  - t_list **new_files      */
-/*  - t_list **cmd_new_files      */
+/*  - t_list **new_files : ptr to lst of files created for * cmd of cmd line  */
+/*  - t_list **cmd_new_files : ptr to lst of files created for current cmd    */
 /*  - t_dll_el *current : an elt of a double list relative to cmd datas       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -153,9 +153,10 @@ static int	open_in_file_and_close_prev(t_list **new_files,
 /* needed files                                                               */
 /* Inputs :                                                                   */
 /*  - t_dll_el **current : pointer to an elt of double list about cmd datas   */
-/*  - int redir_error_first_position      */
+/*  - int redir_error_first_position : position of the first redir error      */
+/* rq : if no such redirection exists, redir_error_first_position = 0         */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - int is_in_piped      */
+/*  - int is_in_piped : specified if the token is preceded by a pipe          */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

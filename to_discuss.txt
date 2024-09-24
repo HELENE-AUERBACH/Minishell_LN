@@ -39,13 +39,13 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'args' variable in this function ???     ---    DONE
 
 // ------------------------------------- //
-//     built_in_export_2_minishell.c     //
+//     built_in_export_2_minishell.c     //    OK
 // ------------------------------------- //
 -> copy_envp
    - Why don't we do tab[i] = NULL after while loop (as j < i, nothing is associated to this element... Don't we risk to have random datas ???)
 
 // ----------------------------------- //
-//     built_in_export_minishell.c     //
+//     built_in_export_minishell.c     //    OK
 // ----------------------------------- //
 -> split_var_name_and_value
    - What is 'args' variable in this function ???     ---    DONE
@@ -53,7 +53,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'vvals' variable in this function ???     ---    DONE
 
 -> export_vars
-   - What is 'args' variable in this function ??? (a pointer toward args[1] but what is it and why ???)
+   - What is 'args' variable in this function ???     ---    DONE
 
 -> built_export
    - What is 'args' variable in this function ???     ---    DONE
@@ -76,31 +76,28 @@ So if you could explained to me once more what a structure contained and why we 
    No specific questions here
 
 // ------------------------------------- //
-//     close_descriptors_minishell.c     //
+//     close_descriptors_minishell.c     //    OK
 // ------------------------------------- //
 -> perror_and_code
    - What is 's' variable in this function ???     ---    DONE
 
 -> close_descriptors
    - What is 'pipedescr' variable in this function ???     ---    DONE
-   - What is 'is_piped' variable in this function ??? (I supposed that is kind of a boolean about pipes but what does that specified ??? If we are in a pipe ??? If we right before or right after a pipe ??? all that ??? Something else ???)
-// I suppose that 'is_piped' specified if the token is preceded or followed by a pipe (???)
-// well, I suppose that, if the token was a pipe, you will have used type
-// and you already told me that is_in_piped mean that you have a th pipe as input
+   - What is 'is_piped' variable in this function ???     ---    DONE
 
 -> perr_cds
    - What is 'pipedescriptors' in this function ???     ---    DONE
-   - What is 'is_piped' in this function ??? (I supposed that is kind of a boolean about pipes but what does that specified ??? If we are in a pipe ??? If we right before or right after a pipe ??? all that ??? Something else ???)
+   - What is 'is_piped' variable in this function ???     ---    DONE
 
 -> close_descrs_with_a_possible_exit
    - Waht is 't' variable in this function ???     ---    DONE
    - What is 'pipedescr' variable in this function ???     ---    DONE
-   - What is 'is_piped' variable in this function ??? (I supposed that is kind of a boolean about pipes but what does that specified ??? If we are in a pipe ??? If we right before or right after a pipe ??? all that ??? Something else ???)
+   - What is 'is_piped' variable in this function ???     ---    DONE
 
 -> close_ds_in_parent
    - Waht is 't' variable in this function ???     ---    DONE
    - What is 'ds' variable in this function ???     ---    DONE
-   - What is 'is_piped' variable in this function ??? (I supposed that is kind of a boolean about pipes but what does that specified ??? If we are in a pipe ??? If we right before or right after a pipe ??? all that ??? Something else ???)
+   - What is 'is_piped' variable in this function ???     ---    DONE
 
 // ------------------------------------ //
 //     copy_environment_minishell.c     //    OK
@@ -108,13 +105,13 @@ So if you could explained to me once more what a structure contained and why we 
    No specific questions here
 
 // -------------------------------------- //
-//     ctypes_split_lexer_minishell.c     //
+//     ctypes_split_lexer_minishell.c     //    OK
 // -------------------------------------- //
 -> is_a_redirection / is_a_command_separator
    - Why do we check if the redirection are in quotes or not but we don't do the same thing for command_separator ???
 
 // --------------------------------------- //
-//     ctypes_tokens_lexer_minishell.c     //
+//     ctypes_tokens_lexer_minishell.c     //    UNUSED FCT
 // --------------------------------------- //
 -> is_a_cmdbi_or_outredirection_dll_el
    - I did not see it when I was trying to understand the code so, is it used anywhere ??? And, if it is, where ??? ^^'
@@ -129,23 +126,22 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'el_content' in this function ???     ---    DONE
 
 // ------------------------- //
-//     debug_minishell.c     //
+//     debug_minishell.c     //    NOT OUR CONCERN
 // ------------------------- //
    I kind of not really look into those functions as they aren't used in minishell outside of debugging and tests I supposed...
 
 // ------------------------------- //
-//     environment_minishell.c     //
+//     environment_minishell.c     //    OK
 // ------------------------------- //
 -> get_val_from_envp
-   - Am I right to think that '0' is the return value expected when everything goes well ???
-   If that is the case then does that mean that having value == NULL is okay and that we will check that later ???
+   - Am I right to think that '0' is the return value expected when everything goes well ???     ---    OK
 
 -> get_value_from_envp
-   - Same question than previously
+   - Same question than previously     ---    OK
 
 -> get_value_from_minishell_envp
    - What is 'd' variable in this function ???     ---    DONE
-   - Same question than previously
+   - Same question than previously     ---    OK
 
 // --------------------------------- //
 //     extract_lexer_minishell.c     //
@@ -158,71 +154,71 @@ So if you could explained to me once more what a structure contained and why we 
    - As I did not really understood what was done into the sub-function I am not quite sure of what is done here ^^"
 
 // -------------------------------------- //
-//     files_management_2_minishell.c     //
+//     files_management_2_minishell.c     //    OK
 // -------------------------------------- //
 -> cast_dll_el_into_token
    - What is 'current' variable in this function ???     ---    DONE
-   - Did I properly explained what this function is supposed to do ???
+   - Did I properly explained what this function is supposed to do ???     ---    OK
 
 -> close_previous_file
    - What is 'prev' variable in this function ???     ---    DONE
-   - If fd1 could not be closed then we don't even try to closed fd2... is it normal ???
+   - If fd1 could not be closed then we don't even try to closed fd2... is it normal ???     ---   for now, let it slide
 
 -> is_file_name_in_list
-   - What is 'lst' variable in this function ???
+   - What is 'lst' variable in this function ???     ---    DONE
 
 -> check_in_redir_file
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'new_files' variable in this function ???
-   - What is 'cmd_new_files' variable in this function ???
-   - What is 'is_in_piped' variable in this function ??? (Is it the same thin than the variable is_piped or is it something else ???)
+   - What is 'new_files' variable in this function ???     ---    DONE
+   - What is 'cmd_new_files' variable in this function ???     ---    DONE
+   - What is 'is_in_piped' variable in this function ???     ---    DONE
 
 -> check_out_redir_file
    - What is 't' variable in this function ???     ---    DONE
 
 // -------------------------------------- //
-//     files_management_3_minishell.c     //
+//     files_management_3_minishell.c     //    ADD CAST_DLL
 // -------------------------------------- //
 -> open_out_file_and_close_prev
-   - What is 'new_files' variable in this function ???
-   - What is 'cmd_new_files' variable in this function ???
+   - What is 'new_files' variable in this function ???     ---    DONE
+   - What is 'cmd_new_files' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
    - What is 'prev' variable in this function ???     ---    DONE
 
 -> check_files_for_out_redirections
    - What is 'current' variable in this function ???     ---    DONE
-   - What is 'new_files' variable in this function ???
-   - What is 'cmd_new_files' variable in this function ???
-   - What is 'redir_error_first_position' variable in this function ???
+   - What is 'new_files' variable in this function ???     ---    DONE
+   - What is 'cmd_new_files' variable in this function ???     ---    DONE
+   - What is 'redir_error_first_position' variable in this function ???     ---    DONE
    (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 // ------------------------------------ //
-//     files_management_minishell.c     //
+//     files_management_minishell.c     //    ADD CAST_DLL
 // ------------------------------------ //
 -> save_created_file_name
-   - What is 'new_files' variable in this function ???
-   - What is 'cmd_new_files' variable in this function ???
+   - What is 'new_files' variable in this function ???     ---    DONE
+   - What is 'cmd_new_files' variable in this function ???     ---    DONE
 
 -> open_file
-   - What is 'new_files' variable in this function ???
-   - What is 'cmd_new_files' variable in this function ???
+   - What is 'new_files' variable in this function ???     ---    DONE
+   - What is 'cmd_new_files' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
    - What is 'file_name' variable in this function ???     ---    DONE
 
 -> open_in_file_and_close_prev
-   - What is 'new_files' variable in this function ???
-   - What is 'cmd_new_files' variable in this function ???
+   - What is 'new_files' variable in this function ???     ---    DONE
+   - What is 'cmd_new_files' variable in this function ???     ---    DONE
    - What is 'current' variable in this function ???     ---    DONE
    (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 -> check_files_for_in_redirections
    - What is 'current' variable in this function ???     ---    DONE
-   - What is 'redir_error_first_position' variable in this function ???
-   - What is 'is_in_piped' variable in this function ??? (Is it the same thin than the variable is_piped or is it something else ???)
+   - What is 'redir_error_first_position' variable in this function ???     ---    DONE
+   - What is 'is_in_piped' variable in this function ???     ---    DONE
    (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 // -------------------------- //
-//     free_2_minishell.c     //
+//     free_2_minishell.c     //    UNUSED FCT
 // -------------------------- //
 -> close_in_file_and_free_file_name_without_unlink
    - What is 'cmd_d' variable in this function ???     ---    DONE
@@ -253,16 +249,15 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'cmd_d' variable in this function ???     ---    DONE
 
 // -------------------------------------------- //
-//     heredoc_files_management_minishell.c     //
+//     heredoc_files_management_minishell.c     //    OK
 // -------------------------------------------- //
 -> open_and_write_here_doc_file
    - What is 't' variable in this function ???     ---    DONE
-   - Am I right to think that '0' is the return value expected when everything goes well ???
 
 -> get_file_name_for_heredoc
    - What is 'prev' variable in this function ???     ---    DONE
    - If prev and prev->content exist then you want to incremented the name of the temporary file (if I remember correctly what you explained to me)
-   ... I don't see where you "incremente" index... ^^'
+   ... I don't see where you "incremente" index... ^^'     ---   for now, let it slide
 
 -> create_heredoc_file
    - What is 't' variable in this function ???     ---    DONE
@@ -275,30 +270,30 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'cmd_d' variable in this function ???     ---    DONE
 
 // ------------------------- //
-//     lexer_minishell.c     //
+//     lexer_minishell.c     //    OK
 // ------------------------- //
 -> init_utils_data_and_new_src
-   - What is 'utils_data' variable in this function ???     (int[10])
-   - What is 'new_src' variable in this function ???     ---    {??? DONE ???}
+   - What is 'utils_data' variable in this function ???     ---    DONE
+   - What is 'new_src' variable in this function ???     ---    DONE
 
 // ------------------- //
-//     minishell.c     //
+//     minishell.c     //    OK
 // ------------------- //
    No specific questions here
 
 // ----------------------------------- //
-//     parser_tokens_2_minishell.c     //
+//     parser_tokens_2_minishell.c     //    ADD CAST_DLL
 // ----------------------------------- //
 -> get_substr_after_spaces
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'utils_d' variable in this function ???     (int[10])
+   - What is 'utils_d' variable in this function ???     ---    DONE
 
 -> remove_first_spaces_and_ext_quotes
    - What is 't' variable in this function ???     ---    DONE
 
 -> check_redir_files
    - What is 'current' variable in this function ???     ---    DONE
-   - What is 'is_in_piped' variable in this function ??? (Is it the same thin than the variable is_piped or is it something else ???)
+   - What is 'is_in_piped' variable in this function ???     ---    DONE
     (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 // ----------------------------------- //
@@ -333,7 +328,7 @@ So if you could explained to me once more what a structure contained and why we 
 // --------------------------------- //
 -> find_next_pipe_or_ctrloperator
    - What is 't_cmdbi' variable in this function ???     ---    DONE
-   - What is 'is_piped' variable in this function ???
+   - What is 'is_piped' variable in this function ???     ---    DONE
    - What is 'current' variable in this function ???     ---    DONE
 
 -> ignore_others_redirections
@@ -342,14 +337,15 @@ So if you could explained to me once more what a structure contained and why we 
 -> handle_a_command_or_a_bi
    - What is 't_cmdbi' variable in this function ???     ---    DONE
    - What is 'current' variable in this function ???     ---    DONE
-   - What is 'result_of_check_files_for_redirections' variable in this function ???
+   - What is 'result_of_check_files_for_redirections' variable in this function ???     ---    DONE
 
 -> find_cmd_or_b
    - What is 't_cmdbi' variable in this function ???     ---    DONE
-   - What is 'is_piped' variable in this function ???
+   - What is 'is_piped' variable in this function ???     ---    DONE
    - What is 'current' variable in this function ???     ---    DONE
 
 -> parse_tokens
+   - Why do we have to do a forced redirection ?
    (I need to complement my function description)
 
 // ---------------------------------------------- //
@@ -363,22 +359,22 @@ So if you could explained to me once more what a structure contained and why we 
    - What is a "valid identifier ??? (I need to add that to my function description)
 
 -> get_new_src_before_expansion
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
    - What is 'param' variable in this function ???
 
 -> get_new_src_for_expansion
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
    - What is 'param' variable in this function ???
 
 -> get_new_src_after_expansion
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
    (I need to complement my function description)
 
 -> loop_perform_expansions
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
    - What is 'param' variable in this function ???
    (I need to complement my function description)
@@ -390,7 +386,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't' variable in this function ???     ---    DONE
 
 -> perform_one_expansion
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
    - What is 'param' variable in this function ???
    (I need to complement my function description)
@@ -517,17 +513,17 @@ So if you could explained to me once more what a structure contained and why we 
 -> add_or_concatenate_substr
    - What is 'lst' variable in this function ???
    - What is 'sstr' variable in this function ???     ---    DONE
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
 
 -> add_new_substr_to_list_of_cmd_args
    - What is 'lst' variable in this function ???
    - What is 'src' variable in this function ???     ---    {??? DONE ???}
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
 
 -> extract_list_of_cmd_args
    - What is 'lst' variable in this function ???
    - What is 'src' variable in this function ???     ---    {??? DONE ???}
-   - What is 'd' variable in this function ???     (int[10])
+   - What is 'd' variable in this function ???     ---    DONE
    - How are we sure that d[J] < d[I] ???
 
 -> copy_list_into_tab_and_free_list
@@ -549,9 +545,12 @@ So if you could explained to me once more what a structure contained and why we 
 // --------------------------- //
 //     utils_2_minishell.c     //
 // --------------------------- //
+-> ft_is_a_valid_digit_in_base
+   - Why base >= 36 ?  (36 = 26 lettres + 10 nombres)     ---    OK
+
 -> ft_error_or_sign_and_base
    - What is 'boundaries' variable in this function ???
-   - Why do we check if base > 36 ???
+   - Why do we check if base > 36 ??? (36 = 26 lettres + 10 nombres)
    - If str is NULL or str[*i] is void => risk of SegFault. Even if we suppose SegFault doesn't occured,
    if str == <spaces>\0 then result = 1 (which mean that everything goes well but no ^^')
    - boundaries is of type UNSIGNED yet we initialised it with negative value... how ???

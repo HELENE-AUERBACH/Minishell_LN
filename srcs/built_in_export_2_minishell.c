@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:39:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 11:42:27 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:04:12 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,35 +59,13 @@ int	var_name_found_in_env(char *envp_at_idx_i, char *var_name,
 /* rq : if i == envp_size then a void string is add at the end of envp which  */
 /* size will be increased by one                                              */
 /* Inputs :                                                                   */
-/*  - char ***envp : a pointer to the array of string to copy (i firrst elt)  */
+/*  - char ***envp : a pointer to the array of string to copy (i first elt)   */
 /*  - int *envp_size : a pointer to the size of the array of strings envp     */
 /*  - int i : the number of elements to copy from envp                        */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter (-3 malloc error)         */
 /* ************************************************************************** */
-// why don't we do tab[i] = NULL to be sure that the allocate memory space doesn't
-// contained random datas ???
-// Let's be more specific :
-// tab contained i + 2 strings
-// we copy envp into tab element into while loop
-// we do so until j < i && j < envp_size
-// which mean that tab[0:j] contained something (we disregard malloc error)
-// (for j == (i - 1) || j == (envp_size - 1))
-//
-// let's use some random numerical value :
-// *** we suppose that i = 3 && env_size = 8
-// => tab = [[],[],[],[],[]]
-// loop => tab = [envp[0], envp[1], envp[2], [], []]
-// then we do tab[i + 1] = NULL => tab = [envp[0], envp[1], envp[2], [], NULL]
-//
-// *** we suppose that i == envp_size  == 3 ***
-// the reasoning is the same as previously
-//
-// *** now, let's suppose i = 8 && envp_size = 3 *** (worse case)
-// => tab = [[],[],[],[],[],[],[],[],[],[]]
-// loop => tab = [envp[0], envp[1], envp[2], [], [], [], [], [], [], []]
-// then we do tab[i + 1] = NULL => tab = [envp[0], envp[1], envp[2], [], [], [], [], [], [], NULL]
 static int	copy_envp(char ***envp, int *envp_size, int i)
 {
 	char	**tab;

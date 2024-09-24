@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:28:07 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 11:12:09 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:21:22 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	del_content(void *content)
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
 /*  - char *sstr : the sub-string to add at the end of the previous one       */
-/*  - int *d : an array of int ????     */
+/*  - int *d : array of datas about internal criteria of token                */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -92,7 +92,7 @@ static int	add_or_concatenate_substr(t_list **lst, char *sstr, int *d,
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
 /*  - char *src : the string that contained the command line                  */
-/*  - int *d : an array of int ????     */
+/*  - int *d : array of datas about internal criteria of token                */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -143,7 +143,7 @@ static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
 /*  - char *src : the string that contained the command line                  */
-/*  - int *d : an array of int ????     */
+/*  - int *d : array of datas about internal criteria of token                */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

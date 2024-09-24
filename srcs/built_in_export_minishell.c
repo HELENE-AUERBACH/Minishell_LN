@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:08:25 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:36:17 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:06:37 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int	updenv(char ***envp, int *envp_size, char *var_name, char *var_value)
 /* Inputs :                                                                   */
 /*  - char ***envp : a pointer to an array of string about the environment    */
 /*  - int *envp_size : a pointer to the size of the array of strings envp     */
-/*  - char **args      */
+/*  - char **args : array of options and arguments of the builtin             */
 /*  - int nv : the number of variables to splits                              */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

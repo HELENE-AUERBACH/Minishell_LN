@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 15:48:11 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:12:22 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /* the type of this token is saved in t_cmdbi                                 */
 /* Inputs :                                                                   */
 /*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
-/*  - int *is_piped      */
+/*  - int *is_piped : ptr to int spec if token is preceded/followed by a pipe */
 /*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /* Return :                                                                   */
 /*  - None                                                                    */
@@ -91,7 +91,10 @@ static void	ignore_others_redirections(t_dll_el **current)
 /* Input :                                                                    */
 /*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
 /*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
-/*  - int result_of_check_files_for_redirections      */
+/*  - int result_of_check_files_for_redirections : res post-check file redir  */
+/* rq : 0 if no error with redirection,                                       */
+/*      1 if an error occured within redirection  and no signal was receive,  */
+/*      g_exist_status if error with resirection and a signal was receive     */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -127,17 +130,18 @@ static void	handle_a_command_or_a_bi(t_token **t_cmdbi, t_dll_el **current,
 /* ************************************************************************** */
 /*                               find_cmd_or_bi                               */
 /* -------------------------------------------------------------------------- */
-/* This function ???                  */
+/* This function looks for the command or builtin then handle it then looks   */
+/* for the next pipe or control operator                                      */
 /* To do so we checks the redirection files. If a problem occured then others */
 /* redirections are ignored                                                   */
 /* Then we check if the token is a command type or a built in type (if it is  */
 /* a command type then the command is split)                                  */
 /* After that we looks for the last input and output redirection as well as   */
 /* the next pipe or control operator                                          */
-/* the elements of cmd_new_files are free and clear                           */
+/* Lastly, the elements of cmd_new_files are free and clear                   */
 /* Inputs :                                                                   */
 /*  - t_token **t_cmdbi : a pointer to a struct relatives to cmd or builtin   */
-/*  - int *is_piped      */
+/*  - int *is_piped : ptr to int spec if token is preceded/followed by a pipe */
 /*  - t_dll_el **current : a pointer to an elt of double list about cmd datas */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /* Return :                                                                   */
@@ -178,7 +182,7 @@ static int	find_cmd_or_bi(t_token **t_cmdbi, int *is_piped,
 /*                                parse_tokens                                */
 /* -------------------------------------------------------------------------- */
 /* This function finds for each node of the dll (as long as no error occured) */
-/* the command or builtin (???) */
+/* the command or builtin, and the following pipe or command operator         */
 /* then, the command is add to commands list and a force redirection is done  */
 /* when needed                                                                */
 /* Input :                                                                    */

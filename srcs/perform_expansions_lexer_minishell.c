@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:15:24 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:07:46 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 14:18:40 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	is_a_special_char(const char c)
 /* This structure contained datas about the command line overall and actual   */
 /* state                                                                      */
 /* Input :                                                                    */
-/*  - t_data *d : the structure to initialise                                 */
+/*  - t_data *d : struct of datas about internal criteria of token to init    */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - 1 othewrwise                                                            */
@@ -102,7 +102,7 @@ static int	replace_token_src(t_token *t, char *new_src)
 /* This function expands   */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
-/*  - int *d : an array of int ???? */
+/*  - int *d : array of datas about internal criteria of token                */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - void *param :       */
 /* Return :                                                                   */
