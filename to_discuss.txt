@@ -120,10 +120,10 @@ So if you could explained to me once more what a structure contained and why we 
    - I did not see it when I was trying to understand the code so, is it used anywhere ??? And, if it is, where ??? ^^'
 
 -> is_an_out_redirect
-   - What is 'el_content' in this function ??? (it came from current->content when current is of t_dll_el type but, well, as I have already said, I'm kind of lost between all those struct ^^')
+   - What is 'el_content' in this function ???     ---    DONE
 
 -> is_an_in_redirect
-   - What is 'el_content' in this function ??? (it came from current->content when current is of t_dll_el type but, well, as I have already said, I'm kind of lost between all those struct ^^')
+   - What is 'el_content' in this function ???     ---    DONE
 
 // ------------------------- //
 //     debug_minishell.c     //
@@ -204,7 +204,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'new_files' variable in this function ???
    - What is 'cmd_new_files' variable in this function ???
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'file_name' variable in this function ???
+   - What is 'file_name' variable in this function ???     ---    DONE
 
 -> open_in_file_and_close_prev
    - What is 'new_files' variable in this function ???
@@ -275,7 +275,7 @@ So if you could explained to me once more what a structure contained and why we 
 //     lexer_minishell.c     //
 // ------------------------- //
 -> init_utils_data_and_new_src
-   - What is 'utils_data' variable in this function ???
+   - What is 'utils_data' variable in this function ???     (int[10])
    - What is 'new_src' variable in this function ???     ---    ??? DONE ???
 
 // ------------------- //
@@ -288,7 +288,7 @@ So if you could explained to me once more what a structure contained and why we 
 // ----------------------------------- //
 -> get_substr_after_spaces
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'utils_d' variable in this function ???
+   - What is 'utils_d' variable in this function ???     (int[10])
 
 -> remove_first_spaces_and_ext_quotes
    - What is 't' variable in this function ???     ---    DONE
@@ -360,22 +360,22 @@ So if you could explained to me once more what a structure contained and why we 
    - What is a "valid identifier ??? (I need to add that to my function description)
 
 -> get_new_src_before_expansion
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
    - What is 't' variable in this function ???     ---    DONE
    - What is 'param' variable in this function ???
 
 -> get_new_src_for_expansion
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
    - What is 'param' variable in this function ???
 
 -> get_new_src_after_expansion
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
    (I need to complement my function description)
 
 -> loop_perform_expansions
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
    - What is 't' variable in this function ???     ---    DONE
    - What is 'param' variable in this function ???
    (I need to complement my function description)
@@ -387,7 +387,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't' variable in this function ???     ---    DONE
 
 -> perform_one_expansion
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
    - What is 't' variable in this function ???     ---    DONE
    - What is 'param' variable in this function ???
    (I need to complement my function description)
@@ -514,17 +514,17 @@ So if you could explained to me once more what a structure contained and why we 
 -> add_or_concatenate_substr
    - What is 'lst' variable in this function ???
    - What is 'sstr' variable in this function ???     ---    DONE
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
 
 -> add_new_substr_to_list_of_cmd_args
    - What is 'lst' variable in this function ???
    - What is 'src' variable in this function ???
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
 
 -> extract_list_of_cmd_args
    - What is 'lst' variable in this function ???
    - What is 'src' variable in this function ???
-   - What is 'd' variable in this function ???
+   - What is 'd' variable in this function ???     (int[10])
    - How are we sure that d[J] < d[I] ???
 
 -> copy_list_into_tab_and_free_list
