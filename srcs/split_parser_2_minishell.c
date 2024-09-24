@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:28:07 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:31:28 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/24 11:12:09 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	add_or_concatenate_substr(t_list **lst, char *sstr, int *d,
 /* point toward a space in src                                                */
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
-/*  - char *src :     */
+/*  - char *src : the string that contained the command line                  */
 /*  - int *d : an array of int ????     */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */
@@ -142,7 +142,7 @@ static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 /* we put to 0 booleans used to determined if we have met an opening quote    */
 /* Inputs :                                                                   */
 /*  - t_list **lst      */
-/*  - char *src      */
+/*  - char *src : the string that contained the command line                  */
 /*  - int *d : an array of int ????     */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
 /* Return :                                                                   */

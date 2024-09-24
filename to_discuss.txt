@@ -84,6 +84,9 @@ So if you could explained to me once more what a structure contained and why we 
 -> close_descriptors
    - What is 'pipedescr' variable in this function ???     ---    DONE
    - What is 'is_piped' variable in this function ??? (I supposed that is kind of a boolean about pipes but what does that specified ??? If we are in a pipe ??? If we right before or right after a pipe ??? all that ??? Something else ???)
+// I suppose that 'is_piped' specified if the token is preceded or followed by a pipe (???)
+// well, I suppose that, if the token was a pipe, you will have used type
+// and you already told me that is_in_piped mean that you have a th pipe as input
 
 -> perr_cds
    - What is 'pipedescriptors' in this function ???     ---    DONE
@@ -276,7 +279,7 @@ So if you could explained to me once more what a structure contained and why we 
 // ------------------------- //
 -> init_utils_data_and_new_src
    - What is 'utils_data' variable in this function ???     (int[10])
-   - What is 'new_src' variable in this function ???     ---    ??? DONE ???
+   - What is 'new_src' variable in this function ???     ---    {??? DONE ???}
 
 // ------------------- //
 //     minishell.c     //
@@ -518,12 +521,12 @@ So if you could explained to me once more what a structure contained and why we 
 
 -> add_new_substr_to_list_of_cmd_args
    - What is 'lst' variable in this function ???
-   - What is 'src' variable in this function ???
+   - What is 'src' variable in this function ???     ---    {??? DONE ???}
    - What is 'd' variable in this function ???     (int[10])
 
 -> extract_list_of_cmd_args
    - What is 'lst' variable in this function ???
-   - What is 'src' variable in this function ???
+   - What is 'src' variable in this function ???     ---    {??? DONE ???}
    - What is 'd' variable in this function ???     (int[10])
    - How are we sure that d[J] < d[I] ???
 
@@ -550,7 +553,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'boundaries' variable in this function ???
    - Why do we check if base > 36 ???
    - If str is NULL or str[*i] is void => risk of SegFault. Even if we suppose SegFault doesn't occured,
-   if str == <spaces>\0 then result = 1 (wich mean that everything goes well but no ^^')
+   if str == <spaces>\0 then result = 1 (which mean that everything goes well but no ^^')
    - boundaries is of type UNSIGNED yet we initialised it with negative value... how ???
 
 -> ft_strtoll
