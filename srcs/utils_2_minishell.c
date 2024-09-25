@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:28:48 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 14:30:12 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:50:06 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ static unsigned int	ft_is_a_valid_digit_in_base(unsigned int base, \
 /* first char that isn't a space is a sign. After that the base in which the  */
 /* number contained in str is express is determined and the boundaries        */
 /* indexes of the number part in str are determined                           */
+/* rq : str can't be NULL                                                     */
 /* Inputs :                                                                   */
-/*  - unsigned int boundaries[2]  */
+/*  - unsigned int boundaries[2] : indexes of the start and end of num value  */
 /*  - unsigned int *base : numerical value of the base in which nb is express */
 /*  - unsigned int *i : the index in str (update to the last char study)      */
 /*  - const char *str : the string that we checked                            */
@@ -96,10 +97,6 @@ static unsigned int	ft_is_a_valid_digit_in_base(unsigned int base, \
 /*  - -1 || 1 : the sign multiplier, if everything goes well                  */
 /*  - 0 : if an error occured                                                 */
 /* ************************************************************************** */
-// if !str or !str[*i] -> we try to access it => SegFault, can that append ???
-// even if we pretend that SegFault doesn't occured, if str==<spaces>"\0", result == 1
-// hmm... boundaries[] is of type UNSIGNED INT yet you initialised its values with
-// -1 and -2 ^^' how ???
 static int	ft_error_or_sign_and_base(unsigned int boundaries[2],
 			unsigned int *base, unsigned int *i, const char *str)
 {
@@ -131,17 +128,16 @@ static int	ft_error_or_sign_and_base(unsigned int boundaries[2],
 /* ************************************************************************** */
 /*                                 ft_strtoll                                 */
 /* -------------------------------------------------------------------------- */
-/* This function converts a string into an unsigned (???) long long while     */
-/* expressing it in base 10 if needed                                         */
+/* This function converts a string into an unsigned long long.                */
+/* If the numerical value extract from the string isn't express in base 10    */
+/* then we convert it in base 10                                              */
 /* Inputs :                                                                   */
-/*  - const char *nptr  */
-/*  - char **endptr   */
+/*  - const char *nptr : the string to analysed                               */
+/*  - char **endptr : pointer to the first char that isn't include in base    */
 /*  - int *sign : the sign multiplier of the number obtained                  */
 /* Return :                                                                   */
 /*  - unsigned long long : the numerical value converts from its base         */
 /* ************************************************************************** */
-// euh.... LLONG_MIN is negative yet we return it when sign == -1 && result - 1 > LLONG MAX
-// but the return value is supposed to be UNSIGNED long long ^^'
 unsigned long long	ft_strtoll(const char *nptr, char **endptr, int *sign)
 {
 	unsigned int		boundaries[2];
@@ -186,15 +182,6 @@ unsigned long long	ft_strtoll(const char *nptr, char **endptr, int *sign)
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
-// ???
-// if !err_msg && !prefix1 && !prefix2 => "Error\n::"
-// if !err_msg && prefix1 && !prefix2 => "Error\n"<prefix1>"::"
-// if !err_msg && !prefix1 && prefix2 => "Error\n:"<prefix2>":"
-// if !err_msg && prefix1 && prefix2 => "Error\n"<prefix1>":"<prefix2>":"
-// if err_msg && !prefix1 && !prefix2 => "::"<err_msg>
-// if err_msg && prefix1 && !prefix2 => <prefix1>"::"<err_msg>
-// if err_msg && !prefix1 && prefix2 => ":"<prefix2>":"<err_msg>
-// is it really what we wanted ???
 void	display_err_with_2_prefixes(const char *prefix1, const char *prefix2,
 		const char *error_msg)
 {

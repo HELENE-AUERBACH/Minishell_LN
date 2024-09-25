@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 16:15:14 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:32:51 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:51:47 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ void	display_error(const char *error_msg)
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
-// ???
-// if !err_msg && !prefix => "Error\n:"
-// if !err_msg && prefix => "Error\n"<prefix>":"
-// if err_msg && !prefix => ":"<err_msg>
-// is it really what we wanted ???
 void	display_err_with_prefix(const char *prefix, const char *error_msg)
 {
 	if (!error_msg)

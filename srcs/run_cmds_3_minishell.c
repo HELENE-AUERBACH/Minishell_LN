@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:12:13 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:23:57 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:44:05 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// why do we check with access only for input ???
 int	files_open(t_token *t)
 {
 	if (t && t->cmd_d && t->cmd_d->file1
@@ -58,6 +57,7 @@ int	files_open(t_token *t)
 /* the copy of s2 right after the previous one. The string obtained is the    */
 /* same as if we have join s1 and s2. The difference is on the fact that the  */
 /* newly obtained string is return and the s1 is free during the process      */
+/* rq : s1 and s2 should not be NULL                                          */
 /* Inputs :                                                                   */
 /*  - char *s1 : the first string to copy                                     */
 /*  - char *s2 : the second string to copy (right after the previous one)     */
@@ -65,7 +65,6 @@ int	files_open(t_token *t)
 /*  - char * : the string obtained (result = s1 + s2)                         */
 /*  - NULL : if an error occured                                              */
 /* ************************************************************************** */
-// don't we need to be sure that s1 and a2 exist and aren't NULL ??? (strlen tout ça tout ça)
 char	*ft_strjoin_with_free_s1(char *s1, char *s2)
 {
 	char	*result;

@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:35:43 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:18:03 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:48:45 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,19 +147,19 @@ static int	extract_control_operator(t_tokenizer_data *d, const char *str)
 /* -------------------------------------------------------------------------- */
 /* This function updates d->raw_command to make it point toward str[d->i] if  */
 /* this char is considered as one of a raw command.                           */
-/* We also update, if needed, datas about quotes (single and double) as well  */
-/* as parenthesis                                                             */
-/* ??? */
+/* Otherwise it check if the char is a quote or a parenthesis. In that case   */
+/* we update, if needed, datas about quotes (single and double) as well as    */
+/* parenthesis                                                                */
+/* We then check if the following char is a reirectioin in which case we add  */
+/* a space to the raw command                                                 */
+/* rq : the position into the raw command is update and the index of the char */
+/* to study is incremented by one                                             */
 /* Inputs :                                                                   */
 /*  - t_tokenizer_data *d : a struct about current state of the cmd analyse   */
 /*  - const char *str : the command line to use as reference                  */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
-// why do we do i++ in every cases ??? (be it a char of raw_command, or a
-// quote or a parenthesis or none of the previous...)
-// and why do we check if we have a redirection right after the char that we check ???
-// And why do we ignored this redirection in that case ???
 static void	extract_char_into_raw_command(t_tokenizer_data *d,
 			const char *str)
 {
@@ -183,7 +183,8 @@ static void	extract_char_into_raw_command(t_tokenizer_data *d,
 /* ************************************************************************** */
 /*                          extract_tokens_into_dll                           */
 /* -------------------------------------------------------------------------- */
-/* This function  */
+/* This function extracts all the redirections and raw commands encountered   */
+/* until we encounter an unquoted command separator                           */
 /* Inputs :                                                                   */
 /*  - t_tokenizer_data *d : a struct about current state of the cmd analyse   */
 /*  - const char *str : the command line to use as reference                  */

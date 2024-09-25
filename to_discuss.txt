@@ -144,14 +144,14 @@ So if you could explained to me once more what a structure contained and why we 
    - Same question than previously     ---    OK
 
 // --------------------------------- //
-//     extract_lexer_minishell.c     //
+//     extract_lexer_minishell.c     //    OK
 // --------------------------------- //
 -> extract_char_into_raw_command
-   - Why do we do 'i++' in every cases (be it a char of raw_command, or a quote or a parenthesis or none of the previous...) ???
-   - Why do we check if we have a redirection right after the char that we check ??? And why do we ignored this redirection in that case ???
+   - Why do we do 'i++' in every cases (be it a char of raw_command, or a quote or a parenthesis or none of the previous...) ???     ---    OK
+   - Why do we check if we have a redirection right after the char that we check ??? And why do we ignored this redirection in that case ???     ---    OK
 
 -> extract_tokens_into_dll
-   - As I did not really understood what was done into the sub-function I am not quite sure of what is done here ^^"
+   - As I did not really understood what was done into the sub-function I am not quite sure of what is done here ^^"     ---    OK
 
 // -------------------------------------- //
 //     files_management_2_minishell.c     //    OK
@@ -311,16 +311,16 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't_cmdbi' variable in this function ???     ---    DONE
 
 // ----------------------------------- //
-//     parser_tokens_4_minishell.c     //
+//     parser_tokens_4_minishell.c     //    OK
 // ----------------------------------- //
 -> force_in_redir_of_next_cmdbi
    - What is 't_cmdbi' variable in this function ???     ---    DONE
-   - What is 'next_has_to_be_forced' variable in this function ???
-   - What is 'result' variable in this function ???
-   - In which cases do we have next_has_to_be_forced == 1 ???
+   - What is 'next_has_to_be_forced' variable in this function ???     ---    DONE
+   - What is 'result' variable in this function ???     ---    DONE
+   - In which cases do we have next_has_to_be_forced == 1 ???     ---   I kind of get it but it is still a bit unclear
 
 // --------------------------------- //
-//     parser_tokens_minishell.c     //
+//     parser_tokens_minishell.c     //    OK
 // --------------------------------- //
 -> find_next_pipe_or_ctrloperator
    - What is 't_cmdbi' variable in this function ???     ---    DONE
@@ -341,18 +341,18 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'current' variable in this function ???     ---    DONE
 
 -> parse_tokens
-   - Why do we have to do a forced redirection ?
-   (I need to complement my function description)
+   - Why do we have to do a forced redirection ?     ---    OK
+   (I need to complement my function description)     ---    DONE
 
 // ---------------------------------------------- //
-//     perform_expansions_2_lexer_minishell.c     //
+//     perform_expansions_2_lexer_minishell.c     //    OK
 // ---------------------------------------------- //
 -> is_not_a_valid_identifier
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'i' variable in this function ???
-   - What is 'j' variable in this function ???
-   - What is 'new_src' variable in this function ???     ---    {??? DONE ???}
-   - What is a "valid identifier ??? (I need to add that to my function description)
+   - What is 'i' variable in this function ???     ---    DONE
+   - What is 'j' variable in this function ???     ---    DONE
+   - What is 'new_src' variable in this function ???     ---    DONE
+   - What is a "valid identifier ??? (I need to add that to my function description)     ---    OK
 
 -> get_new_src_before_expansion
    - What is 'd' variable in this function ???     ---    DONE
@@ -361,21 +361,21 @@ So if you could explained to me once more what a structure contained and why we 
 -> get_new_src_for_expansion
    - What is 't' variable in this function ???     ---    DONE
    - What is 'd' variable in this function ???     ---    DONE
-   - What is 'param' variable in this function ???     ---    {??? DONE ???}
+   - What is 'param' variable in this function ???     ---    DONE
 
 -> get_new_src_after_expansion
    - What is 't' variable in this function ???     ---    DONE
    - What is 'd' variable in this function ???     ---    DONE
-   (I need to do my function description)
+   (I need to do my function description)     ---    DONE
 
 -> loop_perform_expansions
    - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'param' variable in this function ???     ---    {??? DONE ???}
-   (I need to complement my function description)
+   - What is 'param' variable in this function ???     ---    DONE
+   (I need to complement my function description)     ---    DONE
 
 // -------------------------------------------- //
-//     perform_expansions_lexer_minishell.c     //
+//     perform_expansions_lexer_minishell.c     //    OK
 // -------------------------------------------- //
 -> replace_token_src
    - What is 't' variable in this function ???     ---    DONE
@@ -383,13 +383,13 @@ So if you could explained to me once more what a structure contained and why we 
 -> perform_one_expansion
    - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'param' variable in this function ???     ---    {??? DONE ???}
-   (I need to complement my function description)
+   - What is 'param' variable in this function ???     ---    DONE
+   (I need to complement my function description)     ---    DONE
 
 -> perform_expansions
-   - What is 'el_ptr' variable in this function ???      an elt of a double list relative to cmd datas ???
-   - What is 'param' variable in this function ???     ---    {??? DONE ???}
-   (I need to do my function description)
+   - What is 'el_ptr' variable in this function ???     ---    DONE
+   - What is 'param' variable in this function ???     ---    DONE
+   (I need to do my function description)     ---    DONE
 
 // -------------------------------------------- //
 //     process_interactive_mode_minishell.c     //    OK
@@ -417,28 +417,28 @@ So if you could explained to me once more what a structure contained and why we 
    (I need to complement my function description)
 
 // -------------------------- //
-//     run_bi_minishell.c     //
+//     run_bi_minishell.c     //    OK
 // -------------------------- //
 -> check_and_run_bi
    - What is 'bi' variable in this function ???    ---    DONE
 
 -> set_signals_actions_in_fork_for_bi
-   - What is 'lst' variable in this function ???     a double list relative to cmd datas ???
+   - What is 'lst' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
 
 -> run_bi_in_fork
    - What is 't' variable in this function ???     ---    DONE
    - What is 'ds' variable in this function ???     ---    DONE
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
 
 // ------------------------------ //
-//     run_cmds_2_minishell.c     //
+//     run_cmds_2_minishell.c     //    OK
 // ------------------------------ //
 -> set_signals_actions_in_fork
-   - What is 'lst' variable in this function ???
-   - What is 'current' variable in this function ???
-   - Why do we delete every node of lst before the one that as the same content as current in this function ???
+   - What is 'lst' variable in this function ???     ---    DONE
+   - What is 'current' variable in this function ???     ---    DONE
+   - Why do we delete every node of lst before the one that as the same content as current in this function ???     ---   to free some cell, memory wise it easier and we don't have to re-malloc the global structure, just the node
 
 -> join_path_with_cmd
    - What is 'cmd_d' variable in this function ???     ---    DONE
@@ -449,44 +449,43 @@ So if you could explained to me once more what a structure contained and why we 
 -> check_command_and_find_path
    - What is 't' variable in this function ???     ---    DONE
    - What is 'ds' variable in this function ???     ---    DONE
-   - What is 'is_piped' variable in this function ???
+   - What is 'is_piped' variable in this function ???     ---    DONE
 
 -> run_command
    - What is 't' variable in this function ???     ---    DONE
    - What is 'ds' variable in this function ???     ---    DONE
-   - What is 'current' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
    - WARNING : declaration and assignation on the same line...     ---    OK NORM
 
 // ------------------------------ //
-//     run_cmds_3_minishell.c     //
+//     run_cmds_3_minishell.c     //    OK
 // ------------------------------ //
 -> files_open
    - What is 't' variable in this function ???     ---    DONE
-   - Why do we check with access only for input case ???
+   - Why do we check with access only for input case ???     ---    OK
 
 -> ft_strjoin_with_free_s1
-   - Don't we need to be sure that s1 and s2 exist and aren't NULL (ft_strlen -> SegFault, no ???)
+   - Don't we need to be sure that s1 and s2 exist and aren't NULL (ft_strlen -> SegFault, no ???)     ---    OK
 
 // ---------------------------- //
-//     run_cmds_minishell.c     //
+//     run_cmds_minishell.c     //    OK
 // ---------------------------- //
 -> add_to_cmds_list
    - What is 't_cmdbi' variable in this function ???     ---    DONE
-   - Am I wrong in thinking that we only copy the command name in this function  ???
 
 -> open_pipe_and_run_command
-   - What is 'current' variable in this function ???
-   - What is 'is_piped' variable in this function ???
+   - What is 'current' variable in this function ???     ---    DONE
+   - What is 'is_piped' variable in this function ???     ---    DONE
    - What is 'ds' variable in this function ???     ---    DONE
 
 -> run_subset_of_commands
-   - What is 'start' variable in this function ???
-   - What is 'wstatus' variable in this function ???
-   - What is 'w' variable in this function ???
-   - What is the return value expected when everything goes well ???
+   - What is 'start' variable in this function ???     ---    DONE
+   - What is 'wstatus' variable in this function ???     ---    DONE
+   - What is 'w' variable in this function ???     ---    DONE
+   - What is the return value expected when everything goes well ???     ---    OK
 
 -> run_commands
-   - Am I right to think that '0' is the return value expected when everything goes well ???
+   - Am I right to think that '0' is the return value expected when everything goes well ???     ---    OK
 
 // ------------------------------------ //
 //     signals_handlers_minishell.c     //    OK
@@ -494,36 +493,36 @@ So if you could explained to me once more what a structure contained and why we 
    No specific questions here
 
 // ------------------------------- //
-//     split_lexer_minishell.c     //
+//     split_lexer_minishell.c     //    OK
 // ------------------------------- //
 -> init_tokenizer_data
-   - What is 'lst' variable in this function ???
+   - What is 'lst' variable in this function ???     ---    DONE
 
 -> split_in_tokens
-   - What is 'lst' variable in this function ???
+   - What is 'lst' variable in this function ???     ---    DONE
 
 // ---------------------------------- //
-//     split_parser_2_minishell.c     //
+//     split_parser_2_minishell.c     //    OK
 // ---------------------------------- //
 -> add_or_concatenate_substr
-   - What is 'lst' variable in this function ???
+   - What is 'lst' variable in this function ???     ---    DONE
    - What is 'sstr' variable in this function ???     ---    DONE
    - What is 'd' variable in this function ???     ---    DONE
 
 -> add_new_substr_to_list_of_cmd_args
-   - What is 'lst' variable in this function ???
-   - What is 'src' variable in this function ???     ---    {??? DONE ???}
+   - What is 'lst' variable in this function ???     ---    DONE
+   - What is 'src' variable in this function ???     ---    DONE
    - What is 'd' variable in this function ???     ---    DONE
 
 -> extract_list_of_cmd_args
-   - What is 'lst' variable in this function ???
-   - What is 'src' variable in this function ???     ---    {??? DONE ???}
+   - What is 'lst' variable in this function ???     ---    DONE
+   - What is 'src' variable in this function ???     ---    DONE
    - What is 'd' variable in this function ???     ---    DONE
    - How are we sure that d[J] < d[I] ???
 
 -> copy_list_into_tab_and_free_list
-   - What is 'tab' variable in this function ???
-   - What is 'lst' variable in this function ???
+   - What is 'tab' variable in this function ???     ---    DONE
+   - What is 'lst' variable in this function ???     ---    DONE
 
 // -------------------------------- //
 //     split_parser_minishell.c     //    OK
@@ -532,31 +531,31 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't' variable in this function ???     ---    DONE
 
 // -------------------------------------- //
-//     split_path_env_var_minishell.c     //
+//     split_path_env_var_minishell.c     //    OK
 // -------------------------------------- //
 -> split_path_env_var_into_tab
-   - What is 'tab' variable in this function ???
+   - What is 'tab' variable in this function ???     ---    DONE
 
 // --------------------------- //
-//     utils_2_minishell.c     //
+//     utils_2_minishell.c     //    OK
 // --------------------------- //
 -> ft_is_a_valid_digit_in_base
    - Why base >= 36 ?  (36 = 26 lettres + 10 nombres)     ---    OK
 
 -> ft_error_or_sign_and_base
-   - What is 'boundaries' variable in this function ???
+   - What is 'boundaries' variable in this function ???     ---    DONE
    - Why do we check if base > 36 ??? (36 = 26 lettres + 10 nombres)
    - If str is NULL or str[*i] is void => risk of SegFault. Even if we suppose SegFault doesn't occured,
-   if str == <spaces>\0 then result = 1 (which mean that everything goes well but no ^^')
-   - boundaries is of type UNSIGNED yet we initialised it with negative value... how ???
+   if str == <spaces>\0 then result = 1 (which mean that everything goes well but no ^^')     ---    OK
+   - boundaries is of type UNSIGNED yet we initialised it with negative value... how ???     ----    That works, don't ask
 
 -> ft_strtoll
-   - What is 'nptr' variable in this function ???
-   - What is 'endptr' variable in this function ???
-   - the return value is of UNSIGNED type yet, if sign == -1 and (result - 1) > LLONG_MAX we return LLONG_MIN which is negative... how ???
+   - What is 'nptr' variable in this function ???     ---    DONE
+   - What is 'endptr' variable in this function ???     ---    DONE
+   - the return value is of UNSIGNED type yet, if sign == -1 and (result - 1) > LLONG_MAX we return LLONG_MIN which is negative... how ???     ----    That works, don't ask
 
 -> display_err_with_2_prefixes
-   - I want to be sure that what we display is what we want to display in every case (cf. utils_2_minishell.c file)
+   - I want to be sure that what we display is what we want to display in every case (cf. utils_2_minishell.c file)     -    OK, that is well enough
 
 // --------------------------- //
 //     utils_3_minishell.c     //    ~OK~
@@ -565,10 +564,10 @@ So if you could explained to me once more what a structure contained and why we 
    - Can we transform the function that have the same name in atoi.c into a static function ???
 
 // ------------------------- //
-//     utils_minishell.c     //
+//     utils_minishell.c     //    OK
 // ------------------------- //
 -> display_err_with_prefix
-   - I want to be sure that what we display is what we want to display in every case (cf. utils_2_minishell.c file)
+   - I want to be sure that what we display is what we want to display in every case (cf. utils_2_minishell.c file)     -    OK, that is well enough
 
 -> ends_with_a_closing_brace
    - What is 't' variable in this function ???     ---    DONE

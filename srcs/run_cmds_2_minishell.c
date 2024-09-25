@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:17:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:22:34 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:38:12 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@
 /* rq : every signals given by s1.sa_mask and s2.sa_mask is emptied before    */
 /* sigaction calls                                                            */
 /* Inputs :                                                                   */
-/*  - t_dll *lst      */
-/*  - t_list *current          */
+/*  - t_dll *lst : a double list associated to tokens (struct t_token)        */
+/*  - t_list *current : current token that we are treated (here a commands)   */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
-// ???
-// why do we delete every node of lst before the one that as the same content as current
-// in this function ???
 void	set_signals_actions_in_fork(t_dll *lst, t_list *current)
 {
 	struct sigaction	s1;
@@ -140,7 +137,7 @@ static int	check_command(t_cmd *cmd_d, char *command)
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int ds[3] : an array that contained fds associated to pipe              */
-/*  - int is_piped      */
+/*  - int is_piped : specified if the token is preceded or followed by a pipe */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -188,7 +185,7 @@ static void	check_command_and_find_path(t_data *d, t_token *t, int ds[3],
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int ds[3] : an array that contained fds associated to pipe              */
-/*  - t_list *current      */
+/*  - t_list *current : current token that we are treated (here a commands)   */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */

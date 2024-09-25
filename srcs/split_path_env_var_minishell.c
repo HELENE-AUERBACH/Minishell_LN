@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:46:04 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 18:26:02 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:21:30 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	get_nb_colons(char **envp, char **path_env_var)
 /* path into tab, each path is separated by ":"                               */
 /* rq : "." is added at the end of tab (a NULL terminated array)              */
 /* Inputs :                                                                   */
-/*  - char **tab :      */
+/*  - char **tab : array of string that contained the cmd and its arg         */
 /*  - char **path_env_var : a pointer to a str, a copy of PATH line from envp */
 /* Return :                                                                   */
 /*  - None                                                                    */

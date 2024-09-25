@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:06:54 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/08/20 11:46:16 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:08:06 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	suppress_spaces(int i, int *data, const char *str)
 /* Inputs :                                                                   */
 /*  - t_tokenizer_data *d : a pointer to the structure to initialise          */
 /*  - const char *str : the line that we are processing                       */
-/*  - t_dll *lst : the double list       */
+/*  - t_dll *lst : a double list associated to tokens (struct t_token)        */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -77,7 +77,7 @@ static void	init_tokenizer_data(t_tokenizer_data *d, const char *str,
 /* This function splits the string into tokens                                */
 /* Inputs :                                                                   */
 /*  - const char *str : the string to split                                   */
-/*  - t_dll *lst : the double list       */
+/*  - t_dll *lst : a double list associated to tokens (struct t_token)        */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

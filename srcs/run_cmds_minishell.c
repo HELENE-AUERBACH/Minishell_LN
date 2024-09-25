@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/25 11:20:22 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:03:43 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// from what I see we only copy the command name, but we need to link it to the args
-// or did I misread the type of the copy element and it is the array of string that
-// contained cmd_name && args ???
 int	add_to_cmds_list(t_data *d, t_token *t_cmdbi)
 {
 	int		result;
@@ -67,8 +64,8 @@ int	add_to_cmds_list(t_data *d, t_token *t_cmdbi)
 /* Otherwise, the builtin is run inside a child process                       */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_list *current      */
-/*  - int *is_piped      */
+/*  - t_list *current : current token that we are treated (cmd ro built_in)   */
+/*  - int *is_piped : ptr to int spec if token is preceded/followed by a pipe */
 /*  - int *ds : an array that contained fds associated to pipe                */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
@@ -158,11 +155,12 @@ static int	open_pipes_and_run_commands(t_data *d, t_list **start,
 /* finished and we free the element that has been treated                     */
 /* Inputs :                                                                   */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
-/*  - t_list **start      */
-/*  - int wstatus      */
-/*  - pid_t w      */
+/*  - t_list **start : a pointer toward the first token of the sub-set        */
+/*  - int wstatus : output param about the way the child process terminated   */
+/*  - pid_t w : the processus identifier of the child process                 */
 /* Return :                                                                   */
-/*  - ??? ( what is the "everything goes well" exit value ?)   */
+/*  - 0 : the process return code from status if exited or 128 + the signal   */
+/* that terminated the process                                                */
 /*  - 1 : if a problem occured                                                */
 /* ************************************************************************** */
 static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
@@ -204,7 +202,7 @@ static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 /* Input :                                                                    */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /* Return :                                                                   */
-/*  - ??? ( what is the "everything goes well" exit value ?)   */
+/*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
 int	run_commands(t_data *d)

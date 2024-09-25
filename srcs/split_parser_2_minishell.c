@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:28:07 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 14:21:22 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:20:48 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	del_content(void *content)
 /* then the substring is add at the back of the list, otherwise it is joined  */
 /* to lst's last node content                                                 */
 /* Inputs :                                                                   */
-/*  - t_list **lst      */
+/*  - t_list **lst : pointer to a lst that will contained the cmd and its arg */
 /*  - char *sstr : the sub-string to add at the end of the previous one       */
 /*  - int *d : array of datas about internal criteria of token                */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
@@ -90,7 +90,7 @@ static int	add_or_concatenate_substr(t_list **lst, char *sstr, int *d,
 /* the index d[END] is also update (decreased by 1) if the new d[I] does not  */
 /* point toward a space in src                                                */
 /* Inputs :                                                                   */
-/*  - t_list **lst      */
+/*  - t_list **lst : pointer to a lst that will contained the cmd and its arg */
 /*  - char *src : the string that contained the command line                  */
 /*  - int *d : array of datas about internal criteria of token                */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
@@ -141,7 +141,7 @@ static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 /* of lst. The value of d[I], d[J] and d[End] is update if needed             */
 /* we put to 0 booleans used to determined if we have met an opening quote    */
 /* Inputs :                                                                   */
-/*  - t_list **lst      */
+/*  - t_list **lst : pointer to a lst that will contained the cmd and its arg */
 /*  - char *src : the string that contained the command line                  */
 /*  - int *d : array of datas about internal criteria of token                */
 /*  - int *nb_substrs : a pointer to number of sub-strings contained in lst   */
@@ -149,8 +149,6 @@ static int	add_new_substr_to_list_of_cmd_args(t_list **lst, char *src,
 /*  - 0 : if everything goes well                                             */
 /*  - int : otherwise                                                         */
 /* ************************************************************************** */
-// we increment d[I] then we look at d[J] but how are we sure that d[J] < d[I]
-// even after the d[I] incrementation ???
 int	extract_list_of_cmd_args(t_list **lst, char *src, int *d,
 		int *nb_substrs)
 {
@@ -188,8 +186,8 @@ int	extract_list_of_cmd_args(t_list **lst, char *src, int *d,
 /* string "tab". Each node is then free                                       */
 /* if no sub-string have been created we clear the list lst                   */
 /* Inputs :                                                                   */
-/*  - char **tab      */
-/*  - t_list **lst      */
+/*  - char **tab : array of str that will contained the cmd and its arg       */
+/*  - t_list **lst : pointer to a lst that will contained the cmd and its arg */
 /*  - int nb_substrs : the number of sub-strings contained in lst             */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */

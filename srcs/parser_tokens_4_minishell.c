@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:37:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 13:59:48 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:26:38 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@
 /* It is done under specific conditions : no error has been encounter, the    */
 /* command is in pipe, no input file has been specified and the variable      */
 /* next_has_to_be_forced is set to 1                                          */
+/* A redirection has to be forced when we have an input pipe without an input */
+/* file (file1)                                                               */
 /* Inputs :                                                                   */
 /*  - t_token *t_cmdbi : a struct that contained datas about cmd or builtin   */
-/*  - int *next_has_to_be_forced      */
-/*  - int *result      */
+/*  - int *next_has_to_be_forced : specified if the input has to be forced    */
+/*  - int *result : pointer to an int that specified the prev encountered err */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// when do we need to force next cmdbi ????
 void	force_in_redir_of_next_cmdbi(t_token *t_cmdbi,
 		int *next_has_to_be_forced, int *result)
 {

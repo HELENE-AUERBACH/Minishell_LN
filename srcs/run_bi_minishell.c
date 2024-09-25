@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:56:35 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:10:24 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:34:29 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	check_and_run_bi(t_data *d, t_cmd *bi, int fd2)
 /* (cf. set_signals_actions_in_fork). Then if an array of paths exist then it */
 /* is freed                                                                   */
 /* Inputs :                                                                   */
-/*  - t_dll *lst      */
+/*  - t_dll *lst : a double list associated to tokens (struct t_token)        */
 /*  - t_token *t : a structure that contained datas about the current token   */
-/*  - t_list *current      */
+/*  - t_list *current : current token that we are treated (here a built_in)   */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */
@@ -144,7 +144,7 @@ static void	free_for_bi_in_fork(t_data *d)
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int ds[3] : an array that contained fds associated to pipe              */
-/*  - t_list *current :  */
+/*  - t_list *current : current token that we are treated (here a built_in)   */
 /* Return :                                                                   */
 /*  - None                                                                    */
 /* ************************************************************************** */

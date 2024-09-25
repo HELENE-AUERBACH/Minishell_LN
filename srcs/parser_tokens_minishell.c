@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:08 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 14:12:22 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:30:44 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,10 @@ static int	find_cmd_or_bi(t_token **t_cmdbi, int *is_piped,
 /* -------------------------------------------------------------------------- */
 /* This function finds for each node of the dll (as long as no error occured) */
 /* the command or builtin, and the following pipe or command operator         */
-/* then, the command is add to commands list and a force redirection is done  */
+/* then, the command is add to commands list and a forced redirection is done */
 /* when needed                                                                */
+/* rq : a forced redirection is needed when we have an input pipe without an  */
+/* input file (file1), we then used "/dev/null"                               */
 /* Input :                                                                    */
 /*  - t_data *d : a structure that contained infos relative to the shell      */
 /* Return :                                                                   */

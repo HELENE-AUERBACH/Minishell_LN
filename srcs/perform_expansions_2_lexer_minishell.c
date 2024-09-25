@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:56:53 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/25 10:45:43 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:25:14 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@
 /*                         is_not_a_valid_identifier                          */
 /* -------------------------------------------------------------------------- */
 /* This function checks if is a "valid identifier" or not.                    */
-/* A "valid identifier" is ??????????????? */
-/*  */
 /* If it isn't a "valid identifier" then an error message is display and the  */
 /* function returns 1. Otherwise the return value will be 0                   */
+/* rq : A "valid identifier" is either :                                      */
+/*   - a question mark or a valid name (start with alphabetic char or an      */
+/* underscore).                                                               */
+/*   - a string that start with a '{' followed by a char that isn't a special */
+/* char and end with a '}' preceded by a char that isn't a special char       */
+/*   - a string that start with a '{' and end with a '}' between which we     */
+/* don't have a question mark ({?})                                           */
 /* Inputs :                                                                   */
 /*  - t_token *t : a structure that contained datas about the current token   */
-/*  - int i :   */
-/*  - int j :   */
+/*  - int i : index of the beggining of the possible identifier to check      */
+/*  - int j : index of the ending of the possible identifier to check         */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /* Return :                                                                   */
 /*  - 0 : if it is a "valid identifier"                                       */
@@ -61,10 +66,12 @@ int	is_not_a_valid_identifier(t_token *t, int i, int j, char **new_src)
 /*                        get_new_src_before_expansion                        */
 /* -------------------------------------------------------------------------- */
 /* This function looks for the last consecutive '$'. If if it is followed by  */
-/* a space then the index of the end of the sub-string  that will become the  */
+/* a space then the index of the end of the sub-string that will become the   */
 /* token is incremented to keep the space.                                    */
 /* If a sub-string already exist then we add the new substring obtained at    */
 /* the end of it. Otherwise we create a new subtring.                         */
+/* The sub-string will correspond to the string that precedes the expansion   */
+/* If no expansion is expected then the substring will be the token as it is  */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - int *d : array of datas about internal criteria of token                */
@@ -150,11 +157,12 @@ int	get_new_src_for_expansion(char **new_src, t_token *t, int *d,
 /* ************************************************************************** */
 /*                        get_new_src_after_expansion                         */
 /* -------------------------------------------------------------------------- */
-/* This function  */
-/*  */
-/*  */
-/*  */
-/*  */
+/* This function adds the string that follow a valid expansion at the end of  */
+/* the new_src created                                                        */
+/* rq : if we have '$<var_name>' then no expansion is expected so we write    */
+/* the string contained inside the single quote as it is                      */
+/* rq : by combining this function and the previous two ones we will obtained */
+/* the full expanded token                                                    */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - t_token *t : a structure that contained datas about the current token   */
@@ -163,7 +171,6 @@ int	get_new_src_for_expansion(char **new_src, t_token *t, int *d,
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// why do we check double quote in the while but not in the criteria for the while to loop ???
 static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 {
 	char	*s;
@@ -195,7 +202,16 @@ static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 /* ************************************************************************** */
 /*                          loop_perform_expansions                           */
 /* -------------------------------------------------------------------------- */
-/* This function expands   */
+/* This function expands every expandable part and replace them by their      */
+/* expanded value to obtained the full token                                  */
+/* To do so, this fonction combines two part of the token at a time until     */
+/* every parts had be treated                                                 */
+/*   - if the part is expandable then a string that contained the expanded    */
+/* value will be generate and add at the end of new_src                       */
+/*   - if the part is non-expandable then this part will be add at the end of */
+/* new_src                                                                    */
+/* rq : if new_src as yet to be created then the first part encounter will    */
+/* become new_src                                                             */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - int *d : array of datas about internal criteria of token                */
@@ -205,14 +221,6 @@ static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// I suppose that this fonction combine two part of the token at a time :
-//  - if the token start with an expansion then new_src will become the expanded value
-//  - if the token start with a non-expandable then new_src will become the part
-//    that need not to be expand and the value of the first part that needed to be expand
-// as this function is call in a loop then little by little every expansion will be
-// done and add at the end of new_src.
-// if their is no more expansion to do in the token then the "rest" is added
-// Is that it ???
 int	loop_perform_expansions(char **new_src, int *d, t_token *t, void *param)
 {
 	int	result;

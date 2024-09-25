@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:15:24 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/25 10:45:45 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:30:02 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ static int	replace_token_src(t_token *t, char *new_src)
 /* ************************************************************************** */
 /*                           perform_one_expansion                            */
 /* -------------------------------------------------------------------------- */
-/* This function expands   */
+/* This function expands one expendable part. That mean that it generates a   */
+/* string that contained the expanded value associated to the value_name to   */
+/* expand                                                                     */
 /* Inputs :                                                                   */
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - int *d : array of datas about internal criteria of token                */
@@ -141,9 +143,18 @@ int	perform_one_expansion(char **new_src, int *d, t_token *t, void *param)
 /* ************************************************************************** */
 /*                             perform_expansions                             */
 /* -------------------------------------------------------------------------- */
-/* This function expands   */
+/* This function expands every expandable part and replace them by their      */
+/* expanded value to obtained the full token                                  */
+/* To do so, this fonction combines two part of the token at a time until     */
+/* every parts had be treated                                                 */
+/*   - if the part is expandable then a string that contained the expanded    */
+/* value will be generate and add at the end of new_src                       */
+/*   - if the part is non-expandable then this part will be add at the end of */
+/* new_src                                                                    */
+/* rq : if new_src as yet to be created then the first part encounter will    */
+/* become new_src                                                             */
 /* Inputs :                                                                   */
-/*  - t_dll_el *el_ptr :  */
+/*  - t_dll_el *el_ptr : pointer to an elt of a dll relatives to tokens       */
 /*  - void *param : void variable that will be convert into a struct t_data   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
