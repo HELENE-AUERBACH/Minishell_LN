@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:53:05 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 13:22:24 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 10:24:27 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	open_file(t_list **new_files, t_list **cmd_new_files, t_token *t,
 /* This function closes files previously open, creates if needed a temporary  */
 /* file for "heredoc". The input filename (existing file or temporary file)   */
 /* is saved and the file in question is open                                  */
-/*  */
 /* Inputs :                                                                   */
 /*  - t_list **new_files : ptr to lst of files created for * cmd of cmd line  */
 /*  - t_list **cmd_new_files : ptr to lst of files created for current cmd    */
@@ -110,7 +109,6 @@ int	open_file(t_list **new_files, t_list **cmd_new_files, t_token *t,
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// I need to add what cast_dll_el_into_token do to the description
 static int	open_in_file_and_close_prev(t_list **new_files,
 			t_list **cmd_new_files, t_dll_el *current)
 {
@@ -161,7 +159,6 @@ static int	open_in_file_and_close_prev(t_list **new_files,
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// I need to add what cast_dll_el_into_token do to the description
 int	check_files_for_in_redirections(t_dll_el **current,
 		int redir_error_first_position, t_data *d, int is_in_piped)
 {

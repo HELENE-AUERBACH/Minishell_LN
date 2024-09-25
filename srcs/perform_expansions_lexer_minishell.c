@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:15:24 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 14:18:40 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 10:45:45 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static int	replace_token_src(t_token *t, char *new_src)
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - int *d : array of datas about internal criteria of token                */
 /*  - t_token *t : a structure that contained datas about the current token   */
-/*  - void *param :       */
+/*  - void *param : void variable that will be convert into a struct t_data   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -144,7 +144,7 @@ int	perform_one_expansion(char **new_src, int *d, t_token *t, void *param)
 /* This function expands   */
 /* Inputs :                                                                   */
 /*  - t_dll_el *el_ptr :  */
-/*  - void *param :       */
+/*  - void *param : void variable that will be convert into a struct t_data   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

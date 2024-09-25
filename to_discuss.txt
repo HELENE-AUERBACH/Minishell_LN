@@ -177,7 +177,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't' variable in this function ???     ---    DONE
 
 // -------------------------------------- //
-//     files_management_3_minishell.c     //    ADD CAST_DLL
+//     files_management_3_minishell.c     //    OK
 // -------------------------------------- //
 -> open_out_file_and_close_prev
    - What is 'new_files' variable in this function ???     ---    DONE
@@ -190,10 +190,9 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'new_files' variable in this function ???     ---    DONE
    - What is 'cmd_new_files' variable in this function ???     ---    DONE
    - What is 'redir_error_first_position' variable in this function ???     ---    DONE
-   (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 // ------------------------------------ //
-//     files_management_minishell.c     //    ADD CAST_DLL
+//     files_management_minishell.c     //    OK
 // ------------------------------------ //
 -> save_created_file_name
    - What is 'new_files' variable in this function ???     ---    DONE
@@ -209,13 +208,11 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'new_files' variable in this function ???     ---    DONE
    - What is 'cmd_new_files' variable in this function ???     ---    DONE
    - What is 'current' variable in this function ???     ---    DONE
-   (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 -> check_files_for_in_redirections
    - What is 'current' variable in this function ???     ---    DONE
    - What is 'redir_error_first_position' variable in this function ???     ---    DONE
    - What is 'is_in_piped' variable in this function ???     ---    DONE
-   (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 // -------------------------- //
 //     free_2_minishell.c     //    UNUSED FCT
@@ -282,7 +279,7 @@ So if you could explained to me once more what a structure contained and why we 
    No specific questions here
 
 // ----------------------------------- //
-//     parser_tokens_2_minishell.c     //    ADD CAST_DLL
+//     parser_tokens_2_minishell.c     //    OK
 // ----------------------------------- //
 -> get_substr_after_spaces
    - What is 't' variable in this function ???     ---    DONE
@@ -294,7 +291,6 @@ So if you could explained to me once more what a structure contained and why we 
 -> check_redir_files
    - What is 'current' variable in this function ???     ---    DONE
    - What is 'is_in_piped' variable in this function ???     ---    DONE
-    (I need to add what the function 'cast_dll_el_into_token' do to my function description)
 
 // ----------------------------------- //
 //     parser_tokens_3_minishell.c     //    OK
@@ -355,28 +351,27 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't' variable in this function ???     ---    DONE
    - What is 'i' variable in this function ???
    - What is 'j' variable in this function ???
-   - What is 'new_src' variable in this function ???
+   - What is 'new_src' variable in this function ???     ---    {??? DONE ???}
    - What is a "valid identifier ??? (I need to add that to my function description)
 
 -> get_new_src_before_expansion
    - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'param' variable in this function ???
 
 -> get_new_src_for_expansion
    - What is 't' variable in this function ???     ---    DONE
    - What is 'd' variable in this function ???     ---    DONE
-   - What is 'param' variable in this function ???
+   - What is 'param' variable in this function ???     ---    {??? DONE ???}
 
 -> get_new_src_after_expansion
    - What is 't' variable in this function ???     ---    DONE
    - What is 'd' variable in this function ???     ---    DONE
-   (I need to complement my function description)
+   (I need to do my function description)
 
 -> loop_perform_expansions
    - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'param' variable in this function ???
+   - What is 'param' variable in this function ???     ---    {??? DONE ???}
    (I need to complement my function description)
 
 // -------------------------------------------- //
@@ -388,19 +383,19 @@ So if you could explained to me once more what a structure contained and why we 
 -> perform_one_expansion
    - What is 'd' variable in this function ???     ---    DONE
    - What is 't' variable in this function ???     ---    DONE
-   - What is 'param' variable in this function ???
+   - What is 'param' variable in this function ???     ---    {??? DONE ???}
    (I need to complement my function description)
 
 -> perform_expansions
-   - What is 'el_ptr' variable in this function ???
-   - What is 'param' variable in this function ???
-   (I need to complement my function description)
+   - What is 'el_ptr' variable in this function ???      an elt of a double list relative to cmd datas ???
+   - What is 'param' variable in this function ???     ---    {??? DONE ???}
+   (I need to do my function description)
 
 // -------------------------------------------- //
-//     process_interactive_mode_minishell.c     //
+//     process_interactive_mode_minishell.c     //    OK
 // -------------------------------------------- //
 -> init_minishell_data (in this function and in minishell.c)
-   - What is the difference between the two ???
+   - What is the difference between the two ???     ---    OK
 
 // ------------------------------------------------ //
 //     process_non_interactive_mode_minishell.c     //
@@ -428,7 +423,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'bi' variable in this function ???    ---    DONE
 
 -> set_signals_actions_in_fork_for_bi
-   - What is 'lst' variable in this function ???
+   - What is 'lst' variable in this function ???     a double list relative to cmd datas ???
    - What is 't' variable in this function ???     ---    DONE
    - What is 'current' variable in this function ???
 
@@ -460,7 +455,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 't' variable in this function ???     ---    DONE
    - What is 'ds' variable in this function ???     ---    DONE
    - What is 'current' variable in this function ???
-   - WARNING : declaration and assignation on the same line...
+   - WARNING : declaration and assignation on the same line...     ---    OK NORM
 
 // ------------------------------ //
 //     run_cmds_3_minishell.c     //
@@ -564,7 +559,7 @@ So if you could explained to me once more what a structure contained and why we 
    - I want to be sure that what we display is what we want to display in every case (cf. utils_2_minishell.c file)
 
 // --------------------------- //
-//     utils_3_minishell.c     //
+//     utils_3_minishell.c     //    ~OK~
 // --------------------------- //
 -> ft_spaces_truncating
    - Can we transform the function that have the same name in atoi.c into a static function ???

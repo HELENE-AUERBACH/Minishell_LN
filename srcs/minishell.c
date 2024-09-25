@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:38:35 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/13 11:58:02 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 10:59:52 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 /*                            init_minishell_data                             */
 /* -------------------------------------------------------------------------- */
 /* This function initialises the t_data structure received in arguments       */
+/* rq : g_exit_status = 0, nb_cmds = -1, envp and its size are initialised to */
+/* NULL and -1 respectively, every t_dll and t_list are set to NULL and the   */
+/* return_code is set to 0                                                    */
 /* Input :                                                                    */
 /*  - t_data *d : the structure to initialise                                 */
 /* Return :                                                                   */

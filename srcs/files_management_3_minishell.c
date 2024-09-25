@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:56:52 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 13:24:15 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 10:23:40 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ static int	open_out_file_and_close_prev(t_list **new_files,
 /* needed files                                                               */
 /* If the output file doesn't already exist then its name is added at the and */
 /* new_file an at the end of cmd_new_files lists                              */
-/*  */
-/*  */
 /* Inputs :                                                                   */
 /*  - t_dll_el **current : pointer to an elt of double list about cmd datas   */
 /*  - t_list **new_files : ptr to lst of files created for * cmd of cmd line  */
@@ -73,7 +71,6 @@ static int	open_out_file_and_close_prev(t_list **new_files,
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// I need to add what cast_dll_el_into_token do to the description
 int	check_files_for_out_redirections(t_dll_el **current,
 		t_list **new_files, t_list **cmd_new_files,
 		int redir_error_first_position)

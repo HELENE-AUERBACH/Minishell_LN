@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:56:53 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/24 14:17:13 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 10:45:43 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	is_not_a_valid_identifier(t_token *t, int i, int j, char **new_src)
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - int *d : array of datas about internal criteria of token                */
 /*  - t_token *t : a structure that contained datas about the current token   */
-/*  - void *param :       */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -115,7 +114,7 @@ static int	get_new_src_before_expansion(char **new_src, int *d, t_token *t)
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - t_token *t : a structure that contained datas about the current token   */
 /*  - int *d : array of datas about internal criteria of token                */
-/*  - void *param :       */
+/*  - void *param : void variable that will be convert into a struct t_data   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -164,7 +163,6 @@ int	get_new_src_for_expansion(char **new_src, t_token *t, int *d,
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// ??? s is add at the back of new_src but is contained in s ???
 // why do we check double quote in the while but not in the criteria for the while to loop ???
 static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 {
@@ -202,7 +200,7 @@ static int	get_new_src_after_expansion(char **new_src, t_token *t, int *d)
 /*  - char **new_src : a pointer to the sub-string that defines the token     */
 /*  - int *d : array of datas about internal criteria of token                */
 /*  - t_token *t : a structure that contained datas about the current token   */
-/*  - void *param :       */
+/*  - void *param : void variable that will be convert into a struct t_data   */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */

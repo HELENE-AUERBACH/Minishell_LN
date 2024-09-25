@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:38:11 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/13 13:02:05 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 10:59:50 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,16 +113,15 @@ int	process_a_line(char *a_line, t_data *d)
 /* ************************************************************************** */
 /*                            init_minishell_data                             */
 /* -------------------------------------------------------------------------- */
-/* This function initialises the structure t_data structure received in       */
-/* arguments                                                                  */
+/* This function initialises the t_data structure received in arguments       */
+/* rq : g_exit_status is set by the signal, nb_cmds = 0, every t_dll and      */
+/* t_list are set to NULL and the return_code is set to 0                     */
 /* Input :                                                                    */
 /*  - t_data *d : the structure to initialise                                 */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - 1 othewrwise                                                            */
 /* ************************************************************************** */
-/// two static functions with the same name just not on the same file... ???
-/// look in more details for the differences
 static int	init_minishell_data(t_data *d)
 {
 	if (!d)
