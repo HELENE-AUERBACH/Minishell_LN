@@ -483,7 +483,7 @@ So if you could explained to me once more what a structure contained and why we 
    - What is 'start' variable in this function ???
    - What is 'wstatus' variable in this function ???
    - What is 'w' variable in this function ???
-   - Am I right to think that '0' is the return value expected when everything goes well ???
+   - What is the return value expected when everything goes well ???
 
 -> run_commands
    - Am I right to think that '0' is the return value expected when everything goes well ???

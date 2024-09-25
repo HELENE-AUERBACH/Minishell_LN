@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:39 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/23 14:26:22 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:20:22 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ static int	open_pipes_and_run_commands(t_data *d, t_list **start,
 /*  - pid_t w      */
 /* Return :                                                                   */
 /*  - ??? ( what is the "everything goes well" exit value ?)   */
-/*  - int : the error code of the problem encounter                           */
+/*  - 1 : if a problem occured                                                */
 /* ************************************************************************** */
 static int	run_subset_of_commands(t_data *d, t_list **start, int wstatus,
 			pid_t w)
