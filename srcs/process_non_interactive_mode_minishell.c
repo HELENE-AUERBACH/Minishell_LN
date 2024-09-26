@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:39:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:48:23 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/26 10:04:45 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 /* ************************************************************************** */
 /*                                   loop1                                    */
 /* -------------------------------------------------------------------------- */
-/* This function reads BUFFER_SIZE characters from the fd input and put them  */
-/* into char *buff */
+/* This function reads BUFFER_SIZE characters from the fd input and puts them */
+/* into char *buff.                                                           */
+/* rq : if the read part end with at least one '\n' then these char are       */
+/* replace by '\0'                                                            */
 /* Inputs :                                                                   */
 /*  - int fd : the file descriptor relative to the input                      */
 /*  - char *buff : a string type buffer that contained what is read           */
 /* Return :                                                                   */
 /*  - int : the lenght of the line readed (max BUFFER_SIZE)                   */
 /* ************************************************************************** */
-// ??? I don't understand, buff isn't a pointer so the modificaton should be
-// lost outside of the function loop1... ^^'
-// plus if you replace every char that appear after a '\n' by '\0' then you loose
-// infos... is it because a '\n' mean the end of the instructions ???
-// and why don't we update read_len to be length of buff until first '\n' include ???
+// I don't understand one thing though... why do you replace every last consecutives '\n' by '\0' ???
 static ssize_t	loop1(int fd, char *buff)
 {
 	ssize_t		read_len;
@@ -55,7 +53,7 @@ static ssize_t	loop1(int fd, char *buff)
 /*  - t_data *d : the structure that contained infos relative to the shell    */
 /*  - ssize_t read_len : the length of the string read (nb char read)         */
 /*  - char *buff : a string type buffer that contained what is read           */
-/*  - ssize_t j */
+/*  - ssize_t j : the index of the beginning of the line to process           */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
@@ -82,7 +80,11 @@ static int	loop3(t_data *d, ssize_t read_len, char *buff, ssize_t j)
 /* This function process every lines that has been encountered.               */
 /* To do so, it splits the line into tokens, determines the role of each      */
 /* token, do redirections and extension and runs builtin functions or sub-set */
-/* of commands)                                                               */
+/* of commands                                                                */
+/* rq : the command line to process is either what preceded a '\n', what is   */
+/* contained between two '\n', what end with a '\0'. Newline is the end of    */
+/* one line to process and what preceded the start of the next line to        */
+/* process                                                                    */
 /* Inputs :                                                                   */
 /*  - t_data *d : the structure that contained infos relative to the shell    */
 /*  - ssize_t read_len : the length of the string read (nb char read)         */
