@@ -401,20 +401,20 @@ So if you could explained to me once more what a structure contained and why we 
 //     process_non_interactive_mode_minishell.c     //
 // ------------------------------------------------ //
 -> loop1
-   - I'm not quite sure what should happen in this function ???
-   (I need to complement my function description)
+   - I'm not quite sure what should happen in this function ???     ---    OK
+   (I need to complement my function description)    ---    DONE
 
 -> loop3
-   - What is 'j' variable in this function ???
+   - What is 'j' variable in this function ???    ---    DONE
 
 -> loop2
-   - I'm not quite sure what should happen in this function ???
-   (I need to complement my function description)
+   - I'm not quite sure what should happen in this function ???     ---    OK
+   (I need to complement my function description)    ---    DONE
 
 -> process_non_interactive_mode_with_c_opt
-   - What is 'an_argv' variable in this function ???
-   - I'm not quite sure what should happen in this function ???
-   (I need to complement my function description)
+   - What is 'an_argv' variable in this function ???    ---    DONE
+   - I'm not quite sure what should happen in this function ???     ---    OK
+   (I need to complement my function description)    ---    DONE
 
 // -------------------------- //
 //     run_bi_minishell.c     //    OK

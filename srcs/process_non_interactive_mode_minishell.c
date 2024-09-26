@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:39:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/26 10:44:26 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:02:35 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@
 /* Return :                                                                   */
 /*  - int : the lenght of the line readed (max BUFFER_SIZE)                   */
 /* ************************************************************************** */
-// I don't understand one thing though... why do you replace every last consecutives '\n' by '\0' ???
-// Is it to rest assured that we will not call process a line for just a new_line ???
-// But then I have the same question than for loop2, how are we sure that buff contained a full command
-// and that \0 mean that we can process the line and no informations will be missed
-//
-// The last time I used read was for heredoc but then I just write everything in the temporary file and read it
-// as it was
-// And after that it was gnl and we could have to read a long string in many smaller one so we joined buff to line
-// and keep a rest...
-// But here we process the line so if, let's say, we want to process "< Desktop/test_files/test42.txt"
-// buff only read "< Desktop/test_f\0" then the directory will not be found even if it exist and we will
-// not have the file name so the process will fail... no ?
-// I'm sure that you take care of that somewhere but I don't see where so... ^^'
 static ssize_t	loop1(int fd, char *buff)
 {
 	ssize_t		read_len;
@@ -105,12 +92,6 @@ static int	loop3(t_data *d, ssize_t read_len, char *buff, ssize_t j)
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// hmm... if buff doesn't contained a full line but just a part of the command line
-// then we will not have a '\n' => buff[j] != '\0' as j == 0 (if non void string)
-// can we "process_a_line" this way ??? Don't we risk to have only a partial
-// non interactive command line ? Or is their a len max for a non interactive
-// command line ?? And if it is the case then how will it work if -D is use with
-// a smaller value than the length of the line ????
 static int	loop2(t_data *d, ssize_t read_len, char *buff)
 {
 	ssize_t		i;
@@ -185,19 +166,17 @@ int	process_non_interactive_mode(int fd, t_data *d)
 /*                  process_non_interactive_mode_with_c_opt                   */
 /* -------------------------------------------------------------------------- */
 /* This function process the input obtained through a non interactive mode    */
-/* with 'c' option  */
-/*  */
-/*  */
+/* with 'c' option                                                            */
+/* The option c mean that we will processed an unique command (3rd input of   */
+/* the minishell script). This command should be contained into double quoted */
+/* or be only one string                                                      */
 /* Inputs :                                                                   */
-/*  - char *an_argv */
+/*  - char *an_argv : the argument to process (the command line to execute)   */
 /*  - t_data *d : the structure that contained infos relative to the shell    */
 /* Return :                                                                   */
 /*  - 0 : if everything goes well                                             */
 /*  - int : the error code of the problem encounter                           */
 /* ************************************************************************** */
-// I am not quite sure what the c option is suppose to do ???
-// I do realised that we don't loop until all the input is read and only take an_argv
-// into consideration but is that it ???
 int	process_non_interactive_mode_with_c_opt(char *an_argv, t_data *d)
 {
 	int	result;

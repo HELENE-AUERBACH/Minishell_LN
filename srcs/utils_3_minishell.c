@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:35:33 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 14:40:27 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/26 12:44:47 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 /* Return :                                                                   */
 /*  - int : the index of the first character of str that isn't a space        */
 /* ************************************************************************** */
-// To check : is it possible to transform the function that have the same name in atoi.c
-// file into a static function ???
 unsigned int	ft_spaces_truncating(const char *str)
 {
 	unsigned int	i;
