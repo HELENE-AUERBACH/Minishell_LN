@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:07:38 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/25 10:19:41 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:28:11 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,10 +170,6 @@ int					get_end_index_of_file_or_delimiter_name(
 int					end_raw_command(t_tokenizer_data *d);
 
 // ctypes_tokens_lexer_minishell.c
-int					is_a_cmdbi_or_outredirection_dll_el(
-						void *el_content);
-int					is_a_cmd_or_bi_dll_el(
-						void *el_content);
 int					is_an_out_redirect(void *el_content);
 int					is_an_in_redirect(void *el_content);
 
