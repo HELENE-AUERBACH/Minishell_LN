@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:49:01 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/16 14:21:56 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:27:55 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	copy_environment(t_data *d, char **envp);
 void	free_tab_with_size(char ***tab, int size);
 
 // free_2_minishell.c
-void	free_cmd_d_without_unlink(t_cmd *cmd_d);
 void	close_files_and_free_files_names_without_unlink(t_cmd *cmd_d);
 
 // free_minishell.c
