@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:51:27 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/12 14:14:21 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:11:10 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,9 @@ void	copy_environment(t_data *d, char **envp)
 	else
 		to_be_copied = 1;
 	d->envp = (char **) malloc((d->envp_size + 1) * sizeof(char *));
-	if (d->envp && to_be_copied)
+	if (shlvl_new && d->envp && to_be_copied)
 		copy_environment_strings(d, envp, shlvl_new);
-	else if (d->envp && !to_be_copied)
+	else if (shlvl_new && d->envp && !to_be_copied)
 	{
 		copy_pwd_var_into_env(d->envp, d->envp_size);
 		d->envp[1] = (char *) malloc((7 + 1) * sizeof(char));
