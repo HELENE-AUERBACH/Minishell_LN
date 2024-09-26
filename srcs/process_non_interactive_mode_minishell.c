@@ -6,7 +6,7 @@
 /*   By: rmorice <rmorice@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:39:18 by hauerbac          #+#    #+#             */
-/*   Updated: 2024/09/26 10:04:45 by rmorice          ###   ########.fr       */
+/*   Updated: 2024/09/26 10:44:26 by rmorice          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@
 /*  - int : the lenght of the line readed (max BUFFER_SIZE)                   */
 /* ************************************************************************** */
 // I don't understand one thing though... why do you replace every last consecutives '\n' by '\0' ???
+// Is it to rest assured that we will not call process a line for just a new_line ???
+// But then I have the same question than for loop2, how are we sure that buff contained a full command
+// and that \0 mean that we can process the line and no informations will be missed
+//
+// The last time I used read was for heredoc but then I just write everything in the temporary file and read it
+// as it was
+// And after that it was gnl and we could have to read a long string in many smaller one so we joined buff to line
+// and keep a rest...
+// But here we process the line so if, let's say, we want to process "< Desktop/test_files/test42.txt"
+// buff only read "< Desktop/test_f\0" then the directory will not be found even if it exist and we will
+// not have the file name so the process will fail... no ?
+// I'm sure that you take care of that somewhere but I don't see where so... ^^'
 static ssize_t	loop1(int fd, char *buff)
 {
 	ssize_t		read_len;
